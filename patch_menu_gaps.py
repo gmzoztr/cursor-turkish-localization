@@ -14,6 +14,12 @@ CORE_MARKERS = [
 # Bunlar yalnizca kullaniciya gorunen komut/menu basliklaridir. Kod kimlikleri
 # (zenMode, auxiliaryBar vb.) ayridir ve degistirilmez.
 STATIC = {
+    "pxi(i,e.parameters,n);return r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name}": "pxi(i,e.parameters,n);return (r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name)?.replace?.(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\")?.replace?.(\"Medium Fast\",\"Orta H\u0131zl\u0131\")?.replace?.(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\")}",
+    "Nfn(i,t.parameters,n);return r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name}": "Nfn(i,t.parameters,n);return (r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name)?.replace?.(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\")?.replace?.(\"Medium Fast\",\"Orta H\u0131zl\u0131\")?.replace?.(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\")}",
+    "c=i.displayName;let l;if(t[0]!==c||t[1]!==o)": "c=(i.displayName||\"\").replace(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\").replace(\"Medium Fast\",\"Orta H\u0131zl\u0131\").replace(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\");let l;if(t[0]!==c||t[1]!==o)",
+    "l=i.displayName;let c;if(e[0]!==l||e[1]!==o)": "l=(i.displayName||\"\").replace(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\").replace(\"Medium Fast\",\"Orta H\u0131zl\u0131\").replace(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\");let c;if(e[0]!==l||e[1]!==o)",
+    "t[3]!==n?(u=R0(\"div\",{...s,\"data-testid\":\"parameter-submenu-title\",children:n}),t[3]=n,t[4]=u):u=t[4]": "t[3]!==n?(u=R0(\"div\",{...s,\"data-testid\":\"parameter-submenu-title\",children:typeof n===\"string\"?n.replace(\"(fast)\",\"(h\u0131zl\u0131)\").replace(\"(Fast)\",\"(H\u0131zl\u0131)\").replace(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\"):n}),t[3]=n,t[4]=u):u=t[4]",
+    "e[3]!==n?(u=Rx(\"div\",{...s,\"data-testid\":\"parameter-submenu-title\",children:n}),e[3]=n,e[4]=u):u=e[4]": "e[3]!==n?(u=Rx(\"div\",{...s,\"data-testid\":\"parameter-submenu-title\",children:typeof n===\"string\"?n.replace(\"(fast)\",\"(h\u0131zl\u0131)\").replace(\"(Fast)\",\"(H\u0131zl\u0131)\").replace(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\"):n}),e[3]=n,e[4]=u):u=e[4]",
     '"New Agents Window"': '"Yeni Ajanlar Penceresi"',
     '"Zen Mode"': '"Zen Modu"',
     '"Secondary Side Bar"': '"İkincil Kenar Çubuğu"',
@@ -253,7 +259,18 @@ OVERLAY = r'''
     ["This model has special data retention policies.", "Bu modelin özel veri saklama politikaları vardır."],
     ["Kullan automations to save time on repetitive tasks with always-on agents", "Tekrarlanan görevlerde zaman kazanmak için sürekli açık ajanlarla otomasyonları kullanın"],
     ["Use automations to save time on repetitive tasks with always-on agents", "Tekrarlanan görevlerde zaman kazanmak için sürekli açık ajanlarla otomasyonları kullanın"],
+    ["Cursor Grok 4.6 High Fast", "Cursor Grok 4.6 Yüksek Hızlı"],
+    ["Cursor Grok 4.6 Medium Fast", "Cursor Grok 4.6 Orta Hızlı"],
+    ["Cursor Grok 4.6 Low Fast", "Cursor Grok 4.6 Düşük Hızlı"],
     ["Cursor Grok 4.5 High Fast", "Cursor Grok 4.5 Yüksek Hızlı"],
+    ["Cursor Grok 4.5 Medium Fast", "Cursor Grok 4.5 Orta Hızlı"],
+    ["Cursor Grok 4.5 Low Fast", "Cursor Grok 4.5 Düşük Hızlı"],
+    ["Cursor Grok 4.6 (fast)", "Cursor Grok 4.6 (hızlı)"],
+    ["Cursor Grok 4.6 (Fast)", "Cursor Grok 4.6 (Hızlı)"],
+    ["Cursor Grok 4.5 (Fast)", "Cursor Grok 4.5 (Hızlı)"],
+    ["+ High Fast", "+ Yüksek Hızlı"],
+    ["+ Medium Fast", "+ Orta Hızlı"],
+    ["+ Low Fast", "+ Düşük Hızlı"],
     ["Cursor Models", "Cursor Modelleri"],
     ["Other Models", "Diğer Modeller"],
     ["Composer 2.5 (Fast)", "Composer 2.5 (Hızlı)"],
@@ -744,6 +761,11 @@ OVERLAY = r'''
   const translateValue = (value) => {
     let key = String(value || "").replace(/\s+/g, " ").trim();
     if (translations.has(key)) return translations.get(key);
+    if (key.includes("High Fast")) return key.replace(/High Fast/g, "Yüksek Hızlı");
+    if (key.includes("Medium Fast")) return key.replace(/Medium Fast/g, "Orta Hızlı");
+    if (key.includes("Low Fast")) return key.replace(/Low Fast/g, "Düşük Hızlı");
+    if (key.includes("(fast)")) return key.replace(/\(fast\)/g, "(hızlı)");
+    if (key.includes("(Fast)")) return key.replace(/\(Fast\)/g, "(Hızlı)");
     let matchFilesChanged = key.match(/^(\d+)\s+Files?\s+Changed$/i);
     if (matchFilesChanged) return `${matchFilesChanged[1]} Dosya Değişti`;
     const modelTooltipValue = translateModelTooltipValue(value);
@@ -768,6 +790,11 @@ OVERLAY = r'''
     if (key.startsWith("Hata Ayıklama Modu ")) key = "Debug Mode " + key.slice("Hata Ayıklama Modu ".length);
     if (key.startsWith("Hata Ayıklama Mod ")) key = "Debug Mode " + key.slice("Hata Ayıklama Mod ".length);
     if (translations.has(key)) return translations.get(key);
+    if (key.includes("High Fast")) return key.replace(/High Fast/g, "Yüksek Hızlı");
+    if (key.includes("Medium Fast")) return key.replace(/Medium Fast/g, "Orta Hızlı");
+    if (key.includes("Low Fast")) return key.replace(/Low Fast/g, "Düşük Hızlı");
+    if (key.includes("(fast)")) return key.replace(/\(fast\)/g, "(hızlı)");
+    if (key.includes("(Fast)")) return key.replace(/\(Fast\)/g, "(Hızlı)");
     // Guncelleme statik NLS ile cumlenin baska kelimelerini de kismen
     // Turkcelestirdiyse geri kalan metne baglanma; komut tum ipucunu belirler.
     const hintCommand = key.match(/^Use (\/[A-Za-z0-9_-]+)/i)?.[1];
@@ -1313,7 +1340,16 @@ OVERLAY = r'''
     ["Extra High", "Ekstra Yüksek"], ["Extra high", "Ekstra Yüksek"],
     ["High Fast", "Yüksek Hızlı"], ["Medium Fast", "Orta Hızlı"],
     ["Low Fast", "Düşük Hızlı"],
+    ["Cursor Grok 4.6 High Fast", "Cursor Grok 4.6 Yüksek Hızlı"],
+    ["Cursor Grok 4.6 Medium Fast", "Cursor Grok 4.6 Orta Hızlı"],
+    ["Cursor Grok 4.6 Low Fast", "Cursor Grok 4.6 Düşük Hızlı"],
     ["Cursor Grok 4.5 High Fast", "Cursor Grok 4.5 Yüksek Hızlı"],
+    ["Cursor Grok 4.5 Medium Fast", "Cursor Grok 4.5 Orta Hızlı"],
+    ["Cursor Grok 4.5 Low Fast", "Cursor Grok 4.5 Düşük Hızlı"],
+    ["Cursor Grok 4.6 (fast)", "Cursor Grok 4.6 (hızlı)"],
+    ["+ High Fast", "+ Yüksek Hızlı"],
+    ["+ Medium Fast", "+ Orta Hızlı"],
+    ["+ Low Fast", "+ Düşük Hızlı"],
     ["Cloud", "Bulut"], ["Local", "Yerel"], ["Team Pool", "Ekip Havuzu"],
     ["Cursor Light", "Cursor Açık"],
     ["Cursor Light Colorblind (Beta)", "Cursor Açık — Renk Körlüğü (Beta)"],
