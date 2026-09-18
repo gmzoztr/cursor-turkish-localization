@@ -14,6 +14,35 @@ CORE_MARKERS = [
 # Bunlar yalnizca kullaniciya gorunen komut/menu basliklaridir. Kod kimlikleri
 # (zenMode, auxiliaryBar vb.) ayridir ve degistirilmez.
 STATIC = {
+    'ce?"Stopping...":"Stop All Runs"': 'ce?"Durduruluyor...":"T\\xfcm \\xc7al\\u0131\\u015ft\\u0131rmalar\\u0131 Durdur"',
+    'breadcrumbLabel:"Runs"': 'breadcrumbLabel:"\\xc7al\\u0131\\u015ft\\u0131rmalar"',
+    'placeholder:"Search runs..."': 'placeholder:"\\xc7al\\u0131\\u015ft\\u0131rmalarda ara..."',
+    'currentLabel:"Runs"': 'currentLabel:"\\xc7al\\u0131\\u015ft\\u0131rmalar"',
+    'title:"Runs"': 'title:"\\xc7al\\u0131\\u015ft\\u0131rmalar"',
+    '{href:"#runs",label:"Runs"': '{href:"#runs",label:"\\xc7al\\u0131\\u015ft\\u0131rmalar"',
+    'header:"Trigger"': 'header:"Tetikleyici"',
+    'header:"Triggered"': 'header:"Tetiklendi"',
+    'header:"Duration"': 'header:"S\\xfcre"',
+    'header:b??"Automation"': 'header:b??"Otomasyon"',
+    'title:"Memory Notes",description:"View and edit files the agent keeps in memories/"': 'title:"Haf\\u0131za Notlar\\u0131",description:"Ajan\\u0131n memories/ dizininde tuttu\\u011fu dosyalar\\u0131 g\\xf6r\\xfcnt\\xfcleyin ve d\\xfczenleyin"',
+    'placeholder:"Add memory notes..."': 'placeholder:"Haf\\u0131za notlar\\u0131 ekleyin..."',
+    'className:Ie({rootClass:"ui-automations-memories-modal__field-label",stylexStyles:dQt(),className:"automations-memories-modal__field-label"}).className,children:"Content"}': 'className:Ie({rootClass:"ui-automations-memories-modal__field-label",stylexStyles:dQt(),className:"automations-memories-modal__field-label"}).className,children:"\\u0130\\xe7erik"}',
+    'disabled:i.isLoadingMemory||u!==null||!i.isDirty,children:"Reset"}': 'disabled:i.isLoadingMemory||u!==null||!i.isDirty,children:"S\\u0131f\\u0131rla"}',
+    'children:u==="delete"?"Deleting...":i.feedback.kind==="delete-confirmation"?"Confirm delete":"Delete"': 'children:u==="delete"?"Siliniyor...":i.feedback.kind==="delete-confirmation"?"Silmeyi onayla":"Sil"',
+    'children:"Failed to load memory content. Please try again later."': 'children:"Haf\\u0131za i\\xe7eri\\u011fi y\\xfcklenemedi. L\\xfctfen daha sonra tekrar deneyin."',
+    'E=i.isLoadingFiles?"Loading...":"Select a file"': 'E=i.isLoadingFiles?"Y\\xfckleniyor...":"Bir dosya se\\xe7in"',
+    'u==="save"?"Saving...":"Save"': 'u==="save"?"Kaydediliyor...":"Kaydet"',
+    'offerTitle:"Use your skills with Cloud Agents",offerDescription:"Sync your local skills to use them with Cloud Agents. Any changes will update automatically.",offerAction:"Sync",offerDismiss:"Not now"': 'offerTitle:"Becerilerinizi Bulut Ajanlar\\u0131 ile Kullan\\u0131n",offerDescription:"Yerel becerilerinizi Bulut Ajanlar\\u0131 ile kullanmak i\\xe7in e\\u015fitleyin. T\\xfcm de\\u011fi\\u015fiklikler otomatik olarak g\\xfcncellenir.",offerAction:"E\\u015fitle",offerDismiss:"\\u015eimdi De\\u011fil"',
+    '"Syncing your skills\\u2026"': '"Becerileriniz e\\u015fitleniyor\\u2026"',
+    '"Moving your skills back to this machine\\u2026"': '"Becerileriniz bu makineye geri ta\\u015f\\u0131n\\u0131yor\\u2026"',
+    '"Open config"': '"Yap\\u0131land\\u0131rmay\\u0131 A\\xe7"',
+    'sourceLabel:"User Rule"': 'sourceLabel:"Kullan\\u0131c\\u0131 Kural\\u0131"',
+    'case"plugin":return"Plugin";case"extension":return"Extension";case"user":case void 0:return"User"': 'case"plugin":return"Eklenti";case"extension":return"Uzant\\u0131";case"user":case void 0:return"Kullan\\u0131c\\u0131"',
+    'title:"Workspaces"': 'title:"\\xc7al\\u0131\\u015fma Alanlar\\u0131"',
+    'workspaces:"Workspaces"': 'workspaces:"\\xc7al\\u0131\\u015fma Alanlar\\u0131"',
+    '"No tools, prompts, or resources"': '"Ara\\xe7, istem veya kaynak yok"',
+    '${e.enabledToolCount} tools`),(e.promptCount??0)>0&&t.push(`${e.promptCount} prompts`),(e.resourceCount??0)>0&&t.push(`${e.resourceCount} resources`),t.length>0?`${t.join(", ")} enabled`': '${e.enabledToolCount} ara\\xe7`),(e.promptCount??0)>0&&t.push(`${e.promptCount} istem`),(e.resourceCount??0)>0&&t.push(`${e.resourceCount} kaynak`),t.length>0?`${t.join(", ")} etkin`',
+    '${t.enabledToolCount} tools`),(t.promptCount??0)>0&&e.push(`${t.promptCount} prompts`),(t.resourceCount??0)>0&&e.push(`${t.resourceCount} resources`),e.length>0?`${e.join(", ")} enabled`': '${t.enabledToolCount} ara\\xe7`),(t.promptCount??0)>0&&e.push(`${t.promptCount} istem`),(t.resourceCount??0)>0&&e.push(`${t.resourceCount} kaynak`),e.length>0?`${e.join(", ")} etkin`',
     "pxi(i,e.parameters,n);return r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name}": "pxi(i,e.parameters,n);return (r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name)?.replace?.(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\")?.replace?.(\"Medium Fast\",\"Orta H\u0131zl\u0131\")?.replace?.(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\")}",
     "Nfn(i,t.parameters,n);return r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name}": "Nfn(i,t.parameters,n);return (r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name)?.replace?.(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\")?.replace?.(\"Medium Fast\",\"Orta H\u0131zl\u0131\")?.replace?.(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\")}",
     "c=i.displayName;let l;if(t[0]!==c||t[1]!==o)": "c=(i.displayName||\"\").replace(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\").replace(\"Medium Fast\",\"Orta H\u0131zl\u0131\").replace(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\");let l;if(t[0]!==c||t[1]!==o)",
@@ -114,6 +143,61 @@ OVERLAY = r'''
     ["Second Opinion", "İkinci Görüş"],
     ["Copy cursor.com link", "cursor.com bağlantısını kopyala"],
     ["Share", "Paylaş"],
+    ["Runs", "Çalıştırmalar"],
+    ["Stop All Runs", "Tüm Çalıştırmaları Durdur"],
+    ["Stopping...", "Durduruluyor..."],
+    ["Trigger", "Tetikleyici"],
+    ["Triggered", "Tetiklendi"],
+    ["Duration", "Süre"],
+    ["Search runs...", "Çalıştırmalarda ara..."],
+    ["Cancel Run", "Çalıştırmayı İptal Et"],
+    ["Memory Notes", "Hafıza Notları"],
+    ["View and edit files the agent keeps in memories/", "Ajanın memories/ dizininde tuttuğu dosyaları görüntüleyin ve düzenleyin"],
+    ["Add memory notes...", "Hafıza notları ekleyin..."],
+    ["Content", "İçerik"],
+    ["Reset", "Sıfırla"],
+    ["Confirm delete", "Silmeyi onayla"],
+    ["Deleting...", "Siliniyor..."],
+    ["Saving...", "Kaydediliyor..."],
+    ["Select a file", "Bir dosya seçin"],
+    ["Memory file", "Hafıza dosyası"],
+    ["Discard draft", "Taslağı at"],
+    ["Failed to load memory content. Please try again later.", "Hafıza içeriği yüklenemedi. Lütfen daha sonra tekrar deneyin."],
+    ["Click Confirm delete to delete this memory file.", "Bu hafıza dosyasını silmek için Silmeyi onayla düğmesine tıklayın."],
+    ["Memory changed elsewhere. Loaded latest content.", "Hafıza başka bir yerde değiştirildi. En son içerik yüklendi."],
+    ["Memory tool is disabled for this automation", "Bu otomasyon için hafıza aracı devre dışı"],
+    ["Save this automation to enable and configure memory notes", "Hafıza notlarını etkinleştirmek ve yapılandırmak için bu otomasyonu kaydedin"],
+    ["Failed to load memory files. Please try again later.", "Hafıza dosyaları yüklenemedi. Lütfen daha sonra tekrar deneyin."],
+    ["No memory files yet. The agent will create notes after it runs.", "Henüz hafıza dosyası yok. Ajan çalıştıktan sonra notlar oluşturacak."],
+    ["Memory saved", "Hafıza kaydedildi"],
+    ["Failed to save", "Kaydetme başarısız oldu"],
+    ["Memory deleted", "Hafıza silindi"],
+    ["Failed to delete", "Silme işlemi başarısız oldu"],
+    ["Automation", "Otomasyon"],
+    ["Edit Automation", "Otomasyonu Düzenle"],
+    ["Scheduled run", "Zamanlanmış çalıştırma"],
+    ["Test run", "Test çalıştırması"],
+    ["Run summary", "Çalıştırma özeti"],
+    ["Search Triggers...", "Tetikleyicilerde Ara..."],
+    ["Search automations", "Otomasyonlarda ara"],
+    ["Search environments", "Ortamlarda ara"],
+    ["Save and Enable", "Kaydet ve Etkinleştir"],
+    ["Save or discard changes before continuing", "Devam etmeden önce değişiklikleri kaydedin veya atın"],
+    ["Unsaved Changes", "Kaydedilmemiş Değişiklikler"],
+    ["View details", "Ayrıntıları görüntüle"],
+    ["Webhook Triggered", "Web Kancası Tetiklendi"],
+    ["Webhook triggered", "Web kancası tetiklendi"],
+    ["Incident Triggered", "Olay Tetiklendi"],
+    ["Incident Acknowledged", "Olay Onaylandı"],
+    ["Incident Resolved", "Olay Çözüldü"],
+    ["Counts tool calls made by the agent during the run.", "Çalıştırma sırasında ajan tarafından yapılan araç çağrılarını sayar."],
+    ["Each metric scores a completed automation run.", "Her metrik, tamamlanan bir otomasyon çalıştırmasını puanlar."],
+    ["Control how this automation is configured and updated", "Bu otomasyonun nasıl yapılandırılacağını ve güncelleneceğini denetleyin"],
+    ["Transfer this automation to another team member.", "Bu otomasyonu başka bir ekip üyesine aktarın."],
+    ["Enter a test message...", "Test mesajı girin..."],
+    ["Extra context for the test run...", "Test çalıştırması için ek bağlam..."],
+    ["Enter a test Teams message...", "Test Teams mesajı girin..."],
+    ["Enter the message that was reacted to...", "Tepki verilen mesajı girin..."],
     ["Create Branch", "Dal Oluştur"],
     ["Create branch", "Dal oluştur"],
     ["Update Branch", "Dalı Güncelle"],
@@ -761,6 +845,12 @@ OVERLAY = r'''
   const translateValue = (value) => {
     let key = String(value || "").replace(/\s+/g, " ").trim();
     if (translations.has(key)) return translations.get(key);
+    let matchToolsRes = key.match(/^(\d+)\s+tools?,\s*(\d+)\s+resources?\s+enabled$/i);
+    if (matchToolsRes) return `${matchToolsRes[1]} araç, ${matchToolsRes[2]} kaynak etkin`;
+    let matchResOnly = key.match(/^(\d+)\s+resources?\s+enabled$/i);
+    if (matchResOnly) return `${matchResOnly[1]} kaynak etkin`;
+    let matchToolsOnly = key.match(/^(\d+)\s+tools?\s+enabled$/i);
+    if (matchToolsOnly) return `${matchToolsOnly[1]} araç etkin`;
     if (key.includes("High Fast")) return key.replace(/High Fast/g, "Yüksek Hızlı");
     if (key.includes("Medium Fast")) return key.replace(/Medium Fast/g, "Orta Hızlı");
     if (key.includes("Low Fast")) return key.replace(/Low Fast/g, "Düşük Hızlı");
@@ -790,6 +880,12 @@ OVERLAY = r'''
     if (key.startsWith("Hata Ayıklama Modu ")) key = "Debug Mode " + key.slice("Hata Ayıklama Modu ".length);
     if (key.startsWith("Hata Ayıklama Mod ")) key = "Debug Mode " + key.slice("Hata Ayıklama Mod ".length);
     if (translations.has(key)) return translations.get(key);
+    let matchToolsRes = key.match(/^(\d+)\s+tools?,\s*(\d+)\s+resources?\s+enabled$/i);
+    if (matchToolsRes) return `${matchToolsRes[1]} araç, ${matchToolsRes[2]} kaynak etkin`;
+    let matchResOnly = key.match(/^(\d+)\s+resources?\s+enabled$/i);
+    if (matchResOnly) return `${matchResOnly[1]} kaynak etkin`;
+    let matchToolsOnly = key.match(/^(\d+)\s+tools?\s+enabled$/i);
+    if (matchToolsOnly) return `${matchToolsOnly[1]} araç etkin`;
     if (key.includes("High Fast")) return key.replace(/High Fast/g, "Yüksek Hızlı");
     if (key.includes("Medium Fast")) return key.replace(/Medium Fast/g, "Orta Hızlı");
     if (key.includes("Low Fast")) return key.replace(/Low Fast/g, "Düşük Hızlı");
