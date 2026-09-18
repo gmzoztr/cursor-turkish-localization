@@ -504,6 +504,18 @@ env_strings_glass = [
     ('`${s} environment`',
      '`${s} ortamı`',
      "Glass environment aria label s"),
+    ('"Cloud Agent Approval Banners While Focused"',
+     '"Odaklanmışken Bulut Ajanı Onay Banner\'ları"',
+     "Cloud Agent Approval Banners While Focused"),
+    ('"Also show the approval banner while Cursor is focused; the request card in the agent conversation always shows"',
+     '"Cursor odaktayken de onay banner\'ını göster; ajan konuşmasındaki istek kartı her zaman gösterilir"',
+     "Cloud Agent Approval Banners description"),
+    ('label:"Origin Notifications"',
+     'label:"Origin Bildirimleri"',
+     "Origin Notifications label"),
+    ('"Notify when Origin pull requests you follow are merged, closed, reviewed, or fail CI"',
+     '"Takip ettiğiniz Origin pull request\'leri birleştirildiğinde, kapatıldığında, incelendiğinde veya CI başarısız olduğunda bildirim gönder"',
+     "Origin Notifications description"),
 ]
 for old_s, new_s, lbl in env_strings_glass:
     glass, n = safe_replace(glass, old_s, new_s, f"Glass: {lbl}")
@@ -528,6 +540,18 @@ desk_context_strings = [
     ('` \\xB7 ${J4e(St.tokensUsed)} / ${J4e(St.tokenLimit,!1)} context used`',
      '` \\xB7 ${J4e(St.tokensUsed)} / ${J4e(St.tokenLimit,!1)} bağlam kullanıldı`',
      "Desk: context used rule info"),
+    ('"Cloud Agent Approval Banners While Focused"',
+     '"Odaklanmışken Bulut Ajanı Onay Banner\'ları"',
+     "Desk: Cloud Agent Approval Banners While Focused"),
+    ('"Also show the approval banner while Cursor is focused; the request card in the agent conversation always shows"',
+     '"Cursor odaktayken de onay banner\'ını göster; ajan konuşmasındaki istek kartı her zaman gösterilir"',
+     "Desk: Cloud Agent Approval Banners description"),
+    ('label:"Origin Notifications"',
+     'label:"Origin Bildirimleri"',
+     "Desk: Origin Notifications label"),
+    ('"Notify when Origin pull requests you follow are merged, closed, reviewed, or fail CI"',
+     '"Takip ettiğiniz Origin pull request\'leri birleştirildiğinde, kapatıldığında, incelendiğinde veya CI başarısız olduğunda bildirim gönder"',
+     "Desk: Origin Notifications description"),
 ]
 for old_s, new_s, lbl in desk_context_strings:
     desk, n = safe_replace(desk, old_s, new_s, f"Desk: {lbl}")

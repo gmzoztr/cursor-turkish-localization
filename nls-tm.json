@@ -1378,5 +1378,9 @@
   "Type a message...": "Bir mesaj yazın...",
   "context used": "bağlam kullanıldı",
   "tokens": "belirteç",
-  "tokens used": "belirteç kullanıldı"
+  "tokens used": "belirteç kullanıldı",
+  "Cloud Agent Approval Banners While Focused": "Odaklanmışken Bulut Ajanı Onay Banner'ları",
+  "Also show the approval banner while Cursor is focused; the request card in the agent conversation always shows": "Cursor odaktayken de onay banner'ını göster; ajan konuşmasındaki istek kartı her zaman gösterilir",
+  "Origin Notifications": "Origin Bildirimleri",
+  "Notify when Origin pull requests you follow are merged, closed, reviewed, or fail CI": "Takip ettiğiniz Origin pull request'leri birleştirildiğinde, kapatıldığında, incelendiğinde veya CI başarısız olduğunda bildirim gönder"
 }
