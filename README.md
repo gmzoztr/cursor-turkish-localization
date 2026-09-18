@@ -1,9 +1,9 @@
-﻿# 🇹🇷 Cursor Desktop Türkçe Dil Paketi ve Yerelleştirme Altyapısı
+# 🇹🇷 Cursor Desktop Türkçe Dil Paketi ve Yerelleştirme Altyapısı
 ### (Community Turkish Localization & Engineering Infrastructure for Cursor Desktop)
 
 [![GitHub License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Tested On Cursor](https://img.shields.io/badge/Cursor%20Version-v3.21.9%2B-purple.svg)](https://cursor.com)
-[![Rules Translated](https://img.shields.io/badge/Translated%20Rules%20%26%20Props-4%2C540%2B-brightgreen.svg)](nls-tm.json)
+[![Rules Translated](https://img.shields.io/badge/Translated%20Rules%20%26%20Props-4%2C620%2B-brightgreen.svg)](nls-tm.json)
 [![Integrity Verified](https://img.shields.io/badge/IntegrityService-100%25%20Verified-blue.svg)](#-mimar%C3%AE-ve-b%C3%BCt%C3%BCnl%C3%BCk-integrityservice)
 [![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Cross--Platform-lightgrey.svg)](#-kurulum-installation)
 [![Maintenance Commitment](https://img.shields.io/badge/Maintenance-Day--0%20SLA-orange.svg)](#-open-letter--proposal-to-the-cursor--anysphere-team)
@@ -17,21 +17,25 @@ Yalnızca statik metinleri değil; Cursor'ın tescilli **Glass UI (React)** bile
 ## 🌟 Neler İçerir? (Özellikler)
 
 1. **Yerel Menü Çubuğu (Native Menu Bar & NLS Cache):**
-   - Üst menü çubuğundaki tüm ana başlıklar (`Dosya`, `Düzen`, `Seçim`, `Görünüm`, `Git`, `Çalıştır`, `Terminal`, `Yardım`).
+   - Üst menü çubuğundaki tüm ana başlıklar (`Dosya`, `Düzen`, `Seçim`, `Görünüm`, `Görünümü Aç...`, `Git`, `Çalıştır`, `Terminal`, `Yardım`).
    - Electron NLS ve CLP önbelleği (`Roaming\Cursor\clp\*.tr`) ile tam senkronizasyon.
-2. **Yardım & Geliştirici Menüsü (Help & DevTools):**
+2. **Durum Çubuğu, Ortam & Bağlam (Status Bar, Environment & Context):**
+   - `Depo oluştur` (Create repo) hap butonu ve çok adımlı depo oluşturma çekmecesi (Origin kaydı, gizlilik/erişim seçimleri).
+   - Çalışma ortamı göstergesi (`☁ Bulut v` / `Bu Bilgisayar` / `Yerel`).
+   - Bağlam ve token kullanım balonu (`% bağlam kullanıldı`, `X / Y belirteç`).
+3. **Yardım & Geliştirici Menüsü (Help & DevTools):**
    - `Sorun Bildir`, `Geri Bildirim Gönder...`, `Geliştirici Araçlarını Aç/Kapat`, `İşlem Gezginini Aç` vb.
-3. **Boş Editör & Filigran (Watermark & Quick Actions):**
+4. **Boş Editör & Filigran (Watermark & Quick Actions):**
    - `Dosyaya Git`, `Terminali Göster`, `Tarayıcıyı Aç`, `Sohbeti Büyüt`, `Depo Ekle`.
-4. **Dal Seçici & Git Eylemleri (Branch Picker & SCM):**
+5. **Dal Seçici & Git Eylemleri (Branch Picker & SCM):**
    - `+ Dal Oluştur` / `Create Branch`, `${dal} Dalını Oluştur`, `Daha fazla yükle...`, `Dalı Güncelle`, `Dal Oluştur ve İşle`.
-5. **Fark ve Değişiklik Kartı (Diff & Review Cards):**
+6. **Fark ve Değişiklik Kartı (Diff & Review Cards):**
    - `${count} Dosya Değişti` (`X Files Changed`), `1 Dosya Değişti`, diff istatistikleri ve satır özetleri.
-6. **Canlı Güncelleme Bildirimleri (Live Update Notifications):**
+7. **Canlı Güncelleme Bildirimleri (Live Update Notifications):**
    - `Yeni güncelleme mevcut`, `Sürüme güncelle: v`, `Yenilikler:`, `Daha Sonra`, `Şimdi Yükle`, `Değişiklik Günlüğü`.
-7. **Glass UI, Composer & Agent Runtime:**
+8. **Glass UI, Composer & Agent Runtime:**
    - Composer çoklu dosya arayüzü, Steer & Agent davranış başlıkları, sohbet geçmişi, model seçicileri ve durum çubuğu metrikleri.
-8. **Bütünlük ve Güvenlik (IntegrityService Bypass):**
+9. **Bütünlük ve Güvenlik (IntegrityService Bypass):**
    - `product.json` içindeki Base64 kodlanmış SHA-256 sağlama toplamları otomatik hesaplanır; Cursor asla *"Your installation appears to be corrupt"* uyarısı vermez.
 
 ---
