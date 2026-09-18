@@ -67,6 +67,14 @@ STATIC = {
     '"E&&xit"': '"Çı&&kış"',
     '"Build Plan"': '"Plan Oluştur"',
     '"Second Opinion"': '"İkinci Görüş"',
+    'children:"Create repo"': 'children:"Depo oluştur"',
+    'children:"Create repository"': 'children:"Depo oluştur"',
+    '"Create repo"': '"Depo oluştur"',
+    '"Create repository"': '"Depo oluştur"',
+    '"Select Repository"': '"Depo Seç"',
+    '"Select Workspace"': '"Çalışma Alanı Seç"',
+    '"What should we name your repository?"': '"Deponuzun adı ne olsun?"',
+    '"Who can see the code?"': '"Kodu kimler görebilir?"',
 }
 
 OVERLAY = r'''
@@ -74,6 +82,14 @@ OVERLAY = r'''
 /* CURSOR_TR_MENU_GAPS_V1 */
 ;(() => {
   const translations = new Map([
+    ["Create repo", "Depo oluştur"],
+    ["Create repository", "Depo oluştur"],
+    ["Create Repository", "Depo Oluştur"],
+    ["Select Repository", "Depo Seç"],
+    ["Select Workspace", "Çalışma Alanı Seç"],
+    ["What should we name your repository?", "Deponuzun adı ne olsun?"],
+    ["Who can see the code?", "Kodu kimler görebilir?"],
+    ["This PC", "Bu Bilgisayar"],
     ["Open View...", "Görünümü Aç..."],
     ["Open View…", "Görünümü Aç…"],
     ["Open View", "Görünümü Aç"],

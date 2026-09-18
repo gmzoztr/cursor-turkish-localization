@@ -398,6 +398,99 @@ for old_str, new_str, label in update_notification_strings:
     desk, n = safe_replace(desk, old_str, new_str, f"Desk: {label}")
     desk_mods += n
 
+print("\n--- 9. YENİ PROJE, DEPO OLUŞTURMA VE ORTAM SEÇİCİ ---")
+# 1. Depo Oluştur / Create repo pill butonu (sohbet girişinin üstü)
+glass, n = safe_replace(
+    glass,
+    '{id:"create-repo",content:db(C7,{loading:JPe.isWaitingForSuggestions,onClick:JPe.openTray,children:"Create repo"})',
+    '{id:"create-repo",content:db(C7,{loading:JPe.isWaitingForSuggestions,onClick:JPe.openTray,children:"Depo oluştur"})',
+    "Glass: Create repo pill button"
+)
+glass_mods += n
+
+# 2. Create repo çekmecesi (tray) başlık ve butonları
+repo_tray_strings = [
+    ('ne=X&&v?"Next":N?"Creating...":"Create repository";return qMn(bi.Root,{className:"glass-create-repo-tray"',
+     'ne=X&&v?"İleri":N?"Oluşturuluyor...":"Depo oluştur";return qMn(bi.Root,{className:"glass-create-repo-tray"',
+     "Create repo tray next/creating/create repo"),
+    ('children:bae(bi.HeaderTitle,{tone:"muted",children:"Create repository"})',
+     'children:bae(bi.HeaderTitle,{tone:"muted",children:"Depo oluştur"})',
+     "Create repo header title"),
+    ('children:[bae("span",{children:"What should we name your repository?"}),bae("span",{className:"glass-4b2ntj glass-1wm8ruf glass-1fcty0u",children:"It\'ll be saved to Cursor Origin, so you can come back to it anytime."})]',
+     'children:[bae("span",{children:"Deponuzun adı ne olsun?"}),bae("span",{className:"glass-4b2ntj glass-1wm8ruf glass-1fcty0u",children:"Cursor Origin\'e kaydedilecek, böylece istediğiniz zaman geri dönebilirsiniz."})]',
+     "What should we name your repository"),
+    ('labelSuffix:re===0&&!ae?"Recommended":void 0',
+     'labelSuffix:re===0&&!ae?"Önerilen":void 0',
+     "Recommended suffix"),
+    ('title:"Who can see the code?",children:[bae(bi.Option,{description:`Only you and ${_} codebase admins`,id:"private",index:0,label:"Private",labelStyle:"number",onSelect:()=>P("private"),selected:A==="private",stepId:$ws}),bae(bi.Option,{description:`Anyone with access to the ${_} codebase`,id:"internal",index:1,label:"Internal",labelStyle:"number",onSelect:()=>P("internal"),selected:A==="internal",stepId:$ws})]}',
+     'title:"Kodu kimler görebilir?",children:[bae(bi.Option,{description:`Yalnızca siz ve ${_} kod tabanı yöneticisi`,id:"private",index:0,label:"Özel",labelStyle:"number",onSelect:()=>P("private"),selected:A==="private",stepId:$ws}),bae(bi.Option,{description:`${_} kod tabanına erişimi olan herkes`,id:"internal",index:1,label:"Dahili",labelStyle:"number",onSelect:()=>P("internal"),selected:A==="internal",stepId:$ws})]}',
+     "Who can see the code options"),
+    ('textInputPlaceholder:"repository-name"',
+     'textInputPlaceholder:"depo-adi"',
+     "Repo text input placeholder"),
+    ('l.error(ae instanceof Error?ae.message:"Couldn\'t create the repository. Please try again.")',
+     'l.error(ae instanceof Error?ae.message:"Depo oluşturulamadı. Lütfen tekrar deneyin.")',
+     "Couldn't create the repository"),
+]
+for old_s, new_s, lbl in repo_tray_strings:
+    glass, n = safe_replace(glass, old_s, new_s, f"Glass: {lbl}")
+    glass_mods += n
+
+# 3. Alt bar ve seçicilerde Ortam (Bulut / Yerel / Bu Bilgisayar)
+env_strings_glass = [
+    ('locationName:u.runtime==="cloud"?"Cloud":JK()',
+     'locationName:u.runtime==="cloud"?"Bulut":JK()',
+     "locationName cloud runtime"),
+    (',locationName:"Cloud",locationIcon:"cloud"',
+     ',locationName:"Bulut",locationIcon:"cloud"',
+     "locationName Bulut assignment"),
+    (r'\xB7 Cloud',
+     r'\xB7 Bulut',
+     "tooltip dot Bulut"),
+    ('function JK(){return Sa?"This PC":or?"This Mac":"This Computer"}',
+     'function JK(){return Sa?"Bu Bilgisayar":or?"Bu Mac":"Bu Bilgisayar"}',
+     "JK This PC to Bu Bilgisayar"),
+    ('{id:"cloud",label:"Cloud"},{id:"local",label:"Local"}',
+     '{id:"cloud",label:"Bulut"},{id:"local",label:"Yerel"}',
+     "Environment section headers Bulut/Yerel"),
+    ('title:ee?"Select Repository":"Select Workspace"',
+     'title:ee?"Depo Seç":"Çalışma Alanı Seç"',
+     "title Select Repository / Workspace"),
+    ('projectName:E?"Select Repository":"Select Workspace"',
+     'projectName:E?"Depo Seç":"Çalışma Alanı Seç"',
+     "projectName Select Repository / Workspace"),
+    ('Pu(ZS,{ignoreSearch:!0,label:"Cloud",leading:Pu(Ft,{name:"cloud"}),onSelect:()=>a(nt),trailing:TVt(e)?Pu(Ft,{name:"check"}):void 0,tooltip:Pu(t2n,{}),children:Pu(Da.TextItem,{inline:!0,title:"Cloud"})},"multi-repo-cloud")',
+     'Pu(ZS,{ignoreSearch:!0,label:"Bulut",leading:Pu(Ft,{name:"cloud"}),onSelect:()=>a(nt),trailing:TVt(e)?Pu(Ft,{name:"check"}):void 0,tooltip:Pu(t2n,{}),children:Pu(Da.TextItem,{inline:!0,title:"Bulut"})},"multi-repo-cloud")',
+     "multi-repo-cloud Bulut"),
+    ('Pu(ZS,{ignoreSearch:!0,label:"Cloud",leading:Pu(Ft,{name:"cloud"}),onSelect:()=>a(dki()),trailing:H6(e)?Pu(Ft,{name:"check"}):void 0,tooltip:Pu(t2n,{}),children:Pu(Da.TextItem,{inline:!0,title:"Cloud"})},"no-repo-cloud")',
+     'Pu(ZS,{ignoreSearch:!0,label:"Bulut",leading:Pu(Ft,{name:"cloud"}),onSelect:()=>a(dki()),trailing:H6(e)?Pu(Ft,{name:"check"}):void 0,tooltip:Pu(t2n,{}),children:Pu(Da.TextItem,{inline:!0,title:"Bulut"})},"no-repo-cloud")',
+     "no-repo-cloud Bulut"),
+    ('Pu(ZS,{disabled:!0,ignoreSearch:!0,label:"Cloud",leading:Pu(Ft,{name:"cloud"}),tooltip:Pu(vUk,{onLearnMore:ve}),children:Pu(Da.TextItem,{inline:!0,title:"Cloud"})},"cloud-unavailable")',
+     'Pu(ZS,{disabled:!0,ignoreSearch:!0,label:"Bulut",leading:Pu(Ft,{name:"cloud"}),tooltip:Pu(vUk,{onLearnMore:ve}),children:Pu(Da.TextItem,{inline:!0,title:"Bulut"})},"cloud-unavailable")',
+     "cloud-unavailable Bulut"),
+    ('Pu(ZS,{disabled:!0,ignoreSearch:!0,label:"Cloud",leading:Pu(Ft,{name:"cloud"}),trailing:Pu(Ft,{modifier:"spin",name:"loading"}),tooltip:Pu(t2n,{}),children:Pu(Da.TextItem,{inline:!0,title:"Cloud"})},"cloud-pending")',
+     'Pu(ZS,{disabled:!0,ignoreSearch:!0,label:"Bulut",leading:Pu(Ft,{name:"cloud"}),trailing:Pu(Ft,{modifier:"spin",name:"loading"}),tooltip:Pu(t2n,{}),children:Pu(Da.TextItem,{inline:!0,title:"Bulut"})},"cloud-pending")',
+     "cloud-pending Bulut"),
+    ('Pu(ZS,{ignoreSearch:!0,label:"Cloud",leading:Pu(Ft,{name:"cloud"}),onSelect:()=>a(nt),trailing:TVt(e)?Pu(Ft,{name:"check"}):void 0,tooltip:Pu(t2n,{}),children:Pu(Da.TextItem,{inline:!0,title:"Cloud"})},"redesign-cloud")',
+     'Pu(ZS,{ignoreSearch:!0,label:"Bulut",leading:Pu(Ft,{name:"cloud"}),onSelect:()=>a(nt),trailing:TVt(e)?Pu(Ft,{name:"check"}):void 0,tooltip:Pu(t2n,{}),children:Pu(Da.TextItem,{inline:!0,title:"Bulut"})},"redesign-cloud")',
+     "redesign-cloud Bulut"),
+    ('placeholder:t="Type a message..."',
+     'placeholder:t="Bir mesaj yazın..."',
+     "Type a message placeholder"),
+]
+for old_s, new_s, lbl in env_strings_glass:
+    glass, n = safe_replace(glass, old_s, new_s, f"Glass: {lbl}")
+    glass_mods += n
+
+# 4. Desktop bundle için Bu Bilgisayar fonksiyonu
+desk, n = safe_replace(
+    desk,
+    'function ker(){return yo?"This PC":xi?"This Mac":"This Computer"}',
+    'function ker(){return yo?"Bu Bilgisayar":xi?"Bu Mac":"Bu Bilgisayar"}',
+    "Desk: ker This PC to Bu Bilgisayar"
+)
+desk_mods += n
+
 print("\nDosyalar diske yazılıyor...")
 with io.open(GLASS_PATH, "w", encoding="utf-8", newline="") as f:
     f.write(glass)

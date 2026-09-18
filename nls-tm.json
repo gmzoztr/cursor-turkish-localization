@@ -1366,5 +1366,14 @@
   "Capture and Upload Process Snapshot": "İşlem Anlık Görüntüsünü Al ve Yükle",
   "Open External Link": "Dış Bağlantıyı Aç",
   "Do you want to open this link?": "Bu bağlantıyı açmak istiyor musunuz?",
-  "Remember my decision for all workspaces": "Tüm çalışma alanları için kararımı hatırla"
+  "Remember my decision for all workspaces": "Tüm çalışma alanları için kararımı hatırla",
+  "Create repo": "Depo oluştur",
+  "Create repository": "Depo oluştur",
+  "Create Repository": "Depo Oluştur",
+  "Select Repository": "Depo Seç",
+  "Select Workspace": "Çalışma Alanı Seç",
+  "What should we name your repository?": "Deponuzun adı ne olsun?",
+  "Who can see the code?": "Kodu kimler görebilir?",
+  "This PC": "Bu Bilgisayar",
+  "Type a message...": "Bir mesaj yazın..."
 }
