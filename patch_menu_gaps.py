@@ -845,17 +845,6 @@ OVERLAY = r'''
   const translateValue = (value) => {
     let key = String(value || "").replace(/\s+/g, " ").trim();
     if (translations.has(key)) return translations.get(key);
-    let matchToolsRes = key.match(/^(\d+)\s+tools?,\s*(\d+)\s+resources?\s+enabled$/i);
-    if (matchToolsRes) return `${matchToolsRes[1]} araç, ${matchToolsRes[2]} kaynak etkin`;
-    let matchResOnly = key.match(/^(\d+)\s+resources?\s+enabled$/i);
-    if (matchResOnly) return `${matchResOnly[1]} kaynak etkin`;
-    let matchToolsOnly = key.match(/^(\d+)\s+tools?\s+enabled$/i);
-    if (matchToolsOnly) return `${matchToolsOnly[1]} araç etkin`;
-    if (key.includes("High Fast")) return key.replace(/High Fast/g, "Yüksek Hızlı");
-    if (key.includes("Medium Fast")) return key.replace(/Medium Fast/g, "Orta Hızlı");
-    if (key.includes("Low Fast")) return key.replace(/Low Fast/g, "Düşük Hızlı");
-    if (key.includes("(fast)")) return key.replace(/\(fast\)/g, "(hızlı)");
-    if (key.includes("(Fast)")) return key.replace(/\(Fast\)/g, "(Hızlı)");
     let matchFilesChanged = key.match(/^(\d+)\s+Files?\s+Changed$/i);
     if (matchFilesChanged) return `${matchFilesChanged[1]} Dosya Değişti`;
     const modelTooltipValue = translateModelTooltipValue(value);
