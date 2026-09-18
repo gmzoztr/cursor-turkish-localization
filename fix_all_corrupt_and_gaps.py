@@ -477,12 +477,39 @@ env_strings_glass = [
     ('placeholder:t="Type a message..."',
      'placeholder:t="Bir mesaj yazın..."',
      "Type a message placeholder"),
+    ('uzf={kind:"readonly",icon:"cloud",label:"Cloud"}',
+     'uzf={kind:"readonly",icon:"cloud",label:"Bulut"}',
+     "Status bar readonly Cloud to Bulut"),
+    ('(s_(e)?"Cloud":n.icon===void 0?JK():n.tooltip)',
+     '(s_(e)?"Bulut":n.icon===void 0?JK():n.tooltip)',
+     "Status bar gzw Cloud to Bulut"),
+    ('subtitle:Se!==void 0?`${Se} tokens`:void 0,title:`${Ce} context used`',
+     'subtitle:Se!==void 0?`${Se} belirteç`:void 0,title:`${Ce} bağlam kullanıldı`',
+     "Status bar context used tooltip"),
+    ('d7m=_t("<span> context used")',
+     'd7m=_t("<span> bağlam kullanıldı")',
+     "Glass context used template span"),
+    ('` \\xB7 ${Brt(je.tokensUsed)} / ${Brt(je.tokenLimit,!1)} context used`',
+     '` \\xB7 ${Brt(je.tokensUsed)} / ${Brt(je.tokenLimit,!1)} bağlam kullanıldı`',
+     "Glass context used rule info"),
+    ('context used`:nt+=" context used"',
+     'bağlam kullanıldı`:nt+=" bağlam kullanıldı"',
+     "Glass context used summary"),
+    ('`Context ${Ce}`',
+     '`Bağlam ${Ce}`',
+     "Glass context button aria label"),
+    ('`${r} environment`',
+     '`${r} ortamı`',
+     "Glass environment aria label r"),
+    ('`${s} environment`',
+     '`${s} ortamı`',
+     "Glass environment aria label s"),
 ]
 for old_s, new_s, lbl in env_strings_glass:
     glass, n = safe_replace(glass, old_s, new_s, f"Glass: {lbl}")
     glass_mods += n
 
-# 4. Desktop bundle için Bu Bilgisayar fonksiyonu
+# 4. Desktop bundle için Bu Bilgisayar ve Bağlam Kullanımı
 desk, n = safe_replace(
     desk,
     'function ker(){return yo?"This PC":xi?"This Mac":"This Computer"}',
@@ -490,6 +517,21 @@ desk, n = safe_replace(
     "Desk: ker This PC to Bu Bilgisayar"
 )
 desk_mods += n
+
+desk_context_strings = [
+    ('E0b=ft("<span> context used")',
+     'E0b=ft("<span> bağlam kullanıldı")',
+     "Desk: context used template span"),
+    ('context used`:Gt+=" context used"',
+     'bağlam kullanıldı`:Gt+=" bağlam kullanıldı"',
+     "Desk: context used summary"),
+    ('` \\xB7 ${J4e(St.tokensUsed)} / ${J4e(St.tokenLimit,!1)} context used`',
+     '` \\xB7 ${J4e(St.tokensUsed)} / ${J4e(St.tokenLimit,!1)} bağlam kullanıldı`',
+     "Desk: context used rule info"),
+]
+for old_s, new_s, lbl in desk_context_strings:
+    desk, n = safe_replace(desk, old_s, new_s, f"Desk: {lbl}")
+    desk_mods += n
 
 print("\nDosyalar diske yazılıyor...")
 with io.open(GLASS_PATH, "w", encoding="utf-8", newline="") as f:

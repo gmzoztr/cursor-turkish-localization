@@ -1375,5 +1375,8 @@
   "What should we name your repository?": "Deponuzun adı ne olsun?",
   "Who can see the code?": "Kodu kimler görebilir?",
   "This PC": "Bu Bilgisayar",
-  "Type a message...": "Bir mesaj yazın..."
+  "Type a message...": "Bir mesaj yazın...",
+  "context used": "bağlam kullanıldı",
+  "tokens": "belirteç",
+  "tokens used": "belirteç kullanıldı"
 }

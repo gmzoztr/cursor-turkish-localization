@@ -90,6 +90,8 @@ OVERLAY = r'''
     ["What should we name your repository?", "Deponuzun adı ne olsun?"],
     ["Who can see the code?", "Kodu kimler görebilir?"],
     ["This PC", "Bu Bilgisayar"],
+    ["context used", "bağlam kullanıldı"],
+    ["tokens", "belirteç"],
     ["Open View...", "Görünümü Aç..."],
     ["Open View…", "Görünümü Aç…"],
     ["Open View", "Görünümü Aç"],
