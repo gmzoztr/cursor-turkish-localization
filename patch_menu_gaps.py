@@ -58,6 +58,15 @@ STATIC = {
     'case"create":return t.branchName?`Create ${t.branchName}`:"Create Branch"': 'case"create":return t.branchName?`${t.branchName} Dalını Oluştur`:"Dal Oluştur"',
     'case"load-more":return"Load more"': 'case"load-more":return"Daha fazla yükle"',
     'label:e.length===1?"1 File Changed":`${e.length} Files Changed`': 'label:e.length===1?"1 Dosya Değişti":`${e.length} Dosya Değişti`',
+    'Ee(8841,"&&Open View...")': 'Ee(8841,"Görünümü &&Aç...")',
+    'Ee(8840,"Open View")': 'Ee(8840,"Görünümü Aç")',
+    'Ee(11961,"E&&xit")': 'Ee(11961,"Çı&&kış")',
+    '"Open View..."': '"Görünümü Aç..."',
+    '"Open View"': '"Görünümü Aç"',
+    '"&&Open View..."': '"Görünümü &&Aç..."',
+    '"E&&xit"': '"Çı&&kış"',
+    '"Build Plan"': '"Plan Oluştur"',
+    '"Second Opinion"': '"İkinci Görüş"',
 }
 
 OVERLAY = r'''
@@ -65,6 +74,18 @@ OVERLAY = r'''
 /* CURSOR_TR_MENU_GAPS_V1 */
 ;(() => {
   const translations = new Map([
+    ["Open View...", "Görünümü Aç..."],
+    ["Open View…", "Görünümü Aç…"],
+    ["Open View", "Görünümü Aç"],
+    ["&&Open View...", "Görünümü &&Aç..."],
+    ["E&&xit", "Çı&&kış"],
+    ["Exit", "Çıkış"],
+    ["Build Plan", "Plan Oluştur"],
+    ["Fork Chat", "Sohbeti Çatalla"],
+    ["Maximize Chat", "Sohbeti Büyüt"],
+    ["Second Opinion", "İkinci Görüş"],
+    ["Copy cursor.com link", "cursor.com bağlantısını kopyala"],
+    ["Share", "Paylaş"],
     ["Create Branch", "Dal Oluştur"],
     ["Create branch", "Dal oluştur"],
     ["Update Branch", "Dalı Güncelle"],
