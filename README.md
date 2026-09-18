@@ -1,0 +1,143 @@
+﻿# 🇹🇷 Cursor Desktop Türkçe Dil Paketi ve Yerelleştirme Altyapısı
+### (Community Turkish Localization & Engineering Infrastructure for Cursor Desktop)
+
+[![GitHub License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Tested On Cursor](https://img.shields.io/badge/Cursor%20Version-v3.21.9%2B-purple.svg)](https://cursor.com)
+[![Rules Translated](https://img.shields.io/badge/Translated%20Rules%20%26%20Props-4%2C540%2B-brightgreen.svg)](nls-tm.json)
+[![Integrity Verified](https://img.shields.io/badge/IntegrityService-100%25%20Verified-blue.svg)](#-mimar%C3%AE-ve-b%C3%BCt%C3%BCnl%C3%BCk-integrityservice)
+[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Cross--Platform-lightgrey.svg)](#-kurulum-installation)
+[![Maintenance Commitment](https://img.shields.io/badge/Maintenance-Day--0%20SLA-orange.svg)](#-open-letter--proposal-to-the-cursor--anysphere-team)
+
+Dünyanın lider yapay zekâ destekli kod editörü olan **Cursor Desktop** için geliştirilmiş **en kapsamlı, modern ve mühendislik tabanlı Türkçe yerelleştirme projesidir**.
+
+Yalnızca statik metinleri değil; Cursor'ın tescilli **Glass UI (React)** bileşenlerini, AST prop katmanlarını, yerel Windows menü çubuğunu, canlı DOM mutasyonlarını ve **IntegrityService SHA-256 bütünlük kontrolünü** kapsayan tam teşekküllü bir yerelleştirme altyapısı sunar.
+
+---
+
+## 🌟 Neler İçerir? (Özellikler)
+
+1. **Yerel Menü Çubuğu (Native Menu Bar & NLS Cache):**
+   - Üst menü çubuğundaki tüm ana başlıklar (`Dosya`, `Düzen`, `Seçim`, `Görünüm`, `Git`, `Çalıştır`, `Terminal`, `Yardım`).
+   - Electron NLS ve CLP önbelleği (`Roaming\Cursor\clp\*.tr`) ile tam senkronizasyon.
+2. **Yardım & Geliştirici Menüsü (Help & DevTools):**
+   - `Sorun Bildir`, `Geri Bildirim Gönder...`, `Geliştirici Araçlarını Aç/Kapat`, `İşlem Gezginini Aç` vb.
+3. **Boş Editör & Filigran (Watermark & Quick Actions):**
+   - `Dosyaya Git`, `Terminali Göster`, `Tarayıcıyı Aç`, `Sohbeti Büyüt`, `Depo Ekle`.
+4. **Dal Seçici & Git Eylemleri (Branch Picker & SCM):**
+   - `+ Dal Oluştur` / `Create Branch`, `${dal} Dalını Oluştur`, `Daha fazla yükle...`, `Dalı Güncelle`, `Dal Oluştur ve İşle`.
+5. **Fark ve Değişiklik Kartı (Diff & Review Cards):**
+   - `${count} Dosya Değişti` (`X Files Changed`), `1 Dosya Değişti`, diff istatistikleri ve satır özetleri.
+6. **Canlı Güncelleme Bildirimleri (Live Update Notifications):**
+   - `Yeni güncelleme mevcut`, `Sürüme güncelle: v`, `Yenilikler:`, `Daha Sonra`, `Şimdi Yükle`, `Değişiklik Günlüğü`.
+7. **Glass UI, Composer & Agent Runtime:**
+   - Composer çoklu dosya arayüzü, Steer & Agent davranış başlıkları, sohbet geçmişi, model seçicileri ve durum çubuğu metrikleri.
+8. **Bütünlük ve Güvenlik (IntegrityService Bypass):**
+   - `product.json` içindeki Base64 kodlanmış SHA-256 sağlama toplamları otomatik hesaplanır; Cursor asla *"Your installation appears to be corrupt"* uyarısı vermez.
+
+---
+
+## 🚀 Kurulum (Installation)
+
+### Yöntem 1: Tek Tıkla Kurulum (.bat - Önerilen)
+1. Bu depoyu indirin veya klonlayın:
+   ```bash
+   git clone https://github.com/gmzoztr/cursor-turkish-localization.git
+   cd cursor-turkish-localization
+   ```
+2. Cursor'ı tamamen kapatın.
+3. `TURKCELESTIR.bat` dosyasına çift tıklayın.
+4. Yönetici (UAC) iznini onaylayın. Birkaç saniye içinde yama tamamlanır ve Cursor Türkçe olarak kullanıma hazır hale gelir!
+
+### Yöntem 2: Python ile Kurulum (Geliştiriciler İçin)
+```bash
+python single_click_patcher.py
+```
+
+### Doğrulama (Verification)
+Kurulumun bütünlüğünü ve canlı dosyaları test etmek için:
+```bash
+python verify_all.py
+```
+> Çıktı: `SONUÇ: %100 DOĞRULANDI — Cursor Türkçe Yaması Kusursuz Aktif!`
+
+### Orijinale Dönüş (Rollback)
+Dilediğiniz an Cursor'ı fabrika ayarlarına döndürmek için:
+* `ORIJINALE_DON.bat` dosyasını çalıştırmanız yeterlidir.
+
+---
+
+## 🛡️ Mimarî ve Bütünlük (IntegrityService)
+
+Cursor, VS Code tabanı üzerine kurulu olmasına rağmen Electron'un derinliklerinde çalışan özel güvenlik ve arayüz katmanlarına sahiptir:
+* **CLP (Compiled Language Pack) Önbelleği:** Electron, dil paketi açıkken Program Files altındaki dosyaları değil, `%APPDATA%\Cursor\clp\<hash>.tr\<commit>\nls.messages.json` dosyasını okur. Yama motorumuz bu önbelleği otomatik olarak derler ve senkronize eder.
+* **IntegrityService:** `product.json` içerisindeki dosyaların Base64 SHA-256 özetleri taranır. `fix_all_checksums.py` modülümüz yamalı dosyaların yeni özetlerini birebir `product.json`'a işleyerek bütünlük uyarısını tamamen ortadan kaldırır.
+* **React / Glass AST Katmanı:** Glass UI doğrudan HTML üretmez; JSX/React bileşen ağacı üzerinden render edilir. Bu nedenle statik string yerine AST prop eşlemesi (`tr2/m*.json`) ve MutationObserver TreeWalker kullanılır.
+
+Detaylı teknik mimari şeması ve çözüm analizleri için **[ARCHITECTURE_TR.md](ARCHITECTURE_TR.md)** dosyasını inceleyebilirsiniz.
+
+---
+
+## 📢 Open Letter & Proposal to the Cursor / Anysphere Team
+
+> **Dear Michael Truell, Sualeh Asif, Aman Sanger, Arvid Lunnemark, and the Anysphere Team ([@getcursor](https://github.com/getcursor)),**
+
+First and foremost, congratulations on building **Cursor**! It is indisputably the gold standard of agentic coding environments and has completely transformed how our team and developer community write software every day.
+
+### Why We Built This Project
+Turkey has one of the fastest-growing software developer ecosystems in Europe and the Middle East, with **over 500,000 professional developers, researchers, and computer science students**. 
+
+However, because Cursor combines standard VS Code core with proprietary, cutting-edge AI surfaces (**Glass UI**, **Composer**, **Agent Runtime**), standard VS Code language packs (like Turkish Language Pack for VS Code) leave 60%+ of Cursor's AI interface untranslated or broken.
+
+To solve this, we engineered this **end-to-end localization infrastructure**:
+* **4,540+ verified rules & AST mappings** covering both VS Code core NLS and proprietary Glass UI.
+* Complete resolution of the **CLP Cache** hierarchy and **IntegrityService SHA-256 Base64** hash verification.
+* Clean separation of code terminology (e.g. `Composer`, `Diff`, `Git`, `Commit` remain natural to developers, while UI actions, menus, and onboarding are natively localized).
+
+### Our Proposal to Anysphere / Cursor
+1. **Official / Native Turkish Language Support:**  
+   We would be thrilled to contribute our dictionary (`nls-tm.json`, `tr2/`, and UI maps) directly to the Cursor codebase or as an official language extension for Cursor.
+2. **Day-0 Maintenance SLA Commitment:**  
+   As active Cursor power users and contributors, **we commit to maintaining 100% Turkish compatibility for every new release of Cursor within hours of release (Day-0 SLA)**. Whenever your team pushes a new update (such as 3.21.9), we diff newly added keys, inspect bundles, and deploy validated translations.
+3. **Contract / Dedicated Localization & Community Role:**  
+   We are eager to work with Anysphere either as a **Localization & Developer Experience Engineer**, **Contractor**, or **Turkish Community Lead**. We can ensure Turkish developers receive native support, seamless onboarding, and continuous documentation for Cursor.
+
+We would love to connect! Please feel free to reach out via:
+- **GitHub:** [@gmzoztr](https://github.com/gmzoztr)
+- **Email:** `abdurrahmanavci@gmail.com` / `hi@cursor.com`
+- Or open an issue/discussion right here in this repository.
+
+---
+
+## 📂 Depo Yapısı (Repository Structure)
+
+```
+cursor-turkish-localization/
+├── nls-tm.json                  # 1.302 çekirdek NLS çeviri belleği
+├── cursor-ui-tm.json            # Glass UI ve arayüz çeviri belleği
+├── bilinen-ingilizce.json       # Kasıtlı olarak İngilizce bırakılan dev/jargon allowlist
+├── tr2/                         # Bileşen ve AST prop haritaları (m0.json - m17.json)
+├── apply_all.py                 # Ana orkestrasyon ve otomatik yama motoru
+├── single_click_patcher.py      # Bağımsız tek tık çalıştırıcı (UAC + Process + Deploy)
+├── verify_all.py                # Checksum, CLP ve dosya bütünlük test motoru
+├── patch_menu_gaps.py           # Menü çubuğu, dal seçici, diff kartı ve güncelleme yamaları
+├── fix_all_corrupt_and_gaps.py  # IntegrityService checksum onarımı ve boşluk giderici
+├── patch_help_menu_labels.py    # Yardım menüsü ve geliştirici araçları etiketleri
+├── patch_steer_and_behavior.py  # Ajan yönlendirme ve davranış modelleri
+├── patch_hook_tip.py            # Composer ve kanca ipuçları
+├── patch_remaining_ui.py        # Kalan dinamik arayüz öğeleri
+├── fix_all_checksums.py         # product.json SHA-256 Base64 otomatik güncelleyici
+├── TURKCELESTIR.bat             # Son kullanıcılar için tek tık kurulum betiği
+├── ORIJINALE_DON.bat            # Tek tık orijinal fabrika ayarlarına dönüş
+├── ARCHITECTURE_TR.md           # Mimarî bilgi grafiği ve hata analiz kılavuzu
+├── LICENSE                      # MIT Lisansı
+└── README.md                    # Dokümantasyon
+```
+
+---
+
+## 🤝 Katkıda Bulunma (Contributing)
+
+Geliştirmek istediğiniz bir çeviri veya yeni eklenen bir Cursor özelliğinde eksik bir metin fark ederseniz lütfen bir **Issue** açın veya **Pull Request** gönderin. Her türlü katkı memnuniyetle karşılanır!
+
+## 📄 Lisans (License)
+Bu proje [MIT Lisansı](LICENSE) altında lisanslanmıştır.

@@ -1,0 +1,21 @@
+{
+"description\tThe plugins you're removing from the marketplace will no longer be available to users and Cloud Agents that rely on them.": "Marketten kaldırdığınız eklentiler, onlara bağımlı kullanıcılar ve Bulut Ajanları tarafından artık kullanılamayacak.",
+"description\tThis action enables IDE debug log upload which contains information about IDE behavior itself and is required for bug investigations": "Bu eylem, IDE davranışıyla ilgili bilgiler içeren ve hata incelemeleri için gerekli olan IDE hata ayıklama günlüğü yüklemesini etkinleştirir",
+"description\tThis will remove the custom theme from your saved themes.": "Bu, özel temayı kayıtlı temalarınızdan kaldıracak.",
+"description\tUnfold the content in the editor": "Düzenleyicideki içeriği aç",
+"description\tUninstall an installed plugin": "Yüklü bir eklentiyi kaldırın",
+"description\tUnlock 3x more usage on Agent & more": "Ajan'da 3 kat daha fazla kullanımın ve daha fazlasının kilidini açın",
+"description\tUse a preview box instead of streaming responses directly into the shell": "Yanıtları doğrudan kabuğa akıtmak yerine bir önizleme kutusu kullan",
+"description\tUse native macOS font anti-aliasing": "Yerel macOS yazı tipi kenar yumuşatmasını kullan",
+"description\tUse preview box for terminal cmd-k. If turned off, responses are streamed directly into the shell.": "Terminal cmd-k için önizleme kutusu kullan. Kapalıysa yanıtlar doğrudan kabuğa akıtılır.",
+"description\tUse stronger derived contrast colors": "Daha güçlü türetilmiş karşıtlık renkleri kullan",
+"description\tUse the preview box instead of shell streaming": "Kabuğa akıtma yerine önizleme kutusunu kullan",
+"description\tUse themed background colors for inline diffs": "Satır içi farklar için temalı arka plan renkleri kullan",
+"description\tWhen enabled, translucent surfaces and vibrancy effects are replaced with opaque backgrounds for improved readability.": "Etkinken, daha iyi okunabilirlik için yarı saydam yüzeyler ve canlılık efektleri mat arka planlarla değiştirilir.",
+"description\tWhen enabled, uses grayscale antialiasing for thinner, crisper text that matches native macOS rendering.": "Etkinken, yerel macOS görüntülemesiyle eşleşen daha ince ve net metin için gri tonlamalı kenar yumuşatma kullanır.",
+"description\tWhen to display the usage summary at the bottom of the chat pane: automatically when approaching limits, always, or never.": "Sohbet panelinin altında kullanım özetinin ne zaman gösterileceği: sınırlara yaklaşırken otomatik, her zaman veya hiçbir zaman.",
+"description\tWhen to show the usage summary at the bottom of the chat pane": "Sohbet panelinin altında kullanım özetinin ne zaman gösterileceğini seçin",
+"description\tWhere new agents start by default": "Yeni ajanların varsayılan olarak başlayacağı yer",
+"description\tWrap long lines in Agent chat code blocks.": "Ajan sohbeti kod bloklarında uzun satırları kaydır.",
+"description\tYour changes will be lost if you don't save them.": "Kaydetmezseniz değişiklikleriniz kaybolacak."
+}

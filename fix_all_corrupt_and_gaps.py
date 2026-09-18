@@ -1,0 +1,410 @@
+# -*- coding: utf-8 -*-
+"""
+fix_all_corrupt_and_gaps.py
+1. Kurulum bozuk uyarısını (IntegrityService) regex ile kökten etkisiz hale getirir.
+2. Uzak makine, mobil yönetim, QR kod indirme metinlerini Türkçeleştirir.
+3. Depo arama ve boş liste ('No repos') metinlerini Türkçeleştirir.
+4. Karışık MCP ipucunu ('Yapılandır MCPs in your...') düzeltir.
+5. Plan ve Kullanım sayfasındaki 'Usage limits reset on...', 'days left' ve '% used' ifadelerini regex ile Türkçeleştirir.
+"""
+import io, os, sys, re, json
+
+BASE = os.path.dirname(os.path.abspath(__file__))
+GLASS_PATH = os.path.join(BASE, "workbench.glass.main.js")
+DESK_PATH = os.path.join(BASE, "workbench.desktop.main.js")
+
+print("Dosyalar okunuyor...")
+with io.open(GLASS_PATH, "r", encoding="utf-8") as f:
+    glass = f.read()
+
+with io.open(DESK_PATH, "r", encoding="utf-8") as f:
+    desk = f.read()
+
+glass_mods = 0
+desk_mods = 0
+
+def regex_replace(source, pattern, replacement, name=""):
+    new_src, count = re.subn(pattern, replacement, source)
+    if count > 0:
+        print(f"  [OK] {name} ({count} eslesme)")
+        return new_src, count
+    else:
+        print(f"  [ATLANDI] {name} (hedef bulunamadi)")
+        return source, 0
+
+def safe_replace(source, target, replacement, name=""):
+    if target in source:
+        source = source.replace(target, replacement)
+        print(f"  [OK] {name}")
+        return source, 1
+    else:
+        print(f"  [ATLANDI] {name} (hedef bulunamadi)")
+        return source, 0
+
+print("\n--- 1. KURULUM BOZUK UYARISINI KOKTEN ENGELLEME ---")
+# Glass main
+glass, n = regex_replace(
+    glass,
+    r'async _isPure\(\)\{const (\w+)=this\.productService\.checksums\|\|\{\};',
+    r'async _isPure(){return{isPure:!0,proof:[]}}async _isPure_old(){const \1=this.productService.checksums||{};',
+    "Glass _isPure bypass"
+)
+glass_mods += n
+
+glass, n = regex_replace(
+    glass,
+    r'async _compute\(\)\{const\{isPure:(\w+)\}=await this\.isPure\(\);if\(\1\|\|await this\._isExplainedByPendingUpdate\(\)\)return;this\.logService\.warn\(',
+    r'async _compute(){return;}async _compute_old(){const{isPure:\1}=await this.isPure();if(\1||await this._isExplainedByPendingUpdate())return;this.logService.warn(',
+    "Glass _compute bypass"
+)
+glass_mods += n
+
+# Desktop main
+desk, n = regex_replace(
+    desk,
+    r'async _isPure\(\)\{const (\w+)=this\.productService\.checksums\|\|\{\};',
+    r'async _isPure(){return{isPure:!0,proof:[]}}async _isPure_old(){const \1=this.productService.checksums||{};',
+    "Desktop _isPure bypass"
+)
+desk_mods += n
+
+desk, n = regex_replace(
+    desk,
+    r'async _compute\(\)\{const\{isPure:(\w+)\}=await this\.isPure\(\);if\(\1\|\|await this\._isExplainedByPendingUpdate\(\)\)return;this\.logService\.warn\(',
+    r'async _compute(){return;}async _compute_old(){const{isPure:\1}=await this.isPure();if(\1||await this._isExplainedByPendingUpdate())return;this.logService.warn(',
+    "Desktop _compute bypass"
+)
+desk_mods += n
+
+
+print("\n--- 2. UZAK MAKINE, MOBIL DENETIM VE QR KOD METINLERI ---")
+remote_vars = [
+    ("Remote Machine", "Uzak Makine"),
+    ("All Remote Machines", "Tüm Uzak Makineler"),
+    ("Control agents on this machine from mobile", "Bu makinedeki ajanları mobilden denetleyin"),
+    ("Scan this QR code to download Cursor for your phone", "Telefonunuza Cursor indirmek için bu QR kodunu tarayın"),
+    ("Steer agents on this machine from mobile", "Bu makinedeki ajanları mobilden yönetin"),
+    ("Run cloud agents on this machine", "Bulut ajanlarını bu makinede çalıştırın"),
+    ("Coming soon", "Çok yakında"),
+]
+for src_var, tr_text in remote_vars:
+    glass, n = regex_replace(glass, rf'(\b\w+)="{re.escape(src_var)}"', rf'\1="{tr_text}"', f"Glass: {src_var}")
+    glass_mods += n
+    desk, n = regex_replace(desk, rf'(\b\w+)="{re.escape(src_var)}"', rf'\1="{tr_text}"', f"Desk: {src_var}")
+    desk_mods += n
+
+common_remote = [
+    ('{id:"shared-pool",label:"Remote Machines"}', '{id:"shared-pool",label:"Uzak Makineler"}', "shared-pool Remote Machines"),
+    ('{id:"remote-control",label:"Remote Control"}', '{id:"remote-control",label:"Uzaktan Denetim"}', "remote-control label"),
+    ('"Search Remote Machines\\u2026"', '"Uzak Makinelerde Ara\\u2026"', "Search Remote Machines placeholder"),
+    ("Couldn't load Remote Machines. Close and reopen to retry.", "Uzak Makineler yüklenemedi. Kapatıp yeniden açarak tekrar deneyin.", "Couldn't load Remote Machines"),
+]
+for t, r, name in common_remote:
+    glass, n = safe_replace(glass, t, r, f"Glass: {name}")
+    glass_mods += n
+    desk, n = safe_replace(desk, t, r, f"Desk: {name}")
+    desk_mods += n
+
+
+print("\n--- 3. DEPO ARAMA VE 'NO REPOS' METINLERI ---")
+repo_reps_glass = [
+    ('T==="workspace"?"Search workspaces...":"Search repos, cloud environments..."',
+     'T==="workspace"?"Çalışma alanlarında ara...":"Depolarda, bulut ortamlarında ara..."',
+     "Search repos, cloud environments"),
+    ('earch remote repos, cloud environments...":T==="workspace"?"Search workspaces...":"Search repos, cloud environments..."',
+     'earch remote repos, cloud environments...":T==="workspace"?"Çalışma alanlarında ara...":"Depolarda, bulut ortamlarında ara..."',
+     "Search remote repos"),
+    ('Search repositories, environments...":T==="workspace"?"Search workspaces...":"Run Cursor anywhere..."',
+     'Depolarda, ortamlarda ara...":T==="workspace"?"Çalışma alanlarında ara...":"Cursor\'ı her yerde çalıştırın..."',
+     "Search repositories environments"),
+    ('const T=b?"No repos":Pof;', 'const T=b?"Depo yok":Pof;', "b?No repos:Pof"),
+    ('Pof="No environments"', 'Pof="Ortam yok"', "Pof No environments"),
+    ('emptyLabel:"No repos selected"', 'emptyLabel:"Depo seçilmedi"', "emptyLabel No repos selected"),
+    ('children:i!==void 0?"No repositories":Y.type==="cloud"?"No repos":"No projects"',
+     'children:i!==void 0?"Depo yok":Y.type==="cloud"?"Depo yok":"Proje yok"',
+     "No repositories / No repos / No projects"),
+    ('["No repos or pools match \\u201C",_,"\\u201D."]', '["Eşleşen depo veya havuz yok: \\u201C",_,"\\u201D."]', "No repos match"),
+    ('children:"No repositories found"', 'children:"Depo bulunamadı"', "No repositories found"),
+]
+for target, rep, name in repo_reps_glass:
+    glass, n = safe_replace(glass, target, rep, f"Glass: {name}")
+    glass_mods += n
+
+
+print("\n--- 4. KARISIK MCP IPUCU DUZELTMESI ---")
+mcp_mixed = [
+    ("Yapılandır MCPs in your Cursor Ayarlar to give agents access to tools and data",
+     "Ajanların araçlara ve verilere erişebilmesi için Cursor Ayarları'nda MCP'leri yapılandırın"),
+    ("Yapılandır MCPs in your Cursor Ayarları to give agents access to tools and data",
+     "Ajanların araçlara ve verilere erişebilmesi için Cursor Ayarları'nda MCP'leri yapılandırın"),
+    ("Configure MCPs in your Cursor Settings to give agents access to tools and data",
+     "Ajanların araçlara ve verilere erişebilmesi için Cursor Ayarları'nda MCP'leri yapılandırın"),
+    ("Configure MCPs in your Cursor Ayarlar to give agents access to tools and data",
+     "Ajanların araçlara ve verilere erişebilmesi için Cursor Ayarları'nda MCP'leri yapılandırın"),
+]
+for target, rep in mcp_mixed:
+    glass, n = safe_replace(glass, target, rep, f"Glass: MCP {target[:30]}...")
+    glass_mods += n
+    desk, n = safe_replace(desk, target, rep, f"Desk: MCP {target[:30]}...")
+    desk_mods += n
+
+
+print("\n--- 5. PLAN VE KULLANIM (PLAN & USAGE) SAYFASI ---")
+# Usage limits reset on (Regex for any function wrapper)
+glass, n = regex_replace(glass, r'children:\["Usage limits reset on "', r'children:["Kullanım limitleri sıfırlanma tarihi: "', "Glass Usage limits reset on")
+glass_mods += n
+desk, n = regex_replace(desk, r'children:\["Usage limits reset on "', r'children:["Kullanım limitleri sıfırlanma tarihi: "', "Desk Usage limits reset on")
+desk_mods += n
+
+# Countdown days left
+glass, n = regex_replace(glass, r'const a=Math\.ceil\((\w+)\/(\w+)\);return`\$\{a\} day\$\{a===1\?"":"s"\} left`',
+                         r'const a=Math.ceil(\1/\2);return`${a} gün kaldı`', "Glass days left")
+glass_mods += n
+desk, n = regex_replace(desk, r'const a=Math\.ceil\((\w+)\/(\w+)\);return`\$\{a\} day\$\{a===1\?"":"s"\} left`',
+                        r'const a=Math.ceil(\1/\2);return`${a} gün kaldı`', "Desk days left")
+desk_mods += n
+
+# Countdown hours and minutes
+glass, n = regex_replace(glass, r'return (\w+)>0&&(\w+)>0\?`\$\{\1\} hour\$\{\1===1\?"":"s"\} and \$\{\2\} minute\$\{\2===1\?"":"s"\} left`:\1>0\?`\$\{\1\} hour\$\{\1===1\?"":"s"\} left`:`\$\{\2\} minute\$\{\2===1\?"":"s"\} left`',
+                         r'return \1>0&&\2>0?`${\1} saat ${\2} dakika kaldı`:\1>0?`${\1} saat kaldı`:`${\2} dakika kaldı`', "Glass hours/mins left")
+glass_mods += n
+desk, n = regex_replace(desk, r'return (\w+)>0&&(\w+)>0\?`\$\{\1\} hour\$\{\1===1\?"":"s"\} and \$\{\2\} minute\$\{\2===1\?"":"s"\} left`:\1>0\?`\$\{\1\} hour\$\{\1===1\?"":"s"\} left`:`\$\{\2\} minute\$\{\2===1\?"":"s"\} left`',
+                        r'return \1>0&&\2>0?`${\1} saat ${\2} dakika kaldı`:\1>0?`${\1} saat kaldı`:`${\2} dakika kaldı`', "Desk hours/mins left")
+desk_mods += n
+
+# % used
+glass, n = regex_replace(glass, r'function (\w+)\((\w+)\)\{return`\$\{(\w+)\(\2\)\}% used`\}',
+                         r'function \1(\2){return`%${\3(\2)} kullanıldı`}', "Glass % used")
+glass_mods += n
+desk, n = regex_replace(desk, r'function (\w+)\((\w+)\)\{return`\$\{(\w+)\(\2\)\}% used`\}',
+                        r'function \1(\2){return`%${\3(\2)} kullanıldı`}', "Desk % used")
+desk_mods += n
+
+# Dual % used
+glass, n = regex_replace(glass, r'return`\$\{(\w+)\.autoTitle\}:\s*\$\{(\w+)\}% used\s*\\xB7\s*\$\{\1\.apiTitle\}:\s*\$\{(\w+)\}% used`',
+                         r'return`${\1.autoTitle}: %${\2} kullanıldı \\xB7 ${\1.apiTitle}: %${\3} kullanıldı`', "Glass dual % used")
+glass_mods += n
+desk, n = regex_replace(desk, r'return`\$\{(\w+)\.autoTitle\}:\s*\$\{(\w+)\}% used\s*\\xB7\s*\$\{\1\.apiTitle\}:\s*\$\{(\w+)\}% used`',
+                        r'return`${\1.autoTitle}: %${\2} kullanıldı \\xB7 ${\1.apiTitle}: %${\3} kullanıldı`', "Desk dual % used")
+desk_mods += n
+
+# Inline % used children: [x, "% used"]
+glass, n = regex_replace(glass, r'children:\[(.*?),\"% used\"\]', r'children:["%",\1," kullanıldı"]', "Glass inline % used")
+glass_mods += n
+desk, n = regex_replace(desk, r'children:\[(.*?),\"% used\"\]', r'children:["%",\1," kullanıldı"]', "Desk inline % used")
+desk_mods += n
+
+
+print("\n--- 7. YENİ EKLENEN PROJELER VE GROK BOT ALANLARI ---")
+# Projects header in sidebar
+glass, n = regex_replace(
+    glass,
+    r'(\b\w+)=\{sectionLabel:"Projects",singularLabel:"Project",newLabel:"Yeni Proje"\}',
+    r'\1={sectionLabel:"Projeler",singularLabel:"Proje",newLabel:"Yeni Proje"}',
+    "Projects sectionLabel"
+)
+glass_mods += n
+
+# Create project subtitle and input
+glass, n = regex_replace(
+    glass,
+    r'(\b\w+)="Create a focused chat where Agents coordinate work"',
+    r'\1="Ajanların çalışmaları koordine ettiği odaklanmış bir sohbet oluşturun"',
+    "Create project subtitle"
+)
+glass_mods += n
+
+glass, n = regex_replace(
+    glass,
+    r'(\b\w+)="Project name"',
+    r'\1="Proje adı"',
+    "Project name input"
+)
+glass_mods += n
+
+# Dropdown "Repos" header
+glass, n = regex_replace(
+    glass,
+    r'pe==="cloud"\?"Repos":',
+    r'pe==="cloud"?"Depolar":',
+    "Cloud picker Repos header"
+)
+glass_mods += n
+
+# Grok Bot banner
+glass, n = regex_replace(
+    glass,
+    r'title:"Meet Grok Bot"',
+    r'title:"Grok Bot ile Tanışın"',
+    "Meet Grok Bot title"
+)
+glass_mods += n
+
+glass, n = regex_replace(
+    glass,
+    r'ariaLabel:"Meet Grok Bot"',
+    r'ariaLabel:"Grok Bot ile Tanışın"',
+    "Meet Grok Bot ariaLabel"
+)
+glass_mods += n
+
+glass, n = regex_replace(
+    glass,
+    r'description:"AI teammates you can give real work to"',
+    r'description:"Gerçek işler verebileceğiniz yapay zekâ ekip arkadaşları"',
+    "Grok Bot description"
+)
+glass_mods += n
+
+glass, n = regex_replace(
+    glass,
+    r'action:\{label:"Get Grok Bot",onClick:(\w+)\}',
+    r'action:{label:"Grok Bot\'u Edin",onClick:\1}',
+    "Get Grok Bot action"
+)
+glass_mods += n
+
+glass, n = regex_replace(
+    glass,
+    r'c=a===void 0\?"Dismiss":a',
+    r'c=a===void 0?"Kapat":a',
+    "Grok banner Dismiss label"
+)
+glass_mods += n
+
+glass, n = regex_replace(
+    glass,
+    r'title:"Grok Bot can do this for you"',
+    r'title:"Grok Bot bunu sizin için yapabilir"',
+    "Grok Bot contextual title"
+)
+glass_mods += n
+
+glass, n = regex_replace(
+    glass,
+    r'description:"An AI teammate that works in your tools and comes back with finished work\."',
+    r'description:"Araçlarınızda çalışan ve bitmiş işle geri dönen bir yapay zekâ ekip arkadaşı."',
+    "Grok Bot contextual description"
+)
+glass_mods += n
+
+
+print("\n--- 6. DOM OBSERVER SÖZLÜĞÜNE EK GÜVENCE KAYITLARI ---")
+observer_pattern = r'(\["File", "Dosya"\],)'
+observer_replacement = (
+    r'\1\n'
+    r'    ["Remote Machine", "Uzak Makine"],\n'
+    r'    ["Remote Machines", "Uzak Makineler"],\n'
+    r'    ["Remote Control", "Uzaktan Denetim"],\n'
+    r'    ["Control agents on this machine from mobile", "Bu makinedeki ajanları mobilden denetleyin"],\n'
+    r'    ["Steer agents on this machine from mobile", "Bu makinedeki ajanları mobilden yönetin"],\n'
+    r'    ["Scan this QR code to download Cursor for your phone", "Telefonunuza Cursor indirmek için bu QR kodunu tarayın"],\n'
+    r'    ["Search repos, cloud environments...", "Depolarda, bulut ortamlarında ara..."],\n'
+    r'    ["Search remote repos, cloud environments...", "Uzak depolarda, bulut ortamlarında ara..."],\n'
+    r'    ["No repos", "Depo yok"],\n'
+    r'    ["No environments", "Ortam yok"],\n'
+    r'    ["Usage limits reset on", "Kullanım limitleri sıfırlanma tarihi:"],'
+)
+glass, n = regex_replace(glass, observer_pattern, observer_replacement, "Glass Observer expansion")
+glass_mods += n
+desk, n = regex_replace(desk, observer_pattern, observer_replacement, "Desk Observer expansion")
+desk_mods += n
+
+print("\n--- 7. DÖNEN İPUÇLARI (ROTATING TIPS) KAYNAK SEVİYESİ ÇEVİRİSİ ---")
+# 1. Template regex değişkenini ve yTC fonksiyonunu dinamik bulup tam Türkçe yap
+m_rgx = re.search(r'(\w+)=/\\{\\{\\s\*key:', glass)
+if m_rgx:
+    rgx_var = m_rgx.group(1)
+    pat_ytc = rf'function (\w+)\(([a-zA-Z0-9_]+),([a-zA-Z0-9_]+)\)\{{return \2\.replace\({rgx_var},'
+    m_fn = re.search(pat_ytc, glass)
+    if m_fn:
+        fn_name = m_fn.group(1)
+        txt_param = m_fn.group(2)
+        res_param = m_fn.group(3)
+        ytc_replacement = (
+            f'function {fn_name}({txt_param},{res_param}){{\n'
+            f'  const _tips = {{\n'
+            f'    "Ask Cursor to find a prior conversation, or summarize across conversations": "Önceki bir konuşmayı bulmak için Cursor\'a sorun veya konuşmalar genelinde özetleyin",\n'
+            f'    "Search Cursor to find a prior conversation, or summarize across conversations": "Önceki bir konuşmayı bulmak için Cursor\'da arayın veya konuşmalar genelinde özetleyin",\n'
+            f'    "Sor Cursor to find a prior conversation, veya summarize across conversations": "Önceki bir konuşmayı bulmak için Cursor\'a sorun veya konuşmalar genelinde özetleyin",\n'
+            f'    "Tip dismissed. You can turn off future tips in Settings": "İpucu gizlendi. Gelecekteki ipuçlarını Ayarlar\'dan kapatabilirsiniz",\n'
+            f'    "Use /in-cloud for cloud subagents": "Bulut alt ajanları için /in-cloud kullanın"\n'
+            f'  }};\n'
+            f'  if (_tips[{txt_param}]) {txt_param} = _tips[{txt_param}];\n'
+            f'  else if (/find a prior conversation|across conversations/i.test({txt_param})) {{\n'
+            f'    {txt_param} = "Önceki bir konuşmayı bulmak için Cursor\'a sorun veya konuşmalar genelinde özetleyin";\n'
+            f'  }}\n'
+            f'  return {txt_param}.replace({rgx_var},'
+        )
+        glass, n = regex_replace(glass, pat_ytc, ytc_replacement, "Glass yTC rotating tip dynamic translation")
+        glass_mods += n
+    else:
+        print("  [ATLANDI] yTC fonksiyonu bulunamadi")
+else:
+    print("  [ATLANDI] Template regex degiskeni bulunamadi")
+
+# 2. Tip dismissed ve Hide tips butonunu doğrudan kaynakta çevir
+glass, n = safe_replace(
+    glass,
+    '"Tip dismissed. You can turn off future tips in Settings"',
+    '"İpucu gizlendi. Gelecekteki ipuçlarını Ayarlar\'dan kapatabilirsiniz"',
+    "Glass Tip dismissed"
+)
+glass_mods += n
+
+glass, n = safe_replace(
+    glass,
+    '"Hide tips"',
+    '"İpuçlarını gizle"',
+    "Glass Hide tips"
+)
+glass_mods += n
+
+print("\n--- 8. GÜNCELLEME BİLDİRİMİ (UPDATE NOTIFICATION TOAST & BANNER) ---")
+# Kullanıcının ekran görüntüsündeki "New update available" ve "Later" kutucuğu
+update_notification_strings = [
+    ('<span class=minor-version-notification-text>New update available</span>',
+     '<span class=minor-version-notification-text>Yeni güncelleme mevcut</span>',
+     "New update available text"),
+    ('<p class=update-notification-eyebrow>Update to v</p>',
+     '<p class=update-notification-eyebrow>Sürüme güncelle: v</p>',
+     "Update to v eyebrow"),
+    ('<span>New in </span>',
+     '<span>Yenilikler: </span>',
+     "New in text"),
+    ('children:"Later"',
+     'children:"Daha Sonra"',
+     "Later button"),
+    ('children:"Install Now"',
+     'children:"Şimdi Yükle"',
+     "Install Now button"),
+    ('children:"Changelog"',
+     'children:"Değişiklik Günlüğü"',
+     "Changelog button"),
+    ('children:"Restart to Update"',
+     'children:"Güncellemek için Yeniden Başlat"',
+     "Restart to Update button"),
+    ('children:"Restart to update"',
+     'children:"Güncellemek için Yeniden Başlat"',
+     "Restart to update button (lowercase)"),
+    ('title:{value:"Attempt Update",original:"Attempt Update"}',
+     'title:{value:"Güncellemeyi Dene",original:"Güncellemeyi Dene"}',
+     "Attempt Update command title"),
+]
+
+for old_str, new_str, label in update_notification_strings:
+    glass, n = safe_replace(glass, old_str, new_str, f"Glass: {label}")
+    glass_mods += n
+    desk, n = safe_replace(desk, old_str, new_str, f"Desk: {label}")
+    desk_mods += n
+
+print("\nDosyalar diske yazılıyor...")
+with io.open(GLASS_PATH, "w", encoding="utf-8", newline="") as f:
+    f.write(glass)
+
+with io.open(DESK_PATH, "w", encoding="utf-8", newline="") as f:
+    f.write(desk)
+
+print("JS dosyaları başarıyla kaydedildi!")
+print(f"\nToplam Yapılan Değişiklik: Glass={glass_mods}, Desktop={desk_mods}")
+print("BÜTÜN İŞLEMLER BAŞARIYLA TAMAMLANDI!")

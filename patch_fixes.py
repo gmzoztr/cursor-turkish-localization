@@ -1,0 +1,92 @@
+# -*- coding: utf-8 -*-
+# Kalip disi (baglamli) tekil degisimler: sohbet paneli sekme menusu, ajan eylem
+# etiketleri, tarayici ayarlari, bozuk karakter onarimi, Connect butonu.
+# apply_all.py tarafindan her yeni surumde yeniden calistirilir.
+import io
+
+REPS = [
+    # Bozuk karakter onarimi (Codex'ten kalan kodlama hatasi)
+    ('Ajan, ba�lam, ara� ekleyin...', 'Ajan, bağlam, araç ekleyin...'),
+    ('bulmas�n� veya �zetlemesini', 'bulmasını veya özetlemesini'),
+    # Sohbet paneli / sekme menusu
+    ('title:"Toggle Chat Pane"', 'title:"Sohbet Panelini Aç/Kapat"'),
+    ('value:"Close Tab"', 'value:"Sekmeyi Kapat"'),
+    ('value:"Close Other Tabs"', 'value:"Diğer Sekmeleri Kapat"'),
+    ('value:"Close All Tabs"', 'value:"Tüm Sekmeleri Kapat"'),
+    ('value:"Open Tab as Editor"', 'value:"Sekmeyi Düzenleyici Olarak Aç"'),
+    ('"How did the agent do?"', '"Ajan nasıl iş çıkardı?"'),
+    # Ajan eylem etiketleri (dokum ozetleri)
+    ('action:"Explored"', 'action:"Keşfetti"'),
+    ('?"Exploring":"Explored"', '?"Keşfediyor":"Keşfetti"'),
+    ('??"Explored"', '??"Keşfetti"'),
+    # Git ve PR'lar / Tarayici ayarlari
+    ('==="externalBrowser"?"Default Browser":"Inside Cursor"', '==="externalBrowser"?"Varsayılan Tarayıcı":"Cursor İçinde"'),
+    ('`Browser Tab: ${', '`Tarayıcı Sekmesi: ${'),
+    ('"Browser Tab"', '"Tarayıcı Sekmesi"'),
+    ('"Connected to Browser Tab"', '"Tarayıcı Sekmesine Bağlı"'),
+    ('"Use a preview box instead of streaming responses directly into the shell"', '"Yanıtları doğrudan kabuğa akıtmak yerine bir önizleme kutusu kullan"'),
+    # Connect butonu (karsilastirmayla tutarli cift tarafli degisim)
+    ('?"Connect":"Add"', '?"Bağlan":"Ekle"'),
+    ('==="Connect")', '==="Bağlan")'),
+    ('"Reconnect":"Connect"', '"Yeniden Bağlan":"Bağlan"'),
+    ('"idle"?"Connect":', '"idle"?"Bağlan":'),
+    ('"Connecting...":"Connect"', '"Bağlanıyor...":"Bağlan"'),
+    ('children:"Connect"', 'children:"Bağlan"'),
+    ('?I?"Connect":"Save"', '?I?"Bağlan":"Kaydet"'),
+    ('title:{value:"Connect Slack",original:"Connect Slack"}', 'title:{value:"Slack\'i Bağla",original:"Connect Slack"}'),
+    # Metin Boyutu acilir listesi
+    ('case .85:return"Small";case 1:return"Default";case 1.15:return"Large";case 1.3:return"Extra Large"',
+     'case .85:return"Küçük";case 1:return"Varsayılan";case 1.15:return"Büyük";case 1.3:return"Çok Büyük"'),
+    # Glass ust menu bolme
+    ('?"New Worktree":', '?"Yeni Çalışma Ağacı":'),
+    # Depo secici menusu (Glass)
+    ('"Search folders, repos..."', '"Klasörlerde, depolarda ara..."'),
+    ('?"This PC":mr?"This Mac":"This Computer"', '?"Bu Bilgisayar":mr?"Bu Mac":"Bu Bilgisayar"'),
+    ('`On ${', '`${'),
+    ('?"Repos":"Workspaces"', '?"Depolar":"Çalışma Alanları"'),
+    ('groupLabel:"Repos"', 'groupLabel:"Depolar"'),
+    ('?"Cloud":"Repos"', '?"Bulut":"Depolar"'),
+    # Gizlilik acilir listesi (HTML govdeli secenekler)
+    ('<div><div>Share Data</div><div>Improve Cursor for everyone', '<div><div>Verileri Paylaş</div><div>Cursor\'ı herkes için iyileştirin'),
+    ('<div><div>Privacy Mode</div><div>No training. Code may be stored for Background Agent and other features.', '<div><div>Gizlilik Modu</div><div>Eğitim yok. Kod, Arka Plan Ajanı ve diğer özellikler için depolanabilir.'),
+    ('<div><div>Privacy Mode (Legacy)</div><div>No training and no storage. Background Agent and other features that require code storage will be disabled.', '<div><div>Gizlilik Modu (Eski)</div><div>Eğitim yok ve depolama yok. Kod depolaması gerektiren Arka Plan Ajanı ve diğer özellikler devre dışı bırakılır.'),
+    ('"Share Data"', '"Verileri Paylaş"'),
+    # Gorunum ayarlari
+    ('"UI Font Family"', '"Arayüz Yazı Tipi Ailesi"'),
+    ('"Code Font Family"', '"Kod Yazı Tipi Ailesi"'),
+    ('"System font"', '"Sistem yazı tipi"'),
+    ('"System monospace"', '"Sistem eş aralıklı"'),
+    ('label:"System"', 'label:"Sistem"'),
+    # Ajanlar / Tarayici ayarlari
+    ('"Send Right Away"', '"Hemen Gönder"'),
+    ('"Open Web Links in Browser"', '"Web Bağlantılarını Tarayıcıda Aç"'),
+    # Fark inceleme ipuclari ve baglam paneli
+    ('"Accept all changes"', '"Tüm değişiklikleri kabul et"'),
+    ('"Context Usage"', '"Bağlam Kullanımı"'),
+    ('% Full', '% Dolu'),
+    ("don't show again", 'bir daha gösterme'),
+    # Hiyerarsik Cursor Ignore (React Ayarlar sayfasi, getter tabanli aciklama -
+    # patch_settings.py'deki statik description eslemesi bunu yakalayamiyordu)
+    ('label:"Hierarchical Cursor Ignore",get description(){return`Apply .cursorignore files to all subdirectories${n()?" (controlled by admin)":""}. Changing this setting requires restarting Cursor.`',
+     'label:"Hiyerarşik Cursor Yoksayması",get description(){return`.cursorignore dosyalarını tüm alt dizinlere uygula${n()?" (yönetici tarafından denetleniyor)":""}. Bu ayarın değiştirilmesi Cursor\'ın yeniden başlatılmasını gerektirir.`'),
+    # Profil sayfasi (Glass bundle'inda yasiyor, IDE penceresinde de bu bundle'dan gosteriliyor)
+    ('children:["Profile Image",', 'children:["Profil Resmi",'),
+    ('children:y===null?"Upload image":"Change image"}', 'children:y===null?"Resim Yükle":"Resmi Değiştir"}'),
+    ('description:u?"When enabled, your cursor.com profile page is visible to anyone with the link.":"Public profiles are disabled by your team admin.",label:"Public Profile"',
+     'description:u?"Etkinleştirildiğinde, cursor.com profil sayfanız bağlantıya sahip herkese görünür olur.":"Herkese açık profiller ekip yöneticiniz tarafından devre dışı bırakılmış.",label:"Herkese Açık Profil"'),
+    ('"aria-label":"Public Profile"', '"aria-label":"Herkese Açık Profil"'),
+    ('label:"Email",children:Cw("span",{className:"glass-b3', 'label:"E-posta",children:Cw("span",{className:"glass-b3'),
+    ('actionTitle:"Configure Team MCP Servers"', 'actionTitle:"Ekip MCP Sunucularını Yapılandır"'),
+]
+
+if __name__ == '__main__':
+    for fname in ['workbench.desktop.main.js', 'workbench.glass.main.js']:
+        s = io.open(fname, encoding='utf-8').read()
+        n = 0
+        for a, b in REPS:
+            c = s.count(a)
+            if c:
+                s = s.replace(a, b)
+                n += c
+        io.open(fname, 'w', encoding='utf-8', newline='').write(s)
+        print(fname, 'degisim:', n)

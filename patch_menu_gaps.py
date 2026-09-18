@@ -1,0 +1,1477 @@
+# -*- coding: utf-8 -*-
+"""Gec olusturulan IDE menulerinde kalan son Ingilizce etiketler."""
+import io, os
+
+FILES = ['workbench.desktop.main.js', 'workbench.glass.main.js']
+MARKER = 'CURSOR_TR_MENU_GAPS_V1'
+CORE_MARKERS = [
+    'CURSOR_TR_UI_PATCH_V5', 'CURSOR_TR_UI_EXPANSION_V1',
+    'CURSOR_TR_IDE_SURFACE_V1', 'CURSOR_TR_IDE_SURFACE_V2',
+    'CURSOR_TR_SMALL_DIALOGS_V1', 'CURSOR_TR_SETTINGS_V1',
+    'CURSOR_TR_SETTINGS_V2',
+]
+
+# Bunlar yalnizca kullaniciya gorunen komut/menu basliklaridir. Kod kimlikleri
+# (zenMode, auxiliaryBar vb.) ayridir ve degistirilmez.
+STATIC = {
+    '"New Agents Window"': '"Yeni Ajanlar Penceresi"',
+    '"Zen Mode"': '"Zen Modu"',
+    '"Secondary Side Bar"': '"İkincil Kenar Çubuğu"',
+    '"Render Whitespace"': '"Boşluk Karakterlerini Göster"',
+    'children:"Ship better code, faster"': 'children:"Daha iyi kodu daha hızlı üretin"',
+    'children:"Name"': 'children:"Ad"',
+    'children:"Created by"': 'children:"Oluşturan"',
+    'children:"Status"': 'children:"Durum"',
+    '"Inactive"': '"Etkin Değil"',
+    '"Memories"': '"Anılar"',
+    '"Toggle automation enabled state"': '"Otomasyonun etkinliğini aç veya kapat"',
+    '"Automation detail sections"': '"Otomasyon ayrıntı bölümleri"',
+    '"Control agents on this machine from your phone, web, and other devices"': '"Bu makinedeki ajanları telefonunuzdan, web’den ve diğer cihazlardan denetleyin"',
+    '"Search agents..."': '"Ajanlarda ara..."',
+    '"Search Cursor settings\\u2026"': '"Cursor ayarlarında ara\\u2026"',
+    'heading:"Recent"': 'heading:"Son Kullanılanlar"',
+    'heading:"Older"': 'heading:"Daha Eski"',
+    '"Developer: Reveal User Data Folder"': '"Geliştirici: Kullanıcı Verileri Klasörünü Göster"',
+    '"Developer: Delete Old Chats\\u2026"': '"Geliştirici: Eski Sohbetleri Sil\\u2026"',
+    '"Personal Usage"': '"Kişisel Kullanım"',
+    '"Included in"': '"Dahil Olanlar"',
+    '"On Demand"': '"İsteğe Bağlı"',
+    '"Sync Skills for Cloud Agents"': '"Bulut Ajanları İçin Becerileri Eşitle"',
+    '"Handle"': '"Kullanıcı Adı"',
+    '"Email"': '"E-posta"',
+    '"Profile Image"': '"Profil Resmi"',
+    '"Links"': '"Bağlantılar"',
+    '"On-Demand"': '"İsteğe Bağlı"',
+    '<span class=minor-version-notification-text>New update available</span>': '<span class=minor-version-notification-text>Yeni güncelleme mevcut</span>',
+    '<p class=update-notification-eyebrow>Update to v</p>': '<p class=update-notification-eyebrow>Sürüme güncelle: v</p>',
+    '<span>New in </span>': '<span>Yenilikler: </span>',
+    'children:"Later"': 'children:"Daha Sonra"',
+    'children:"Install Now"': 'children:"Şimdi Yükle"',
+    'children:"Changelog"': 'children:"Değişiklik Günlüğü"',
+    'children:"Restart to Update"': 'children:"Güncellemek için Yeniden Başlat"',
+    'children:"Restart to update"': 'children:"Güncellemek için Yeniden Başlat"',
+    'action:"Create Branch"': 'action:"Dal Oluştur"',
+    'action:"Update Branch"': 'action:"Dalı Güncelle"',
+    'label:"Create Branch & Commit"': 'label:"Dal Oluştur ve İşle"',
+    'label:"Create Branch, Commit & Push"': 'label:"Dal Oluştur, İşle ve Gönder"',
+    'loadingLabel:"Creating Branch..."': 'loadingLabel:"Dal Oluşturuluyor..."',
+    'case"create":return t.branchName?`Create ${t.branchName}`:"Create Branch"': 'case"create":return t.branchName?`${t.branchName} Dalını Oluştur`:"Dal Oluştur"',
+    'case"load-more":return"Load more"': 'case"load-more":return"Daha fazla yükle"',
+    'label:e.length===1?"1 File Changed":`${e.length} Files Changed`': 'label:e.length===1?"1 Dosya Değişti":`${e.length} Dosya Değişti`',
+}
+
+OVERLAY = r'''
+
+/* CURSOR_TR_MENU_GAPS_V1 */
+;(() => {
+  const translations = new Map([
+    ["Create Branch", "Dal Oluştur"],
+    ["Create branch", "Dal oluştur"],
+    ["Update Branch", "Dalı Güncelle"],
+    ["Load more", "Daha fazla yükle"],
+    ["1 File Changed", "1 Dosya Değişti"],
+    ["Files Changed", "Dosya Değişti"],
+    ["File Changed", "Dosya Değişti"],
+    ["New update available", "Yeni güncelleme mevcut"],
+    ["Later", "Daha Sonra"],
+    ["Install Now", "Şimdi Yükle"],
+    ["Changelog", "Değişiklik Günlüğü"],
+    ["Update to v", "Sürüme güncelle: v"],
+    ["New in", "Yenilikler:"],
+    ["Restart to Update", "Güncellemek için Yeniden Başlat"],
+    ["Restart to update", "Güncellemek için Yeniden Başlat"],
+    ["Attempt Update", "Güncellemeyi Dene"],
+    ["Show Console", "Konsolu göster"],
+    ["Enter a URL above, or instruct the Agent to navigate and use the browser", "Yukarıya bir URL girin veya Ajan'a gezinmesini ve tarayıcıyı kullanmasını söyleyin"],
+    ["Add files", "Dosya ekle"],
+    ["Click or hold Ctrl M to dictate", "Dikte etmek için Ctrl M'ye tıklayın veya basılı tutun"],
+    ["Edit Icon", "Simgeyi düzenle"],
+    ["No destinations available", "Kullanılabilir hedef yok"],
+    ["No compatible environments are currently available", "Şu anda uyumlu ortam yok"],
+    ["Copy Agent ID", "Ajan kimliğini kopyala"],
+    ["Copy Transcript", "Dökümü kopyala"],
+    ["Data Sharing Enabled", "Veri Paylaşımı Etkin"],
+    ["Privacy Mode", "Gizlilik Modu"],
+    ["Privacy Mode (Legacy)", "Gizlilik Modu (Eski)"],
+    ["Your codebase, prompts, edits and other usage data will be stored and trained on by Cursor to improve the product.", "Kod tabanınız, istemleriniz, düzenlemeleriniz ve diğer kullanım verileriniz Cursor tarafından ürünü geliştirmek amacıyla saklanacak ve eğitilecektir."],
+    ["Your prompts, edits and other usage data will be stored and trained on by Cursor to improve the product.", "İstemleriniz, düzenlemeleriniz ve diğer kullanım verileriniz Cursor tarafından ürünü geliştirmek amacıyla saklanacak ve eğitilecektir."],
+    ["Improve Cursor for everyone", "Cursor'ı herkes için iyileştirin"],
+    ["No training. Code may be stored for Background Agent and other features.", "Eğitim yapılmaz. Kod, Arka Plan Ajanı ve diğer özellikler için saklanabilir."],
+    ["No training and no storage. Background Agent and other features that require code storage will be disabled.", "Eğitim ve depolama yapılmaz. Arka Plan Ajanı ve kod depolaması gerektiren diğer özellikler devre dışı bırakılır."],
+    ["Projects", "Projeler"],
+    ["Project", "Proje"],
+    ["Repos", "Depolar"],
+    ["Create a focused chat where Agents coordinate work", "Ajanların çalışmaları koordine ettiği odaklanmış bir sohbet oluşturun"],
+    ["Project name", "Proje adı"],
+    ["Meet Grok Bot", "Grok Bot ile Tanışın"],
+    ["AI teammates you can give real work to", "Gerçek işler verebileceğiniz yapay zekâ ekip arkadaşları"],
+    ["Get Grok Bot", "Grok Bot'u Edin"],
+    ["Dismiss", "Kapat"],
+    ["Model used to build this plan", "Bu planı oluşturan model"],
+    ["Build Locally", "Yerel olarak derle"],
+    ["Parallel Build", "Paralel derle"],
+    ["New Chat", "Yeni Sohbet"],
+    ["Open Local Links in Cursor Browser", "Yerel Bağlantıları Cursor Tarayıcısında Aç"],
+    ["Open Web Links in Cursor Browser", "Web Bağlantılarını Cursor Tarayıcısında Aç"],
+    ["Select Model", "Model Seç"],
+    ["Cycle Effort", "Çaba Düzeyini Değiştir"],
+    ["Show Apps", "Uygulamalar Panelini Göster"],
+    ["Recents", "Son Kullanılanlar"],
+    ["Search branches...", "Dallarda ara..."],
+    ["Select branch", "Dal seç"],
+    ["Select Branch", "Dal seç"],
+    ["Select Agent Branch", "Ajan dalını seç"],
+    ["This PC (Remote Control)", "Bu Bilgisayar (Uzaktan Kumanda)"],
+    ["Remote Control", "Uzaktan Denetim"],
+    ["Control agents on this machine from your phone, web, and other devices", "Bu makinedeki ajanları telefonunuzdan, web'den ve diğer cihazlardan denetleyin"],
+    ["Control agents on this machine from your phone, web, and other devices.", "Bu makinedeki ajanları telefonunuzdan, web'den ve diğer cihazlardan denetleyin."],
+    ["Select Instance", "Örnek seç"],
+    ["Remote Machines", "Uzak Makineler"],
+    ["Search This PC...", "Bu bilgisayarda ara..."],
+    ["Search This PC…", "Bu bilgisayarda ara…"],
+    ["Use Existing...", "Mevcut Olanı Kullan..."],
+    ["Use Existing…", "Mevcut Olanı Kullan…"],
+    ["New Folder", "Yeni Klasör"],
+    ["Back", "Geri"],
+    ["No environments", "Ortam yok"],
+    ["Cursor Default", "Cursor Varsayılan"],
+    ["Queue", "Kuyruk"],
+    ["Send Immediately", "Hemen gönder"],
+    ["Send immediately without interrupting", "Çalışmayı kesmeden hemen gönder"],
+    ["Steer the Agent without stopping it", "Ajanı durdurmadan yönlendir"],
+    ["Send immediately by interrupting", "Çalışmayı keserek hemen gönder"],
+    ["Stop Agent and send message", "Ajanı durdur ve mesajı gönder"],
+    ["Sistem eş aralıklı", "Sistem Eş Aralıklı"],
+    ["Sistem yazı tipi", "Sistem Yazı Tipi"],
+    ["System font", "Sistem Yazı Tipi"],
+    ["System monospace", "Sistem Eş Aralıklı"],
+    ["Search Remote Machines...", "Uzak Makinelerde Ara..."],
+    ["Search Remote Machines…", "Uzak Makinelerde Ara…"],
+    ["Search...", "Ara..."],
+    ["Automation filters", "Otomasyon filtreleri"],
+    ["Automation template filters", "Otomasyon şablonu filtreleri"],
+    ["All Runs", "Tüm çalıştırmalar"],
+    ["Use Find critical bugs template", "Kritik hataları bul şablonunu kullan"],
+    ["Use Scan codebase for vulnerabilities template", "Kod tabanını güvenlik açıklarına karşı tara şablonunu kullan"],
+    ["Use Generate docs template", "Belgeler oluştur şablonunu kullan"],
+    ["Use Add test coverage template", "Test kapsamı ekle şablonunu kullan"],
+    ["Loading remote machines...", "Uzak makineler yükleniyor..."],
+    ["Loading remote machines…", "Uzak makineler yükleniyor…"],
+    ["Connect...", "Bağlan..."],
+    ["Search Cursor to find a prior conversation, veya summarize across conversations", "Önceki bir konuşmayı bulmak için Cursor'da arayın veya konuşmalar genelinde özetleyin"],
+    ["Search Cursor to find a prior conversation, or summarize across conversations", "Önceki bir konuşmayı bulmak için Cursor'da arayın veya konuşmalar genelinde özetleyin"],
+    ["Sor Cursor to find a prior conversation, veya summarize across conversations", "Önceki bir konuşmayı bulmak için Cursor'a sorun veya konuşmalar genelinde özetleyin"],
+    ["Ask Cursor to find a prior conversation, or summarize across conversations", "Önceki bir konuşmayı bulmak için Cursor'a sorun veya konuşmalar genelinde özetleyin"],
+    ["Automate repetitive tasks with always-on agents and configure Cursor's built-in agents for your team.", "Sürekli açık ajanlarla tekrarlanan görevleri otomatikleştirin ve Cursor'un yerleşik ajanlarını ekibiniz için yapılandırın."],
+    ["Messages sent while Cursor is working can steer it mid-run without interrupting - turn it on under New Messages in Agent settings", "Cursor çalışırken gönderilen mesajlar çalışmayı kesmeden akışı yönlendirebilir — bu seçeneği Ajanlar ayarlarındaki Yeni Mesajlar bölümünden açın"],
+    ["Includes Cursor Grok and Composer", "Cursor Grok ve Composer dahil"],
+    ["Cursor installation appears corrupted. Please reinstall Cursor.", "Cursor kurulumunuz bozuk görünüyor. Lütfen Cursor'u yeniden kurun."],
+    ["Show notifications for less urgent issues", "Daha az önemli sorunlar için bildirimleri göster"],
+    ["Play a sound when agents finish or need attention", "Ajanlar tamamlandığında veya ilgilenmeniz gerektiğinde ses çal"],
+    ["Choose Custom Sound...", "Özel Ses Seç..."],
+    ["Choose Custom Sound…", "Özel Ses Seç…"],
+    ["Preview", "Önizle"],
+    ["Default Sound", "Varsayılan Ses"],
+    ["Add keyword", "Anahtar sözcük ekle"],
+    ["Remove submit", "Gönder sözcüğünü kaldır"],
+    ["Third-Party Imports", "Üçüncü Taraf İçe Aktarımları"],
+    ["Improve Cursor for everyone", "Cursor'u herkes için geliştirin"],
+    [". Prompts and limited telemetry may also be shared with model providers when you explicitly select their models", ". İstemler ve sınırlı telemetri, modellerini açıkça seçtiğiniz sağlayıcılarla da paylaşılabilir"],
+    ["No training. Code may be stored for Background Agent and other features.", "Eğitim yok. Kod, Arka Plan Ajanı ve diğer özellikler için saklanabilir."],
+    ["No training and no storage. Background Agent and other features that require code storage will be disabled.", "Eğitim ve depolama yok. Kod depolaması gerektiren Arka Plan Ajanı ve diğer özellikler devre dışı bırakılır."],
+    ["Upload image", "Resim Yükle"],
+    ["Change image", "Resmi Değiştir"],
+    ["PNG, JPEG, or WebP up to 2 MB", "En fazla 2 MB PNG, JPEG veya WebP"],
+    ["Profile image must be smaller than 2 MB.", "Profil resmi 2 MB'den küçük olmalıdır."],
+    ["Profile image must be a PNG, JPEG, or WebP file.", "Profil resmi PNG, JPEG veya WebP dosyası olmalıdır."],
+    ["Public Profile", "Herkese Açık Profil"],
+    ["Make the cursor.com profile page visible to anyone with the link", "cursor.com profil sayfasını bağlantıya sahip herkese görünür yap"],
+    ["Allow the agent to celebrate with a shower of confetti", "Ajanın konfeti yağmuruyla kutlama yapmasına izin ver"],
+    ["Unavailable while Reduce Motion is on (from settings or your system)", "Hareketi Azalt ayarı açıkken kullanılamaz"],
+    ["Override OpenAI Base URL", "OpenAI Temel URL'sini Geçersiz Kıl"],
+    ["Change the base URL for OpenAI API requests.", "OpenAI API istekleri için temel URL'yi değiştirin."],
+    ["OpenAI API Key", "OpenAI API Anahtarı"],
+    ["Anthropic API Key", "Anthropic API Anahtarı"],
+    ["Google API Key", "Google API Anahtarı"],
+    ["Turn Off Google Key", "Google Anahtarını Kapat"],
+    ["Use /goal to set an objective that Cursor keeps pursuing until it is complete", "/goal ile Cursor'un tamamlanana kadar izlemeyi sürdüreceği bir hedef belirleyin"],
+    ["Plan Mode improves agent outcomes and accuracy - hit shift+tab to get started", "Plan Modu, ajan sonuçlarını ve doğruluğunu iyileştirir — başlamak için Shift+Tab tuşlarına basın"],
+    ["Plan Mode improves agent outcomes and accuracy – hit shift+tab to get started", "Plan Modu, ajan sonuçlarını ve doğruluğunu iyileştirir — başlamak için Shift+Tab tuşlarına basın"],
+    ["Hooks let you control and extend the agent loop - use /create-hook to get started", "Kancalar, ajan döngüsünü kontrol edip genişletmenizi sağlar — başlamak için /create-hook kullanın"],
+    ["Hooks let you control and extend the agent loop – use /create-hook to get started", "Kancalar, ajan döngüsünü kontrol edip genişletmenizi sağlar — başlamak için /create-hook kullanın"],
+    ["Steer agents on this machine from your phone, web, and other devices", "Bu bilgisayardaki ajanları telefonunuzdan, web'den ve diğer cihazlardan yönetin"],
+    ["Cursor Grok 4.6\nCursor and SpaceXAI's most powerful model, great for complex coding and knowledge work.\n\n256k context window\n\nVersion: high effort", "Cursor Grok 4.6\nKarmaşık kodlama ve bilgi çalışmaları için SpaceXAI'nin en güçlü modeli.\n\n256 bin bağlam penceresi\n\nSürüm: yüksek çaba"],
+    ["Cursor and SpaceXAI's most powerful model, great for complex coding and knowledge work.", "Karmaşık kodlama ve bilgi çalışmaları için SpaceXAI'nin en güçlü modeli."],
+    ["Version: high effort", "Sürüm: yüksek çaba"],
+    ["256k context window", "256 bin bağlam penceresi"],
+    ["300k context window", "300 bin bağlam penceresi"],
+    ["Anthropic's large model class, great for difficult tasks.", "Anthropic'in büyük model sınıfı; zor görevler için idealdir."],
+    ["Anthropic's most powerful model, great for difficult tasks.", "Anthropic'in en güçlü modeli; zor görevler için idealdir."],
+    ["This model has special data retention policies.", "Bu modelin özel veri saklama politikaları vardır."],
+    ["Kullan automations to save time on repetitive tasks with always-on agents", "Tekrarlanan görevlerde zaman kazanmak için sürekli açık ajanlarla otomasyonları kullanın"],
+    ["Use automations to save time on repetitive tasks with always-on agents", "Tekrarlanan görevlerde zaman kazanmak için sürekli açık ajanlarla otomasyonları kullanın"],
+    ["Cursor Grok 4.5 High Fast", "Cursor Grok 4.5 Yüksek Hızlı"],
+    ["Cursor Models", "Cursor Modelleri"],
+    ["Other Models", "Diğer Modeller"],
+    ["Composer 2.5 (Fast)", "Composer 2.5 (Hızlı)"],
+    ["Cursor's fast and efficient model -- great for everyday use.", "Cursor'ın hızlı ve verimli modeli — günlük kullanım için idealdir."],
+    ["200k context window", "200 bin bağlam penceresi"],
+    ["Cursor Grok 4.6 High", "Cursor Grok 4.6 Yüksek"],
+    ["Composer 2.5 Fast", "Composer 2.5 Hızlı"],
+    ["Cursor Grok 4.5 (fast)", "Cursor Grok 4.5 (hızlı)"],
+    ["The predecessor to Cursor Grok 4.6, built for complex coding and knowledge work.", "Cursor Grok 4.6'nın öncülü; karmaşık kodlama ve bilgi çalışmaları için geliştirildi."],
+    ["Cursor Grok 4.5 (fast)\nThe predecessor to Cursor Grok 4.6, built for complex coding and knowledge work.\n\n256k context window\n\nVersion: high effort", "Cursor Grok 4.5 (hızlı)\nCursor Grok 4.6'nın öncülü; karmaşık kodlama ve bilgi çalışmaları için geliştirildi.\n\n256 bin bağlam penceresi\n\nSürüm: yüksek çaba"],
+    ["OpenAI's flagship GPT-5.6 model. Strongest agentic coding, biology, and cybersecurity capabilities, with a new max reasoning effort.", "OpenAI'nin amiral gemisi GPT-5.6 modeli. Yeni azami akıl yürütme çabasıyla en güçlü ajan tabanlı kodlama, biyoloji ve siber güvenlik yeteneklerini sunar."],
+    ["272k context window", "272 bin bağlam penceresi"],
+    ["Version: medium reasoning effort", "Sürüm: orta akıl yürütme çabası"],
+    ["GPT-5.6 Sol\nOpenAI's flagship GPT-5.6 model. Strongest agentic coding, biology, and cybersecurity capabilities, with a new max reasoning effort.\n\n272k context window\n\nVersion: medium reasoning effort", "GPT-5.6 Sol\nOpenAI'nin amiral gemisi GPT-5.6 modeli. Yeni azami akıl yürütme çabasıyla en güçlü ajan tabanlı kodlama, biyoloji ve siber güvenlik yeteneklerini sunar.\n\n272 bin bağlam penceresi\n\nSürüm: orta akıl yürütme çabası"],
+    ["PNG, JPEG, or WebP ...", "PNG, JPEG veya WebP ..."],
+    ["When enabled, your cursor.com profile page is visible to anyone with the link.", "Etkinleştirildiğinde cursor.com profil sayfanız bağlantıya sahip herkes tarafından görünür."],
+    ["New Messages", "Yeni Mesajlar"],
+    ["Choose the default behavior of messages sent while Agent is working", "Ajan çalışırken gönderilen mesajların varsayılan davranışını seçin"],
+    ["Manually Sent Messages from Queue", "Kuyruktan Elle Gönderilen Mesajlar"],
+    ["Choose the default behavior of messages sent from the queue", "Kuyruktan gönderilen mesajların varsayılan davranışını seçin"],
+    ["Allow agent to switch to modes like Plan or Debug without asking. When off, Cursor asks first, but skips if unanswered within 15 seconds.", "Ajanın Plan veya Hata Ayıklama gibi modlara sormadan geçmesine izin verin. Kapalıyken Cursor önce sorar; 15 saniye içinde yanıtlanmazsa geçişi atlar."],
+    ["Choose Origin (cursor.com/codebase), GitHub, or Graphite for pull request links on web and desktop", "Web ve masaüstündeki çekme isteği bağlantıları için Origin (cursor.com/codebase), GitHub veya Graphite'ı seçin"],
+    ["Cursor Models · Includes Cursor Grok and Composer", "Cursor Modelleri · Cursor Grok ve Composer dahil"],
+    ["Additional usage beyond limits consumes on-demand spend.", "Sınırları aşan ek kullanım, isteğe bağlı harcamadan düşer."],
+    ["to start a subagent in its own cloud VM, keeping your local workspace free", "ile yerel çalışma alanınızı boş tutarak bir alt ajanı kendi bulut sanal makinesinde başlatın"],
+    ["Kullan /in-cloud to start a subagent in its own cloud VM, keeping your local workspace free", "/in-cloud ile yerel çalışma alanınızı boş tutarak bir alt ajanı kendi bulut sanal makinesinde başlatın"],
+    ["high", "yüksek"],
+    ["Configure MCPs in your Cursor Settings to give agents access to tools and data", "Ajanların araçlara ve verilere erişebilmesi için Cursor Ayarları'nda MCP'leri yapılandırın"],
+    ["Configure MCPs in your Cursor Ayarları to give agents access to tools and data", "Ajanların araçlara ve verilere erişebilmesi için Cursor Ayarları'nda MCP'leri yapılandırın"],
+    ["Configure MCPs in your Cursor", "Cursor içinde MCP'leri yapılandırın"],
+    ["to give agents access to tools and data", "ve ajanların araçlara ve verilere erişmesini sağlayın"],
+    ["New Agents Window", "Yeni Ajanlar Penceresi"],
+    ["Close Window", "Pencereyi Kapat"],
+    ["Exit", "Çıkış"],
+    ["Zen Mode", "Zen Modu"],
+    ["Secondary Side Bar", "İkincil Kenar Çubuğu"],
+    ["Render Whitespace", "Boşluk Karakterlerini Göster"],
+    ["Agents Window ajanına geç", "Ajanlar Penceresine Geç"],
+    ["Continue Working", "Çalışmaya Devam Et"],
+    ["No Destinations Available", "Kullanılabilir Hedef Yok"],
+    ["Send follow-up", "Takip Mesajı Gönder"],
+    ["New Automation", "Yeni Otomasyon"],
+    ["Ship better code, faster", "Daha iyi kodu daha hızlı üretin"],
+    ["Name", "Ad"],
+    ["Created By", "Oluşturan"],
+    ["Status", "Durum"],
+    ["Inactive", "Etkin Değil"],
+    ["Type @ for tools, / for commands...", "Araçlar için @, komutlar için / yazın..."],
+    ["Type @ for tools, / for commands…", "Araçlar için @, komutlar için / yazın…"],
+    ["Memories", "Anılar"],
+    ["Test run", "Test Çalıştırması"],
+    ["Toggle automation enabled state", "Otomasyonun etkinliğini aç veya kapat"],
+    ["Remove Memories", "Anıları Kaldır"],
+    ["More actions", "Diğer eylemler"],
+    ["Automation filters", "Otomasyon filtreleri"],
+    ["Automation template filters", "Otomasyon şablonu filtreleri"],
+    ["Automation detail sections", "Otomasyon ayrıntı bölümleri"],
+    ["Account", "Hesap"],
+    ["Configure", "Yapılandır"],
+    ["Agent Conversations", "Ajan Konuşmaları"],
+    ["Colors", "Renkler"],
+    ["Typography", "Tipografi"],
+    ["Motion", "Hareket"],
+    ["Decrease", "Azalt"],
+    ["Increase", "Artır"],
+    ["Tint hue", "Renk tonu"],
+    ["Tint intensity", "Renk tonu yoğunluğu"],
+    ["Steer a running agent without stopping it", "Çalışan ajanı durdurmadan yönlendirin"],
+    ["set New Messages to Send Immediately in your Agent settings", "Ajanlar ayarlarındaki Yeni Mesajlar seçeneğini Hemen Gönder olarak ayarlayın"],
+    ["set Yeni Mesajlar to Send Immediately in your Ajanlar settings", "Ajanlar ayarlarındaki Yeni Mesajlar seçeneğini Hemen Gönder olarak ayarlayın"],
+    ["Automate repetitive tasks with always-on cloud agents that respond to environment triggers.", "Ortam tetikleyicilerine yanıt veren sürekli açık bulut ajanlarıyla tekrarlanan görevleri otomatikleştirin."],
+    ["Total Automations", "Toplam Otomasyon"],
+    ["Successful · 7d", "Başarılı · 7 gün"],
+    ["Failed · 7d", "Başarısız · 7 gün"],
+    ["Run History", "Çalıştırma Geçmişi"],
+    ["Mine", "Benim"],
+    ["No Automations Yet", "Henüz Otomasyon Yok"],
+    ["Run agents on a schedule or automatically in response to events. Billed at plan rates.", "Ajanları bir programa göre veya olaylara yanıt olarak otomatik çalıştırın. Kullanım plan ücretleriyle hesaplanır."],
+    ["Popular", "Popüler"],
+    ["Code Review", "Kod İncelemesi"],
+    ["Security", "Güvenlik"],
+    ["Incidents & Triage", "Olaylar ve Önceliklendirme"],
+    ["Data & Research", "Veri ve Araştırma"],
+    ["Environment", "Ortam"],
+    ["Untitled", "Adsız"],
+    ["You have view-only access. Contact the owner or a team admin to edit this automation.", "Yalnızca görüntüleme erişiminiz var. Bu otomasyonu düzenlemek için sahibiyle veya ekip yöneticisiyle iletişime geçin."],
+    ["Select repository", "Depo seç"],
+    ["By", "Oluşturan"],
+    ["Triggers", "Tetikleyiciler"],
+    ["Add Trigger", "Tetikleyici Ekle"],
+    ["Agent Instructions", "Ajan Talimatları"],
+    ["Tools", "Araçlar"],
+    ["Add Tool or MCP", "Araç veya MCP Ekle"],
+    ["Manage", "Yönet"],
+    ["Delete", "Sil"],
+    ["Settings", "Ayarlar"],
+    ["Find critical bugs", "Kritik hataları bul"],
+    ["Analyze recent commits for high-severity correctness bugs and submit safe fixes", "Son değişikliklerdeki ciddi doğruluk hatalarını inceleyin ve güvenli düzeltmeler gönderin"],
+    ["Scheduled", "Zamanlandı"],
+    ["Send Slack", "Slack'e Gönder"],
+    ["Scan codebase for vulnerabilities", "Kod tabanını güvenlik açıklarına karşı tara"],
+    ["Review the full repository on a schedule and alert on validated high-impact security issues", "Tüm depoyu belirli aralıklarla inceleyin ve doğrulanmış yüksek etkili güvenlik sorunlarında uyarı alın"],
+    ["Generate docs", "Belgeler oluştur"],
+    ["Create and update developer documentation for recently changed or under-documented code", "Yakın zamanda değişen veya yetersiz belgelenmiş kod için geliştirici belgeleri oluşturun ve güncelleyin"],
+    ["Add test coverage", "Test kapsamı ekle"],
+    ["Switch Model", "Model Değiştir"],
+    ["Search or Paste Link", "Ara veya Bağlantı Yapıştır"],
+    ["High Contrast", "Yüksek Karşıtlık"],
+    ["Follow System High Contrast", "Sistem Yüksek Karşıtlığını İzle"]
+    ,["Search Plugins, Skills, MCPs...", "Eklenti, Beceri ve MCP Ara..."]
+    ,["Discover", "Keşfet"]
+    ,["Featured", "Öne Çıkanlar"]
+    ,["Infrastructure", "Altyapı"]
+    ,["Add", "Ekle"]
+    ,["Added", "Eklendi"]
+    ,["Marketplace", "Eklenti Pazarı"]
+    ,["Uninstall", "Kaldır"]
+    ,["Private", "Özel"]
+    ,["Try in Chat", "Sohbette Dene"]
+    ,["Skills", "Beceriler"]
+    ,["Sor Cursor to find a prior conversation, veya summarize across conversations", "Cursor'dan önceki bir konuşmayı bulmasını veya konuşmalar arasında özet çıkarmasını isteyin"]
+    ,["Ask Cursor to find a prior conversation, or summarize across conversations", "Cursor'dan önceki bir konuşmayı bulmasını veya konuşmalar arasında özet çıkarmasını isteyin"]
+    ,["Model", "Yapay Zekâ Modeli"]
+    ,["Use Datadog directly in Cursor through a preconfigured Datadog MCP server. Query logs, metrics, traces, dashboards, and more through natural conversation. This plugin is in preview.", "Önceden yapılandırılmış Datadog MCP sunucusuyla Datadog'u doğrudan Cursor içinde kullanın. Günlükleri, metrikleri, izleri, panoları ve daha fazlasını doğal dille sorgulayın. Bu eklenti önizleme aşamasındadır."]
+    ,["Cursor Plugin for Linear - enables AI assistants to manage issues, projects, documents, and more across your Linear workspace", "Linear çalışma alanınızdaki sorunları, projeleri, belgeleri ve daha fazlasını yapay zekâ ajanlarıyla yönetmenizi sağlar."]
+    ,["Slack MCP server. Search channels, send messages, and perform other Slack actions through MCP-compatible clients.", "Slack MCP sunucusu. Kanallarda arama yapın, mesaj gönderin ve MCP uyumlu istemciler üzerinden diğer Slack işlemlerini gerçekleştirin."]
+    ,["Official Apify agent skills for web scraping, data extraction, and automation", "Web kazıma, veri çıkarma ve otomasyon için resmi Apify ajan becerileri."]
+    ,["Skills for NVIDIAs ecosystem spans GPU acceleration, CUDA, AI agents, inference, robotics, Physical AI, Omniverse, and simulation. This plugin helps you find the right skills to help in building NVIDIA-powered workflows.", "NVIDIA ekosistemi için GPU hızlandırma, CUDA, yapay zekâ ajanları, çıkarım, robotik, Fiziksel Yapay Zekâ, Omniverse ve simülasyon becerileri. NVIDIA destekli iş akışları oluşturmak için doğru becerileri bulmanıza yardımcı olur."]
+    ,["Guide developers through adding maps, places search, geocoding, routing, and other geospatial features with Amazon Location Service, including authentication setup, SDK integration, and best practices.", "Amazon Location Service ile harita, yer arama, coğrafi kodlama, rota ve diğer konum özelliklerini ekleme; kimlik doğrulama, SDK entegrasyonu ve iyi uygulamalar konusunda rehberlik eder."]
+    ,["The Appwrite plugin for Cursor includes skills and MCP servers, allowing AI agents to access your projects and correctly integrate with your projects.", "Cursor için Appwrite eklentisi, yapay zekâ ajanlarının projelerinize erişmesini ve doğru biçimde entegre olmasını sağlayan beceriler ile MCP sunucuları içerir."]
+    ,["Build full-stack apps with AWS Amplify Gen 2 using guided workflows for authentication, data models, storage, GraphQL APIs, and Lambda functions.", "Kimlik doğrulama, veri modelleri, depolama, GraphQL API'leri ve Lambda işlevleri için yönlendirmeli akışlarla AWS Amplify Gen 2 üzerinde tam kapsamlı uygulamalar oluşturun."]
+    ,["Build, deploy, and operate applications on AWS. Skills to author infrastructure-as-code (CDK, CloudFormation), use core services (Lambda, API Gateway, Step Functions, ECS/Fargate, ECR, IAM, Amazon Bedrock with Knowledge Bases and Guardrails, Amplify), and complete common tasks across observability (CloudWatch, X-Ray, CloudTrail, ADOT), messaging and streaming (SQS, SNS, EventBridge, Kinesis, MSK), AWS SDKs (boto3, JS v3, Swift), and cost optimization.", "AWS üzerinde uygulama oluşturun, dağıtın ve işletin. Kod olarak altyapı, temel AWS hizmetleri, gözlemlenebilirlik, mesajlaşma ve akış, AWS SDK'ları ile maliyet iyileştirme işlerinde yardımcı olur."]
+    ,["Expert database guidance for the AWS database portfolio. Design schemas, execute queries, handle migrations, and choose the right database for your workload.", "AWS veritabanı portföyü için uzman rehberliği sağlar. Şema tasarlayın, sorgu çalıştırın, geçişleri yönetin ve iş yükünüz için doğru veritabanını seçin."]
+    ,["Deploy applications to AWS with architecture recommendations, cost estimates, and IaC deployment. Generate validated AWS architecture diagrams as draw.io XML.", "Mimari öneriler, maliyet tahminleri ve kod olarak altyapı dağıtımıyla uygulamaları AWS'ye yayımlayın. Doğrulanmış AWS mimari diyagramlarını draw.io XML biçiminde oluşturun."]
+    ,["Design, build, deploy, test, and debug serverless applications with AWS Serverless services.", "AWS Serverless hizmetleriyle sunucusuz uygulamalar tasarlayın, geliştirin, dağıtın, test edin ve hatalarını ayıklayın."]
+    ,["Microsoft Azure MCP and Skills integration for cloud resource management, deployments, and Azure services. Manage your Azure infrastructure, monitor applications, and deploy resources directly from Cursor.", "Bulut kaynaklarını, dağıtımları ve Azure hizmetlerini yönetmek için Microsoft Azure MCP ve beceri entegrasyonu. Azure altyapınızı yönetin, uygulamaları izleyin ve kaynakları doğrudan Cursor'dan dağıtın."]
+    ,["Railway agent skills and MCP server for deploying, configuring, monitoring, and troubleshooting apps and infrastructure on Railway from Cursor. Manage services, environments, deployments, databases, object storage, networking, and observability.", "Cursor üzerinden Railway'de uygulama ve altyapı dağıtma, yapılandırma, izleme ve sorun giderme için ajan becerileri ile MCP sunucusu. Hizmetleri, ortamları, dağıtımları, veritabanlarını, nesne depolamayı, ağı ve gözlemlenebilirliği yönetin."]
+    ,["Review recent changes and add tests for high-risk logic that lacks adequate coverage", "Son değişiklikleri inceleyin ve yeterli kapsamı olmayan yüksek riskli mantık için testler ekleyin"]
+    ,["Find vulnerabilities", "Güvenlik açıklarını bul"]
+    ,["Review pull requests for exploitable security issues and flag only validated findings before merge", "Pull request'leri istismar edilebilir güvenlik sorunları açısından inceleyin ve birleştirmeden önce yalnızca doğrulanmış bulguları işaretleyin"]
+    ,["PR opened", "PR açıldı"]
+    ,["PR Comment", "PR Yorumu"]
+    ,["Assign PR reviewers", "PR inceleyicileri ata"]
+    ,["Assign reviewers based on code changes and auto-approve low-risk PRs", "Kod değişikliklerine göre inceleyiciler atayın ve düşük riskli PR'ları otomatik onaylayın"]
+    ,["PR pushed", "PR gönderildi"]
+    ,["Request Reviewers", "İnceleyici İste"]
+    ,["Autofix PR review comments", "PR inceleme yorumlarını otomatik düzelt"]
+    ,["Take a first pass at addressing inline review comments on PR diffs", "PR farklarındaki satır içi inceleme yorumlarını çözmek için ilk geçişi yapın"]
+    ,["PR review comment", "PR inceleme yorumu"]
+    ,["Monitor engineering invariants", "Mühendislik değişmezlerini izle"]
+    ,["Re-check critical repository invariants on a schedule and alert only when a rule regresses", "Kritik depo değişmezlerini belirli aralıklarla yeniden denetleyin ve yalnızca bir kural gerilediğinde uyarın"]
+    ,["Auto Import for Python", "Python için Otomatik İçe Aktarma"]
+    ,["Partial Accepts", "Kısmi Kabuller"]
+    ,["User", "Kullanıcı"]
+    ,["Team", "Ekip"]
+    ,["Always respond in Turkish", "Her zaman Türkçe yanıt ver"]
+    ,["Home workspace guidance", "Ana çalışma alanı yönergeleri"]
+    ,["Interact with local Chrome browser session (only on explicit user approval after being asked to inspect, debug, or interact with a page open in Chrome)", "Yerel Chrome tarayıcı oturumuyla etkileşim kurar (yalnızca açık bir Chrome sayfasını inceleme, hata ayıklama veya sayfayla etkileşim isteği için kullanıcıdan açık onay alındığında)"]
+    ,["See the user's ENTIRE Windows desktop live (all windows — Comet, IDE, terminal, data) via a local screenshot. Use BEFORE acting on the Sentos/Comet flow and whenever the user references what's on their screen, so you never act blind on stale context.", "Kullanıcının TÜM Windows masaüstünü yerel ekran görüntüsüyle canlı görür. Sentos/Comet akışında işlem yapmadan ve kullanıcı ekrandakine atıfta bulunduğunda eski bağlama göre işlem yapmamak için kullanılır."]
+    ,["Perform a read-only, defect-first review of a specified code change and return every actionable finding. Use when another agent delegates review of uncommitted changes, a base-branch diff, a commit, or custom review instructions.", "Belirtilen kod değişikliğini salt okunur ve hata odaklı inceler; uygulanabilir tüm bulguları döndürür. Kaydedilmemiş değişiklikler, dal farkı, commit veya özel inceleme talimatları devredildiğinde kullanılır."]
+    ,["Plugin that includes the Figma MCP server and Skills for common workflows", "Yaygın iş akışları için Figma MCP sunucusu ve becerilerini içeren eklenti"]
+    ,["Skills for NVIDIAs ecosystem spans GPU acceleration, CUDA, AI agents, inference, robotics, Physical AI, Omniverse, and simulation. This plugin helps you understand the pieces, choose a path, validate your setup, and build practical NVIDIA-powered workflows.", "NVIDIA ekosistemi için GPU hızlandırma, CUDA, yapay zekâ ajanları, çıkarım, robotik, Fiziksel Yapay Zekâ, Omniverse ve simülasyon becerileri. Bileşenleri anlamanıza, yol seçmenize, kurulumu doğrulamanıza ve NVIDIA destekli pratik iş akışları oluşturmanıza yardımcı olur."]
+    ,["Remediate dependency vulnerabilities", "Bağımlılık güvenlik açıklarını gider"]
+    ,["Triage dependency-vulnerability tickets from Linear and open upgrade PRs when the fix is safe", "Linear'daki bağımlılık güvenlik açığı kayıtlarını önceliklendirin ve düzeltme güvenliyse yükseltme PR'ları açın"]
+    ,["Issue created", "Sorun oluşturuldu"]
+    ,["Fix bugs reported in Slack", "Slack'te bildirilen hataları düzelt"]
+    ,["Monitor a Slack channel for bug reports, investigate the codebase, and fix with a PR", "Hata bildirimleri için bir Slack kanalını izleyin, kod tabanını inceleyin ve bir PR ile düzeltin"]
+    ,["New message in channel", "Kanalda yeni mesaj"]
+    ,["Triage failed GitHub Actions", "Başarısız GitHub Actions çalıştırmalarını incele"]
+    ,["Investigate failed or cancelled workflow runs and report findings in Slack", "Başarısız veya iptal edilmiş iş akışı çalıştırmalarını inceleyin ve bulguları Slack'te bildirin"]
+    ,["Workflow run completed", "İş akışı tamamlandı"]
+    ,["Fix CI failures", "CI hatalarını düzelt"]
+    ,["Detect CI failures on main and automatically open PRs", "Ana daldaki CI hatalarını algılayın ve otomatik olarak PR açın"]
+    ,["Checks completed", "Denetimler tamamlandı"]
+    ,["Investigate PagerDuty incidents", "PagerDuty olaylarını incele"]
+    ,["Investigate incidents using Datadog and code context", "Datadog ve kod bağlamını kullanarak olayları inceleyin"]
+    ,["Incident triggered", "Olay tetiklendi"]
+    ,["Investigate Sentry issues", "Sentry sorunlarını incele"]
+    ,["Investigate errors from Sentry, identify root causes, and propose fixes", "Sentry hatalarını inceleyin, temel nedenleri belirleyin ve düzeltmeler önerin"]
+    ,["Any issue event", "Herhangi bir sorun olayı"]
+    ,["Investigate top Datadog errors", "Önemli Datadog hatalarını incele"]
+    ,["Investigate recurring production errors from Datadog, identify root causes, and propose fixes", "Datadog'daki yinelenen üretim hatalarını inceleyin, temel nedenleri belirleyin ve düzeltmeler önerin"]
+    ,["Triage Linear issues", "Linear sorunlarını önceliklendir"]
+    ,["Triage new issues by investigating bugs, planning feature requests, and opening PRs for easy fixes", "Yeni sorunları; hataları inceleyerek, özellik isteklerini planlayarak ve kolay düzeltmeler için PR açarak önceliklendirin"]
+    ,["Summarize changes daily", "Değişiklikleri günlük özetle"]
+    ,["Post a daily Slack digest summarizing notable repository changes and risks from the previous day", "Önceki günün önemli depo değişikliklerini ve risklerini özetleyen günlük bir Slack özeti gönderin"]
+    ,["Customer Health Monitoring Agent", "Müşteri Sağlığı İzleme Ajanı"]
+    ,["Find at-risk customers using usage analytics, call notes, Slack escalations, and Linear blockers", "Kullanım analizleri, görüşme notları, Slack bildirimleri ve Linear engelleriyle risk altındaki müşterileri bulun"]
+    ,["Product Analytics Agent", "Ürün Analitiği Ajanı"]
+    ,["Weekly product usage, activation, retention, and feature adoption digest from Databricks", "Databricks'ten haftalık ürün kullanımı, etkinleştirme, elde tutma ve özellik benimseme özeti"]
+    ,["Product FAQ Agent", "Ürün SSS Ajanı"]
+    ,["Answer product questions in a dedicated Slack channel using Slack, Notion, Linear, and GitHub context", "Slack, Notion, Linear ve GitHub bağlamını kullanarak özel bir Slack kanalındaki ürün sorularını yanıtlayın"]
+    ,["Product Finance Agent", "Ürün Finans Ajanı"]
+    ,["Analyze Stripe revenue, churn signals, and product pricing opportunities", "Stripe gelirini, müşteri kaybı sinyallerini ve ürün fiyatlandırma fırsatlarını analiz edin"]
+    ,["Slack Digest Agent", "Slack Özet Ajanı"]
+    ,["Summarize important DMs, mentions, and the user's top active Slack channels", "Önemli özel mesajları, bahsetmeleri ve kullanıcının en etkin Slack kanallarını özetleyin"]
+    ,["Investigate environment setup failures", "Ortam kurulum hatalarını incele"]
+    ,["Monitor environment build health", "Ortam derleme sağlığını izle"]
+    ,["Health check of your cloud environment's builds with root cause analysis for failed builds", "Bulut ortamı derlemelerinizin sağlığını denetleyin ve başarısız derlemelerin temel nedenlerini analiz edin"]
+    ,["Archive", "Arşivle"]
+    ,["Pin", "Sabitle"]
+    ,["Unpin", "Sabitlemeyi Kaldır"]
+    ,["Delete", "Sil"]
+    ,["Remove", "Kaldır"]
+    ,["Edit", "Düzenle"]
+    ,["Copy", "Kopyala"]
+    ,["Open", "Aç"]
+    ,["Close", "Kapat"]
+    ,["Restore", "Geri Yükle"]
+    ,["Rename", "Yeniden Adlandır"]
+    ,["Move", "Taşı"]
+    ,["Mark as Unread", "Okunmadı Olarak İşaretle"]
+    ,["Mark as Read", "Okundu Olarak İşaretle"]
+    ,["Fork", "Dallandır"]
+    ,["more", "tane daha"]
+    ,["Browse", "Göz At"]
+    ,["Browse Marketplace", "Eklenti Pazarına Göz At"]
+    ,["Search agents, files, actions...", "Ajanları, dosyaları ve eylemleri ara..."]
+    ,["Search agents, Canvas, files, actions...", "Ajanlarda, Tuval'de, dosyalarda ve eylemlerde ara..."]
+    ,["Search agents, Canvas, files, actions…", "Ajanlarda, Tuval'de, dosyalarda ve eylemlerde ara…"]
+    ,["Search agents...", "Ajanlarda ara..."]
+    ,["Select Multiple", "Birden Fazla Seç"]
+    ,["Recent Agents", "Son Ajanlar"]
+    ,["Recent Files", "Son Dosyalar"]
+    ,["Recent", "Son Kullanılanlar"]
+    ,["Older", "Daha Eski"]
+    ,["Filter results", "Sonuçları filtrele"]
+    ,["Draft", "Taslak"]
+    ,["Search actions...", "Eylemlerde ara..."]
+    ,["Search Cursor settings...", "Cursor ayarlarında ara..."]
+    ,["Search Cursor settings…", "Cursor ayarlarında ara…"]
+    ,["Developer: Reveal User Data Folder", "Geliştirici: Kullanıcı Verileri Klasörünü Göster"]
+    ,["Developer: Delete Old Chats…", "Geliştirici: Eski Sohbetleri Sil…"]
+    ,["Canvas'ı Aç", "Tuval'i Aç"]
+    ,["Email", "E-posta"]
+    ,["Handle", "Kullanıcı Adı"]
+    ,["Personal Usage", "Kişisel Kullanım"]
+    ,["Included in", "Dahil Olanlar"]
+    ,["On Demand", "İsteğe Bağlı"]
+    ,["Sync Skills for Cloud Agents", "Bulut Ajanları İçin Becerileri Eşitle"]
+    ,["Profile Image", "Profil Resmi"]
+    ,["Links", "Bağlantılar"]
+    ,["On-Demand", "İsteğe Bağlı"]
+    ,["Account Label", "Hesap Etiketi"]
+    ,["Add Folder", "Klasör Ekle"]
+    ,["Add or search model", "Model ekle veya ara"]
+    ,["Add Plugins", "Eklenti Ekle"]
+    ,["Add Project Item to Chat", "Proje Öğesini Sohbete Ekle"]
+    ,["Add weekly recap email", "Haftalık özet e-postası ekle"]
+    ,["Add-habit keyboard flow", "Alışkanlık ekleme klavye akışı"]
+    ,["Back to tasks", "Görevlere dön"]
+    ,["Build options", "Derleme seçenekleri"]
+    ,["Clear Forced Skill Migration Banner", "Zorunlu Beceri Taşıma Başlığını Temizle"]
+    ,["Close Customize", "Özelleştir'i Kapat"]
+    ,["Close Pane", "Bölmeyi Kapat"]
+    ,["Close subscriptions tray", "Abonelikler tepsisini kapat"]
+    ,["Collapse queue", "Kuyruğu daralt"]
+    ,["Confirm VS Code import", "VS Code içe aktarımını onayla"]
+    ,["Copy artifact", "Yapıtı kopyala"]
+    ,["Debug: Open Skill Publishing Logs", "Hata Ayıklama: Beceri Yayımlama Günlüklerini Aç"]
+    ,["Delete automation", "Otomasyonu sil"]
+    ,["Delete old chats", "Eski sohbetleri sil"]
+    ,["Dismiss outage alert", "Kesinti uyarısını kapat"]
+    ,["Edit Fetch Domain Allowlist, one domain per line", "Getirme alan adı izin listesini düzenle; her satıra bir alan adı"]
+    ,["Edit MCP server", "MCP sunucusunu düzenle"]
+    ,["Expand full chat", "Sohbetin tamamını genişlet"]
+    ,["Failed to Apply Suggestion", "Öneri Uygulanamadı"]
+    ,["Failed to collect conversation history", "Konuşma geçmişi alınamadı"]
+    ,["File filters", "Dosya filtreleri"]
+    ,["Install MCP server", "MCP sunucusunu yükle"]
+    ,["Loading Cloud Agents settings", "Bulut Ajanları ayarları yükleniyor"]
+    ,["Move to folder", "Klasöre taşı"]
+    ,["Open project", "Projeyi aç"]
+    ,["Open Pull Request Externally", "PR'ı dışarıda aç"]
+    ,["Open video preview", "Video önizlemesini aç"]
+    ,["Project notes selection actions", "Proje notu seçim eylemleri"]
+    ,["Queued message actions", "Kuyruğa alınan mesaj eylemleri"]
+    ,["Remove Account", "Hesabı kaldır"]
+    ,["Remove screenshot", "Ekran görüntüsünü kaldır"]
+    ,["Remove Subscription", "Aboneliği kaldır"]
+    ,["Restore edits to the latest checkpoint", "Düzenlemeleri son kontrol noktasına geri yükle"]
+    ,["Save", "Kaydet"]
+    ,["Save All Files", "Tüm dosyaları kaydet"]
+    ,["Search files", "Dosyalarda ara"]
+    ,["Search fonts", "Yazı tiplerinde ara"]
+    ,["Search history or enter a URL", "Geçmişte ara veya URL gir"]
+    ,["Search MCPs", "MCP'lerde ara"]
+    ,["Search pull requests", "PR'larda ara"]
+    ,["Share", "Paylaş"]
+    ,["Share link", "Paylaşım bağlantısı"]
+    ,["Stack options", "Yığın seçenekleri"]
+    ,["Update Access", "Erişimi güncelle"]
+    ,["Updating privacy settings", "Gizlilik ayarları güncelleniyor"]
+    ,["Upgrade to a Pro account", "Pro hesaba yükselt"]
+    ,["Upload profile image", "Profil resmi yükle"]
+    ,["Claude Code: Open", "Claude Code'u Aç"]
+    ,["Switch Agent Mode (Ctrl+.)", "Ajan Modunu Değiştir (Ctrl+.)"]
+    ,["Show context usage", "Bağlam kullanımını göster"]
+    ,["Tab AI Stats (Today): 0/0 lines (0%)", "Sekme Yapay Zekâ İstatistikleri (Bugün): 0/0 satır (%0)"]
+    ,["Command Palette...", "Komut Paleti..."]
+    ,["View: Open View...", "Görünüm: Görünüm Aç..."]
+    ,["Explorer", "Gezgin"]
+    ,["Source Control", "Kaynak Denetimi"]
+    ,["Problems", "Sorunlar"]
+    ,["Output", "Çıktı"]
+    ,["Word Wrap", "Sözcük Kaydır"]
+    ,["Agent connection lost", "Ajan bağlantısı kesildi"]
+    ,["Automatically resume working on agents and their subagents after a reload or restart", "Yeniden yükleme veya yeniden başlatmanın ardından ajanlar ve alt ajanları üzerinde çalışmaya otomatik olarak devam et"]
+    ,["Change the base URL for OpenAI API requests.", "OpenAI API istekleri için temel URL'yi değiştirin."]
+    ,["Choose a model or use the cost- and availability-aware default", "Bir model seçin veya maliyet ve kullanılabilirliği gözeten varsayılanı kullanın"]
+    ,["Choose which models appear in the model picker", "Model seçicide hangi modellerin görüneceğini seçin"]
+    ,["Continue Interrupted Agents", "Kesintiye Uğrayan Ajanlara Devam Et"]
+    ,["Reset to default sound", "Varsayılan sese sıfırla"]
+    ,["The agent process restarted or the remote connection dropped before this message was sent. Retry to send it again.", "Bu mesaj gönderilmeden önce ajan işlemi yeniden başladı veya uzak bağlantı kesildi. Yeniden göndermeyi deneyin."]
+    ,["Upgrade Available", "Yükseltme Mevcut"]
+    ,["your Anthropic key", "Anthropic anahtarınız"]
+    ,["your Google AI Studio key", "Google AI Studio anahtarınız"]
+    ,["your OpenAI key", "OpenAI anahtarınız"]
+    ,["Add Workspace", "Çalışma Alanı Ekle"]
+    ,["Any Repo", "Herhangi Bir Depo"]
+    ,["More self-hosted machines", "Daha fazla kendi barındırdığınız makine"]
+    ,["Remove From Queue", "Kuyruktan Kaldır"]
+    ,["Remove from merge queue?", "Birleştirme kuyruğundan kaldırılsın mı?"]
+    ,["Self-Hosted Machines", "Kendi Barındırdığınız Makineler"]
+    ,["Remote", "Uzak"]
+    ,["Start from scratch", "Sıfırdan başla"]
+    ,["Sor Cursor to find a prior conversation, veya summarize across conversations", "Önceki bir konuşmayı bulması veya konuşmalar arasında özetleme yapması için Cursor'a sorun"]
+    ,["Adjust Plan", "Planı Ayarla"]
+    ,["Additional usage beyond limits consumes Other Models quota or on-demand spend.", "Sınırları aşan ek kullanım, Diğer Modeller kotasından veya isteğe bağlı harcamadan düşer."]
+    ,["Default Model", "Varsayılan Model"]
+    ,["Interrupt", "Kesintiye Uğrat"]
+    ,["Nightly", "Gecelik"]
+    ,["Ajan skills help you customize Cursor for your workflows - use /create-skill to get started", "Ajan becerileri Cursor'u iş akışlarınıza göre özelleştirmenize yardımcı olur; başlamak için /create-skill kullanın"]
+    ,["Ask Cursor questions about your codebase", "Kod tabanınız hakkında Cursor'a sorular sorun"]
+    ,["Cursor syncs your local skills so they can be used with Cloud Agents. Turn this off to disable syncing.", "Cursor, yerel becerilerinizi Bulut Ajanlarında kullanabilmeniz için eşitler. Eşitlemeyi kapatmak için bu seçeneği devre dışı bırakın."]
+    ,["Google API Key", "Google API Anahtarı"]
+    ,["With your Cursor Pro subscription, you do not need to use your own Google key!", "Cursor Pro aboneliğinizle kendi Google anahtarınızı kullanmanız gerekmez!"]
+    ,["Turn Off Google Key", "Google Anahtarını Kapat"]
+    ,["Check for Updates...", "Güncellemeleri Denetle..."]
+    ,["Checking for Updates...", "Güncellemeler Denetleniyor..."]
+    ,["Downloading Update...", "Güncelleme İndiriliyor..."]
+    ,["Installing Update...", "Güncelleme Yükleniyor..."]
+    ,["Do you want to open this link?", "Bu bağlantıyı açmak istiyor musunuz?"]
+    ,["Connected to remote.", "Uzak makineye bağlandı."]
+    ,["Collapse All", "Tümünü Daralt"]
+    ,["Expand All", "Tümünü Genişlet"]
+    ,["New &&Window", "Yeni &&Pencere"]
+    ,["New Canvas", "Yeni Tuval"]
+    ,["Open External Link", "Harici Bağlantıyı Aç"]
+    ,["Open Folder", "Klasör Aç"]
+    ,["Open Recent", "Son Kullanılanları Aç"]
+    ,["Show Active File Only", "Yalnızca Etkin Dosyayı Göster"]
+    ,["Show Errors", "Hataları Göster"]
+    ,["Show Excluded Files", "Hariç Tutulan Dosyaları Göster"]
+    ,["Show Infos", "Bilgileri Göster"]
+    ,["Show Less", "Daha Az Göster"]
+    ,["Show More", "Daha Fazla Göster"]
+    ,["Show Warnings", "Uyarıları Göster"]
+    ,["Show message in multiple lines", "Mesajı birden çok satırda göster"]
+    ,["Show message in single line", "Mesajı tek satırda göster"]
+    ,["No source control providers registered.", "Kayıtlı kaynak denetimi sağlayıcısı yok."]
+    ,["Canvas is no longer available", "Tuval artık kullanılamıyor"]
+    ,["Could not open Canvas", "Tuval açılamadı"]
+    ,["Tool Call Density", "Araç Çağrısı Yoğunluğu"]
+    ,["Theme", "Tema"]
+    ,["Use", "Kullan"]
+    ,["Use automations to save time on repetitive tasks with always-on agents", "Sürekli çalışan ajanlarla tekrarlı görevlerde zaman kazanmak için otomasyonları kullanın"]
+    ,["automations to save time on repetitive tasks with always-on agents", "otomasyonlarla sürekli çalışan ajanlarda tekrarlı görevlerde zaman kazanın"]
+    ,["Actions", "Eylemler"]
+    ,["Dictate", "Dikte Et"]
+    ,["Mode", "Mod"]
+    ,["Agent Mode", "Ajan Modu"]
+    ,["Debug Mode", "Hata Ayıklama Modu"]
+    ,["Select", "Seç"]
+    ,["Results", "Sonuçlar"]
+    ,["New agent", "Yeni ajan"]
+    ,["or", "veya"]
+    ,["Change Filter", "Filtreyi Değiştir"]
+    ,["Ctrl+ğ or Ctrl+ü Filtreyi Değiştir", "Ctrl+ğ veya Ctrl+ü ile filtreyi değiştir"]
+    ,["Configure Display Language", "Görüntüleme Dilini Yapılandır"]
+    ,["Previous Tab", "Önceki Sekme"]
+    ,["Toggle Design Mode", "Tasarım Modunu Aç/Kapat"]
+    ,["Reset choice for 'File operation needs preview'", "'Dosya işlemi için önizleme gerekiyor' seçimini sıfırla"]
+    ,["Comments: Go to Next Commented Range", "Yorumlar: Sonraki Yorumlu Aralığa Git"]
+    ,["Add User Rule", "Kullanıcı Kuralı Ekle"]
+    ,["Add Data Breakpoint at Address", "Adrese Veri Kesme Noktası Ekle"]
+    ,["Open Agent Changes", "Ajan Değişikliklerini Aç"]
+    ,["Start Agent Review", "Ajan İncelemesini Başlat"]
+    ,["Clone Repository", "Depoyu Klonla"]
+    ,["Connect", "Bağlan"]
+    ,["Code Intelligence", "Kod Zekası"]
+    ,["Cursor Tab", "Cursor Sekmesi"]
+    ,["Manage scope", "Kapsamı Yönet"]
+    ,["Data & Analytics", "Veri ve Analitik"]
+    ,["Productivity", "Üretkenlik"]
+    ,["Payments", "Ödemeler"]
+    ,["Agent Orchestration", "Ajan Orkestrasyonu"]
+    ,["Canvas", "Tuval"]
+    ,["Filter by source: All", "Kaynağa göre filtrele: Tümü"]
+    ,["Plugins in Customize", "Özelleştir'deki Eklentiler"]
+    ,["Open Plugins in Customize", "Özelleştir'de Eklentileri Aç"]
+    ,["Add to Cursor", "Cursor'a Ekle"]
+  ]);
+  const attrs = ["aria-label", "title", "placeholder", "data-placeholder", "aria-placeholder"];
+  const modelTooltipReplacements = [
+    ["Model used to build this plan", "Bu planı oluşturan model"],
+    ["Select element", "Öğe seç"],
+    ["Take Screenshot", "Ekran görüntüsü al"],
+    ["Capture Area Screenshot", "Alan ekran görüntüsü al"],
+    ["Hard Reload", "Zorla yenile"],
+    ["Copy Current URL", "Geçerli URL'yi kopyala"],
+    ["Clear Cookies", "Çerezleri temizle"],
+    ["Clear Cache", "Önbelleği temizle"],
+    ["Enter a URL above, or instruct the Agent to navigate and use the browser", "Yukarıya bir URL girin veya Ajan'a gezinmesini ve tarayıcıyı kullanmasını söyleyin"],
+    ["Build Locally", "Yerel olarak derle"],
+    ["Parallel Build", "Paralel derle"],
+    ["Build", "Derle"],
+    ["Zoom", "Yakınlaştırma"],
+    ["Reset zoom", "Yakınlaştırmayı sıfırla"],
+    ["Coding model from Moonshot AI for long-horizon software engineering", "Uzun süreli yazılım mühendisliği için Moonshot AI kodlama modeli"],
+    ["A smaller, faster GPT-5.4 model. Great for simpler coding tasks.", "Daha küçük ve hızlı bir GPT-5.4 modeli. Daha basit kodlama görevleri için idealdir."],
+    ["Anthropic's earlier flagship model, great for difficult tasks.", "Anthropic'in önceki amiral gemisi modeli; zor görevler için idealdir."],
+    ["Anthropic's large model class, great for difficult tasks.", "Anthropic'in büyük model sınıfı; zor görevler için idealdir."],
+    ["Anthropic's mid-size model class, great for everyday use.", "Anthropic'in orta boy model sınıfı; günlük kullanım için idealdir."],
+    ["Anthropic's most powerful model, great for difficult tasks.", "Anthropic'in en güçlü modeli; zor görevler için idealdir."],
+    ["Anthropic's smartest model, great for difficult tasks.", "Anthropic'in en akıllı modeli; zor görevler için idealdir."],
+    ["Balanced GPT-5.6 model for everyday work. Roughly corresponds to mini on earlier GPT models.", "Günlük işler için dengeli GPT-5.6 modeli. Önceki GPT modellerindeki mini sınıfına yaklaşık olarak karşılık gelir."],
+    ["Cursor and SpaceXAI's most powerful model, great for complex coding and knowledge work.", "Cursor ve SpaceXAI'nin en güçlü modeli; karmaşık kodlama ve bilgi çalışmaları için idealdir."],
+    ["Cursor's fast and efficient model -- great for everyday use.", "Cursor'ın hızlı ve verimli modeli — günlük kullanım için idealdir."],
+    ["Earlier Anthropic Fable model, for difficult tasks.", "Zor görevler için önceki Anthropic Fable modeli."],
+    ["Earlier Anthropic Opus model, for difficult tasks.", "Zor görevler için önceki Anthropic Opus modeli."],
+    ["Earlier Google Flash model, for fast daily use.", "Hızlı günlük kullanım için önceki Google Flash modeli."],
+    ["Earlier OpenAI model, for complex tasks.", "Karmaşık görevler için önceki OpenAI modeli."],
+    ["Fast, affordable GPT-5.6 tier with strong capability at the lowest GPT-5.6 cost. Roughly corresponds to nano on earlier GPT models.", "En düşük GPT-5.6 maliyetinde güçlü yetenek sunan hızlı ve uygun fiyatlı GPT-5.6 katmanı. Önceki GPT modellerindeki nano sınıfına yaklaşık olarak karşılık gelir."],
+    ["Good default for everyday tasks, balanced for quality and speed.", "Günlük görevler için kalite ve hız dengesi sunan iyi bir varsayılan."],
+    ["Google's flash model, great for daily use.", "Google'ın hızlı Flash modeli; günlük kullanım için idealdir."],
+    ["Google's latest flagship model, great for daily use.", "Google'ın en yeni amiral gemisi modeli; günlük kullanım için idealdir."],
+    ["Google's latest flash model, great for daily use.", "Google'ın en yeni Flash modeli; günlük kullanım için idealdir."],
+    ["Great for daily use.", "Günlük kullanım için idealdir."],
+    ["Older Google Flash model, for fast, low-cost tasks.", "Hızlı ve düşük maliyetli görevler için eski Google Flash modeli."],
+    ["Older OpenAI model, for planning, debugging, and coding.", "Planlama, hata ayıklama ve kodlama için eski OpenAI modeli."],
+    ["OpenAI's flagship GPT-5.6 model. Strongest agentic coding, biology, and cybersecurity capabilities, with a new max reasoning effort.", "OpenAI'nin amiral gemisi GPT-5.6 modeli. Yeni azami akıl yürütme düzeyiyle en güçlü ajan tabanlı kodlama, biyoloji ve siber güvenlik yeteneklerini sunar."],
+    ["OpenAI's latest flagship model. Great for complex tasks.", "OpenAI'nin en yeni amiral gemisi modeli. Karmaşık görevler için idealdir."],
+    ["OpenAI's model specifically for coding. Good for ambitious coding tasks.", "OpenAI'nin özellikle kodlama için geliştirdiği model. İddialı kodlama görevleri için uygundur."],
+    ["The smallest GPT-5.4 model. Optimized for speed and low cost.", "En küçük GPT-5.4 modeli. Hız ve düşük maliyet için iyileştirilmiştir."],
+    ["The predecessor to Cursor Grok 4.6, built for complex coding and knowledge work.", "Cursor Grok 4.6'nın öncülü; karmaşık kodlama ve bilgi çalışmaları için geliştirilmiştir."],
+    ["The cost is 2x when the input exceeds 272k tokens.", "Girdi 272 bin tokenı aştığında maliyet 2 katına çıkar."],
+    ["This model has special data retention policies.", "Bu modelin özel veri saklama politikaları vardır."],
+    ["The same Claude Opus 4.7 model at 6x the price, using Anthropic's fast mode.", "Aynı Claude Opus 4.7 modeli; Anthropic'in hızlı modu kullanılarak 6 kat fiyatlandırılır."],
+    ["The same Claude Opus 4.8 model at 2x the price, using Anthropic's fast mode.", "Aynı Claude Opus 4.8 modeli; Anthropic'in hızlı modu kullanılarak 2 kat fiyatlandırılır."],
+    ["The same Claude Opus 5 model at 2x the price, using Anthropic's fast mode.", "Aynı Claude Opus 5 modeli; Anthropic'in hızlı modu kullanılarak 2 kat fiyatlandırılır."],
+    ["The same Codex 5.3 model, using OpenAI's fast priority processing at 2x the price.", "Aynı Codex 5.3 modeli; OpenAI'nin hızlı öncelikli işlemesiyle 2 kat fiyatlandırılır."],
+    ["The same GPT-5.2 model, using OpenAI's fast priority processing at 2x the price.", "Aynı GPT-5.2 modeli; OpenAI'nin hızlı öncelikli işlemesiyle 2 kat fiyatlandırılır."],
+    ["The same GPT-5.4 model, using OpenAI's fast priority processing at 2x the price.", "Aynı GPT-5.4 modeli; OpenAI'nin hızlı öncelikli işlemesiyle 2 kat fiyatlandırılır."],
+    ["The same GPT-5.5 model, using OpenAI's fast priority processing at 2.5x the price.", "Aynı GPT-5.5 modeli; OpenAI'nin hızlı öncelikli işlemesiyle 2,5 kat fiyatlandırılır."],
+    ["The same GPT-5.6 Luna model, using OpenAI's fast priority processing at 2x the price.", "Aynı GPT-5.6 Luna modeli; OpenAI'nin hızlı öncelikli işlemesiyle 2 kat fiyatlandırılır."],
+    ["The same GPT-5.6 Sol model, using OpenAI's fast priority processing at 2x the price.", "Aynı GPT-5.6 Sol modeli; OpenAI'nin hızlı öncelikli işlemesiyle 2 kat fiyatlandırılır."],
+    ["The same GPT-5.6 Terra model, using OpenAI's fast priority processing at 2x the price.", "Aynı GPT-5.6 Terra modeli; OpenAI'nin hızlı öncelikli işlemesiyle 2 kat fiyatlandırılır."],
+    ["1M context window", "1 milyon bağlam penceresi"],
+    ["200k context window", "200 bin bağlam penceresi"],
+    ["256k context window", "256 bin bağlam penceresi"],
+    ["262k context window", "262 bin bağlam penceresi"],
+    ["272k context window", "272 bin bağlam penceresi"],
+    ["300k context window", "300 bin bağlam penceresi"],
+    ["Version: extra high effort", "Sürüm: ekstra yüksek çaba"],
+    ["Version: extra high reasoning effort", "Sürüm: ekstra yüksek akıl yürütme çabası"],
+    ["Version: high effort", "Sürüm: yüksek çaba"],
+    ["Version: high reasoning effort", "Sürüm: yüksek akıl yürütme çabası"],
+    ["Version: low effort", "Sürüm: düşük çaba"],
+    ["Version: low reasoning effort", "Sürüm: düşük akıl yürütme çabası"],
+    ["Version: max effort", "Sürüm: azami çaba"],
+    ["Version: max reasoning effort", "Sürüm: azami akıl yürütme çabası"],
+    ["Version: medium effort", "Sürüm: orta çaba"],
+    ["Version: medium reasoning effort", "Sürüm: orta akıl yürütme çabası"],
+    ["Version: minimal effort", "Sürüm: en düşük çaba"],
+    ["Version: none reasoning effort", "Sürüm: akıl yürütme yok"],
+    ["Version: preview", "Sürüm: önizleme"],
+    ["Learn more", "Daha fazla bilgi"]
+  ];
+  const translateModelTooltipValue = (value) => {
+    let result = String(value || "");
+    for (const [source, translated] of modelTooltipReplacements) {
+      if (result.includes(source)) result = result.split(source).join(translated);
+    }
+    return result;
+  };
+  const protectedSelector = ".monaco-editor, .xterm, textarea, pre, code, [data-component=\"glass-empty-state-rotating-tips\"]";
+  const translateValue = (value) => {
+    let key = String(value || "").replace(/\s+/g, " ").trim();
+    if (translations.has(key)) return translations.get(key);
+    let matchFilesChanged = key.match(/^(\d+)\s+Files?\s+Changed$/i);
+    if (matchFilesChanged) return `${matchFilesChanged[1]} Dosya Değişti`;
+    const modelTooltipValue = translateModelTooltipValue(value);
+    if (modelTooltipValue !== String(value || "")) return modelTooltipValue;
+    if (key.startsWith("Search agents, Canvas, files, actions")) {
+      return "Ajanlarda, Tuval'de, dosyalarda ve eylemlerde ara...";
+    }
+    // Dönen alt ipucu güncellemeler arasında kısmen çevrilebildiği için cümleyi
+    // tek bir kırılgan tam eşleşme yerine sabit başlangıcından yakala.
+    if (key.startsWith("Steer a running agent without stopping it")) {
+      return "Çalışan ajanı durdurmadan yönlendirin — Ajanlar ayarlarındaki Yeni Mesajlar seçeneğini Hemen Gönder olarak ayarlayın";
+    }
+    if (key.startsWith("Edit automation name:")) {
+      const automationName = key.slice("Edit automation name:".length).trim();
+      return "Otomasyon adını düzenle: " + (translations.get(automationName) || automationName);
+    }
+    if (key.startsWith("By ")) return "Oluşturan " + key.slice(3);
+    // Statik katman bazen yalnızca "Use" parçasını "Kullan" yapar. Tam ipucu
+    // aynı düğümde kaldığında bütün mevcut "Use /komut ..." kurallarını yeniden
+    // kullanabilmek için yarı çevrilmiş öneki İngilizce eşleme anahtarına döndür.
+    if (key.startsWith("Kullan /")) key = "Use /" + key.slice("Kullan /".length);
+    if (key.startsWith("Hata Ayıklama Modu ")) key = "Debug Mode " + key.slice("Hata Ayıklama Modu ".length);
+    if (key.startsWith("Hata Ayıklama Mod ")) key = "Debug Mode " + key.slice("Hata Ayıklama Mod ".length);
+    if (translations.has(key)) return translations.get(key);
+    // Guncelleme statik NLS ile cumlenin baska kelimelerini de kismen
+    // Turkcelestirdiyse geri kalan metne baglanma; komut tum ipucunu belirler.
+    const hintCommand = key.match(/^Use (\/[A-Za-z0-9_-]+)/i)?.[1];
+    if (hintCommand) {
+      const commandHints = {
+        "/review": "/review ile değişikliklerinizi ajan destekli kod incelemesinden geçirin",
+        "/create-rule": "/create-rule ile ajan davranışını sistem düzeyi talimatlarla denetleyin",
+        "/create-skill": "/create-skill ile Cursor'u iş akışlarınıza göre özelleştirin",
+        "/create-subagent": "/create-subagent ile uzman ajanlar kurun",
+        "/create-hook": "/create-hook ile ajan döngüsünü özel betiklerle denetleyip genişletin",
+        "/model": "/model ile göreviniz için en uygun modeli seçin",
+        "/multitask": "/multitask ile sıradaki mesajlarınızı paralel çalıştırın",
+        "/plan": "/plan ile Plan Modu kullanarak ajan yürütmesini iyileştirin",
+        "/debug": "/debug ile yeniden üretmesi zor hataları çözün",
+        "/split-to-prs": "/split-to-prs ile çalışmanızı küçük ve incelenebilir PR'lara bölün",
+        "/automate": "/automate ile ajan sohbetinden ayrılmadan Cursor Otomasyonları oluşturun",
+        "/cloud": "/cloud ile ajanları uzaktan çalıştırın",
+        "/loop": "/loop ile bir istemi zamanlamaya göre çalıştırın",
+        "/shell": "/shell ile terminalde komut çalıştırın",
+        "/ask": "/ask ile kod değişikliklerinden önce kod tabanınızı araştırın",
+        "/canvas": "/canvas ile Cursor'dan etkileşimli görselleştirmeler alın",
+        "/simplify": "/simplify ile değişen dosyaları kod kalitesi ve verimlilik için inceletin",
+        "/add-plugin": "/add-plugin ile Cursor Eklenti Pazarı'ndan eklenti yükleyin",
+        "/babysit": "/babysit ile PR yorumlarını önceliklendirin, CI hatalarını düzeltin ve çakışmaları temizleyin"
+        ,"/goal": "/goal ile Cursor'un tamamlanana kadar izlemeyi sürdüreceği bir hedef belirleyin"
+      };
+      if (commandHints[hintCommand]) return commandHints[hintCommand];
+    }
+    let match = key.match(/^(?:Worked|Thought|Çalışma süresi) for (\d+)s$/);
+    if (match) return `Çalışma süresi: ${match[1]} sn`;
+    match = key.match(/^Keşfetti (.+), (\d+) searches?, (\d+) tools?$/);
+    if (match) return `Keşfetti ${match[1]}, ${match[2]} arama, ${match[3]} araç`;
+    match = key.match(/^(?:Show|Göster) (\d+) more$/);
+    if (match) return `${match[1]} tane daha göster`;
+    match = key.match(/^(\d+)(d|mo|h|m|y)$/);
+    if (match) {
+      const units = { d: "g", mo: "ay", h: "sa", m: "dk", y: "yıl" };
+      return `${match[1]}${units[match[2]]}`;
+    }
+    match = key.match(/^Search Plugins for (.+)\.\.\.$/);
+    if (match) return `${match[1]} için eklentilerde ara...`;
+    match = key.match(/^Use with caution\. Skip symlinks during \.cursorignore file discovery\. Enable only when all \.cursorignore files are reachable without symlinks(?: \(controlled by admin\))?\. Changing this setting requires restarting Cursor\.$/);
+    if (match) return "Dikkatli kullanın. .cursorignore dosyaları aranırken sembolik bağlantıları atlayın. Yalnızca tüm .cursorignore dosyalarına sembolik bağlantı olmadan erişilebiliyorsa etkinleştirin. Bu ayarın değiştirilmesi Cursor'ın yeniden başlatılmasını gerektirir.";
+    if (key.startsWith("Use Datadog directly in Cursor")) return "Datadog'u doğrudan Cursor içinde kullanın; günlükleri, metrikleri, izleri ve panoları doğal dille sorgulayın.";
+    if (key.startsWith("Cursor Plugin for Linear")) return "Linear sorunlarını, projelerini ve belgelerini Cursor içinden yapay zekâ ajanlarıyla yönetin.";
+    if (key.startsWith("Slack MCP server.")) return "Slack kanallarında arama yapın, mesaj gönderin ve diğer Slack işlemlerini Cursor içinden yönetin.";
+    if (key.startsWith("Official Apify agent skills")) return "Web kazıma, veri çıkarma ve otomasyon için resmi Apify ajan becerileri.";
+    if (key.startsWith("Skills for NVIDIAs ecosystem spans")) return "NVIDIA ekosisteminde GPU hızlandırma, CUDA, yapay zekâ, robotik, Omniverse ve simülasyon iş akışları için beceriler.";
+    if (key.startsWith("Guide developers through adding maps")) return "Amazon Location Service ile harita, yer arama, coğrafi kodlama, rota ve diğer konum özelliklerini ekleme rehberliği.";
+    if (key.startsWith("The Appwrite plugin for Cursor")) return "Appwrite projelerine erişmek ve doğru entegrasyon kurmak için beceriler ile MCP sunucuları.";
+    if (key.startsWith("Build full-stack apps with AWS Amplify")) return "AWS Amplify Gen 2 ile tam kapsamlı uygulamalar oluşturma rehberliği.";
+    if (key.startsWith("Build, deploy, and operate applications on AWS")) return "AWS üzerinde uygulama oluşturma, dağıtma ve işletme becerileri.";
+    if (key.startsWith("Expert database guidance for the AWS database portfolio")) return "AWS veritabanları için tasarım, sorgu, geçiş ve seçim rehberliği.";
+    if (key.startsWith("Deploy applications to AWS with architecture recommendations")) return "Mimari öneriler, maliyet tahminleri ve kod olarak altyapıyla AWS dağıtım rehberliği.";
+    if (key.startsWith("Design, build, deploy, test, and debug serverless applications")) return "AWS sunucusuz uygulamalarını tasarlama, geliştirme, dağıtma, test etme ve hata ayıklama becerileri.";
+    if (key.startsWith("Microsoft Azure MCP and Skills integration")) return "Azure kaynaklarını, dağıtımları ve hizmetleri Cursor içinden yönetmek için MCP ve beceri entegrasyonu.";
+    if (key.startsWith("Railway agent skills and MCP server")) return "Railway'de uygulama ve altyapı dağıtma, yapılandırma, izleme ve sorun giderme araçları.";
+    if (key.startsWith("CockroachDB plugin for Cursor")) return "Cursor için CockroachDB eklentisi; şemaları keşfedin, iyileştirilmiş SQL yazın, sorgu hatalarını ayıklayın ve dağıtık veritabanı kümelerini ajanınızdan yönetin.";
+    if (key.startsWith("Official Convex plugin for Cursor")) return "TypeScript ile reaktif arka uç geliştirme için kurallar, beceriler, MCP entegrasyonu ve otomasyon kancaları içeren resmi Convex eklentisi.";
+    if (key.startsWith("Connects Cursor to the Coralogix Observability MCP Server")) return "Cursor'u Coralogix Gözlemlenebilirlik MCP sunucusuna bağlar; günlük, metrik, iz ve RUM sorgulayın, uyarı ve panoları yönetin.";
+    if (key.startsWith("Build backends in TypeScript and Go with automatic infrastructure")) return "Otomatik altyapıyla TypeScript ve Go arka uçları oluşturun; hizmetleri inceleyin, veritabanlarını sorgulayın, izleri analiz edin ve uç noktaları çağırın.";
+    if (key.startsWith("The official Firebase Cursor plugin")) return "Firebase arka ucu ve yapay zekâ altyapısıyla modern uygulamaları prototipleyin, geliştirin ve çalıştırın.";
+    if (key.startsWith("JFrog Platform integration with MCP")) return "MCP, güvenlik becerileri, yazılım tedarik zinciri uygulamaları ve MCP sunucusu yönetişimi için JFrog Platform entegrasyonu.";
+    if (key.startsWith("Official Cursor plugin for MongoDB")) return "MongoDB için resmi Cursor eklentisi; veritabanlarına bağlanın, veriyi keşfedin, koleksiyonları yönetin, sorguları iyileştirin ve güvenilir kod üretin.";
+    if (key.startsWith("Deploy and operate full applications with Monk")) return "Bulut altyapısı, SaaS entegrasyonları ve kapsayıcı iş yükleri dahil tam uygulamaları tek sohbetten dağıtın ve işletin.";
+    if (key.startsWith("Manage your Neon projects and databases")) return "Neon Postgres ajan becerisi ve MCP sunucusuyla Neon projelerinizi ve veritabanlarınızı yönetin.";
+    if (key.startsWith("Netlify platform skills")) return "İşlevler, edge işlevleri, bloblar, veritabanı, kimlik, görsel CDN, formlar, CLI, önbellek, yapay zekâ geçidi ve dağıtım için Netlify becerileri.";
+    if (key.startsWith("PagerDuty MCP server for Cursor")) return "Olayları, hizmetleri, nöbet çizelgelerini ve daha fazlasını doğrudan Cursor'dan yöneten PagerDuty MCP sunucusu.";
+    if (key.startsWith("ParadeDB adds Elastic-quality full-text search")) return "Postgres'e ikinci bir sistem kurmadan Elastic düzeyinde tam metin arama, vektör arama ve toplulaştırma ekler.";
+    if (key.startsWith("Pinecone vector database integration for Cursor")) return "Pinecone vektör veritabanı entegrasyonu; dizinleri ve verileri yönetin, anlamsal arama, RAG ve belgeli soru-cevap uygulamaları oluşturun.";
+    if (key.startsWith("An authenticated hosted MCP server that accesses your PlanetScale")) return "PlanetScale kuruluşlarınıza, veritabanlarınıza, dallarınıza, şemanıza ve Insights verilerine erişen kimlik doğrulamalı MCP sunucusu.";
+    if (key.startsWith("Redis development best practices")) return "Veri yapıları, sorgu motoru, vektör arama, önbellekleme ve performans iyileştirme için Redis geliştirme rehberliği.";
+    if (key.startsWith("Deploy, debug, and monitor applications on Render")) return "Render üzerinde uygulamaları dağıtın, hatalarını ayıklayın ve izleyin; tam iş akışı için beceriler, kurallar, komutlar, ajan, MCP ve kancalar içerir.";
+    if (key.startsWith("Official ScyllaDB agent skills")) return "ScyllaDB Cloud kurulumu, CQL veri modelleme ve Vektör Arama için yönlendirmeli resmi ajan becerileri.";
+    if (key.startsWith("Sentry Plugin for Cursor")) return "MCP ve beceri özellikleriyle hata ayıklamaya yardımcı olan Cursor için Sentry eklentisi.";
+    if (key.startsWith("Access your Supabase projects and perform tasks")) return "Supabase projelerinize erişin; tabloları yönetin, yapılandırmayı alın ve verileri sorgulayın.";
+    if (key.startsWith("Comprehensive skill for the entire Temporal lifecycle")) return "Uygulama geliştirme, Temporal CLI, Temporal Server ve Temporal Cloud dahil tüm Temporal yaşam döngüsü için kapsamlı beceri.";
+    if (key.startsWith("Turbopuffer vector and full-text search database integration")) return "Cursor için turbopuffer vektör ve tam metin arama veritabanı entegrasyonu.";
+    if (key.startsWith("Twilio Skills and MCP provide procedural knowledge")) return "Mesajlaşma, Ses, Verify, SendGrid ve 30'dan fazla ürün için doğru API sırasını ve iyi uygulamaları öğreten Twilio becerileri ile MCP.";
+    if (key.startsWith("Query cloud costs, manage cost reports")) return "Vantage çalışma alanınızda bulut maliyetlerini sorgulayın; raporları, bütçeleri, uyarıları ve önerileri yönetin.";
+    if (key.startsWith("Build and deploy web apps and agents")) return "Web uygulamaları ve ajanları geliştirin ve dağıtın.";
+    if (key.startsWith("WorkOS integration skills for AuthKit")) return "AuthKit, SSO, Dizin Eşitleme, RBAC, Vault, Denetim Günlükleri ve geçişler için WorkOS becerileri ile MCP sunucusu.";
+    if (key.startsWith("Manage the Zscaler cloud security platform")) return "ZPA, ZIA, ZDX, ZCC, EASM ve Z-Insights dahil Zscaler bulut güvenlik platformunu yönetin; uygulama ekleme, ilke denetimi ve olay inceleme becerileri içerir.";
+    if (key.startsWith("Deploy serverless browser automation to Browserbase cloud")) return "Zamanlanmış veya webhook ile tetiklenen tarayıcı görevleri için Browserbase bulutunda sunucusuz otomasyon işlevleri oluşturun, test edin ve yayımlayın.";
+    if (key.startsWith("BrowserStack integration for Cursor")) return "Gerçek cihazlarda web sitelerini ve mobil uygulamaları test edin; otomatik testleri çalıştırın, hataları ayıklayın ve test senaryolarını doğal dille yönetin.";
+    if (key.startsWith("Clerk authentication toolkit for Cursor")) return "Giriş, MFA, kuruluşlar, faturalandırma, webhook ve test akışları için Clerk kimlik doğrulama araçları, MCP sunucusu ve becerileri.";
+    if (key.startsWith("Skills for the Cloudflare developer platform")) return "Workers, Durable Objects, Agents SDK, MCP sunucuları, Wrangler CLI ve web performansı için Cloudflare geliştirme becerileri.";
+    if (key.startsWith("Data lake, analytics, and ETL workflows with S3 Tables")) return "S3 Tables, AWS Glue ve Athena ile veri gölü, analitik ve ETL iş akışları; veri alımı, kataloglama, birleşik sorgular ve vektör aramayı kapsar.";
+    if (key.startsWith("Access your Azure Cosmos DB accounts")) return "Azure Cosmos DB hesaplarınıza erişin; veritabanlarını yönetin, verileri sorgulayın, vektör araması ve şema keşfi yapın.";
+    if (key.startsWith("Connect Cursor to Braintrust")) return "Projelerinize, deneylerinize ve değerlendirme günlüklerinize yapay zekâ destekli erişim için Cursor'u Braintrust'a bağlayın.";
+    if (key.startsWith("Web search, content extraction, structured data, and browser automation powered by Bright Data")) return "Bright Data altyapısıyla web araması, içerik çıkarma, yapılandırılmış veri toplama ve tarayıcı otomasyonu yapın.";
+    if (key.startsWith("ClickHouse Cursor plugin")) return "ClickHouse iyi uygulamaları, kuralları ve MCP entegrasyonu içeren Cursor eklentisi.";
+    if (key.startsWith("Access Confidence feature flags")) return "Confidence özellik bayraklarına, deneylerine ve geçiş araçlarına doğrudan Cursor'dan erişin.";
+    if (key.startsWith("Expert guidance for working with Dagster")) return "Dagster ve dg komut satırı aracıyla çalışmak için uzman rehberliği.";
+    if (key.startsWith("Elastic skills and documentation")) return "Elasticsearch, Kibana, Gözlemlenebilirlik, Güvenlik, Cloud, ES|QL, OpenTelemetry ve MCP belgeleri için Elastic becerileri.";
+    if (key.startsWith("Web search and content extraction powered by Exa AI")) return "Exa AI destekli web araması ve içerik çıkarma araçları.";
+    if (key.startsWith("Web scraping, crawling, and search for AI agents")) return "Firecrawl CLI ile yapay zekâ ajanları için web kazıma, tarama ve arama; web içeriğine doğrudan erişim sağlar.";
+    if (key.startsWith("Hosted MCP server for AI-assisted Grafana Cloud observability")) return "Yerel kurulum gerektirmeden yapay zekâ destekli Grafana Cloud gözlemlenebilirliği sağlayan barındırılan MCP sunucusu.";
+    if (key.startsWith("Skills and rules for developing and using the Grafana Assistant")) return "Grafana Assistant uygulaması ve CLI aracını geliştirmek ve kullanmak için beceriler ile kurallar.";
+    if (key.startsWith("AI analytics and data collaboration")) return "Cursor'u MCP üzerinden Hex çalışma alanınıza bağlayan yapay zekâ analitiği ve veri işbirliği araçları.";
+    if (key.startsWith("Agent Skills for AI/ML tasks including dataset creation")) return "Hugging Face Hub üzerinde veri kümesi oluşturma, model eğitme, değerlendirme ve araştırma yayımlama için yapay zekâ/makine öğrenmesi becerileri.";
+    if (key.startsWith("Mixpanel skills for Cursor")) return "İzleme kurulumu, metrik inceleme ve diğer Mixpanel iş akışları için Cursor becerileri.";
+    if (key.startsWith("Explore, query, model, embed, and manage Omni Analytics")) return "Omni Analytics'i REST API ve Embed SDK ile keşfedin, sorgulayın, modelleyin, gömün ve yönetin.";
+    if (key.startsWith("OpenSearch skills to help set up and deploy OpenSearch")) return "Anlamsal ve karma arama, günlük analizi, dağıtık izler, RAG ve AWS dağıtımları için OpenSearch kurulum ve kullanım becerileri.";
+    if (key.startsWith("Bring Pendo analytics into Cursor")) return "Hesap sağlığı, özellik benimseme, oturum tekrarları ve geri bildirim analizi için Pendo verilerini Cursor'a getirin.";
+    if (key.startsWith("Access PostHog analytics")) return "PostHog analizlerine, özellik bayraklarına, deneylere, hata izlemeye ve içgörülere doğrudan Cursor'dan erişin.";
+    if (key.startsWith("Full API lifecycle management for Cursor")) return "Koleksiyon eşitleme, istemci kodu üretme, API keşfi, test, sahte servis, belge ve güvenlik denetimiyle tam API yaşam döngüsü yönetimi.";
+    if (key.startsWith("The official Prisma plugin for Cursor")) return "Veritabanı geliştirme için MCP sunucusu, kurallar, beceriler ve otomasyon içeren resmi Prisma eklentisi.";
+    if (key.startsWith("ThoughtSpot developer documentation")) return "Visual Embed SDK, REST API v2 ve geliştirici rehberlerinde arama sağlayan ThoughtSpot belgeleri.";
+    if (key.startsWith("Connect AI agents to ZoomInfo's verified GTM context graph")) return "ZoomInfo'nun doğrulanmış şirket, kişi ve satın alma niyeti verileriyle aday listeleri oluşturun, kayıtları zenginleştirin ve karar vericileri bulun.";
+    if (key.startsWith("Box Plugin for Cursor")) return "Box içeriğinde arama yapın, içeriği okuyup yönetin; Box Platform entegrasyonları ve Box AI ile soru-cevap, özetleme ve çıkarma kullanın.";
+    if (key.startsWith("Create, edit, review, resize, and brand-check Canva designs")) return "Canva MCP sunucusuyla tasarımlar oluşturun, düzenleyin, inceleyin, boyutlandırın ve marka kurallarını denetleyin.";
+    if (key.startsWith("Product requirements in your editor")) return "Kod bağlamından ürün gereksinim belgeleri yazın, şartnamelerden uygulayın ve değişikliklerin gereksinimlerle eşleştiğini doğrulayın.";
+    if (key.startsWith("Connect Cursor to your ClickUp workspace")) return "Cursor'u ClickUp çalışma alanınıza bağlayın; görevleri yönetin, zamanı izleyin ve bağlam değiştirmeden işbirliği yapın.";
+    if (key.startsWith("Create, configure, and author GitBook documentation sites")) return "GitBook belge siteleri oluşturun ve yapılandırın; Git Sync, marka özelleştirme ve Markdown sayfa yazımını yönetin.";
+    if (key.startsWith("Connect Cursor to GitLab with the GitLab MCP server")) return "GitLab MCP sunucusuyla sorunları, birleştirme isteklerini ve işlem hatlarını Cursor'dan planlayıp yönetin.";
+    if (key.startsWith("Official Glean plugin for Cursor")) return "Belgelerde, Slack'te ve e-postada arama yapın; depolar arası kodu keşfedin, uzmanları ve paydaşları bulun.";
+    if (key.startsWith("Your meetings in your workflow")) return "Granola ile ekip görüşmelerinde konuşulanları, alınan kararları ve verilen taahhütleri Cursor iş akışına taşıyın.";
+    if (key.startsWith("Official GSAP skills for Cursor")) return "Animasyonlar, zaman çizelgeleri, ScrollTrigger, eklentiler, React entegrasyonu ve performans için resmi GSAP becerileri.";
+    if (key.startsWith("Harness Skills + Harness MCP server")) return "Cursor'dan Harness ile geliştirme, hata ayıklama, dağıtım ve yönetişim için beceriler ile MCP sunucusu.";
+    if (key.startsWith("Cursor Plugin for IcePanel")) return "IcePanel ortamınızdaki modelleri, bağlantıları ve diğer mimari öğeleri yapay zekâ ajanlarıyla yönetin.";
+    if (key.startsWith("LaunchDarkly agent skills and mcp server")) return "Özellik bayrağı yönetimi, yapay zekâ yapılandırması ve beceri yazımı için LaunchDarkly ajan becerileri ile MCP sunucusu.";
+    if (key.startsWith("Give Cursor a multiplayer canvas for your code")) return "Mevcut arayüzü tuvale alın, bileşen kitaplıkları oluşturun, tasarım sistemi temaları uygulayın ve bileşenleri üretim koduna aktarın.";
+    if (key.startsWith("Comprehensive reference for building Mintlify documentation sites")) return "Mintlify belge siteleri oluşturmak için kapsamlı başvuru kaynağı.";
+    if (key.startsWith("Secure access to Miro boards")) return "Miro panolarına güvenli erişim; yapay zekânın pano bağlamını okumasını, diyagram oluşturmasını ve kod üretmesini sağlar.";
+    if (key.startsWith("Seven skills for monday CRM users")) return "monday CRM için ilk kurulum, sabah özeti, tahmin panosu, veri temizliği, çalışma alanı kurulumu ve toplantı-fırsat eşitleme becerileri.";
+    if (key.startsWith("Notion Skills + Notion MCP server")) return "Notion becerileri ile Notion MCP sunucusunu içeren Cursor eklentisi.";
+    if (key.startsWith("Design on a canvas that Cursor can read and write")) return "Cursor'un okuyup yazabildiği, web standartlarına dayalı bir tuval üzerinde tasarım yapın.";
+    if (key.startsWith("Skills and MCP server for the Resend email platform")) return "Resend e-posta platformunda gönderme, alma, şablonlar, CLI, React Email ve teslim edilebilirlik için beceriler ile MCP sunucusu.";
+    if (key.startsWith("Sanity plugin for Cursor")) return "MCP sunucusu, ajan becerileri, ajan kuralları ve komutlar içeren Sanity eklentisi.";
+    if (key.startsWith("A plugin for all things related to Svelte development")) return "Svelte geliştirme, MCP ve beceriler için kapsamlı Cursor eklentisi.";
+    if (key.startsWith("Agentic production engineering for SWE")) return "Gözlemlenebilirlik, CI/CD ve gelişen bilgi tabanlarıyla üretim sorunlarını inceleyip çözmek için ajan destekli mühendislik araçları.";
+    if (key.startsWith("Draw and visually collaborate with your agents")) return "Cursor içinde ajanlarınızla çizim yapın ve görsel olarak işbirliği kurun.";
+    if (key.startsWith("Production-ready agent skills for Webflow")) return "Webflow için CMS yönetimi, site denetimi, varlık iyileştirme ve güvenli yayımlama becerileri.";
+    if (key.startsWith("Build, manage, and deploy Wix sites and apps directly from Cursor")) return "Wix sitelerini ve uygulamalarını Cursor'dan oluşturun, yönetin ve dağıtın; pano, arka uç, widget ve hizmet eklentisi geliştirme becerileri içerir.";
+    if (key.startsWith("Connect 9,000+ apps to your AI workflow")) return "9.000'den fazla uygulamayı yapay zekâ iş akışınıza bağlayın; Zapier eylemlerini keşfedin, etkinleştirin ve çalıştırın.";
+    if (key.startsWith("Agent-first CLI for trading crypto")) return "Kraken'da kripto, hisse, döviz ve türev işlemleri için ajan odaklı CLI; varsayılan olarak kâğıt üzerinde işlem yapar, canlı işlem API anahtarıyla açılır.";
+    if (key.startsWith("Give your agent a wallet")) return "Ajanınıza Phantom cüzdanı verin; desteklenen zincirlerde takas, imzalama ve adres yönetimi yapın.";
+    if (key.startsWith("Connect Cursor to Ramp via MCP")) return "Cursor'u MCP üzerinden Ramp'a bağlayın; harcama analizi, onaylar, işlem temizliği ve tedarikçi akışlarını yönetin.";
+    if (key.startsWith("Configure your RevenueCat integration")) return "RevenueCat entegrasyonunuzu yapılandırın ve RevenueCat projelerinizdeki verilere erişin.";
+    if (key.startsWith("Deep Google Play subscription lifecycle skills")) return "RevenueCat Android SDK için satın alma, plan ve fiyat değişiklikleri, ödeme kurtarma, webhook ve güvenlik dahil Google Play abonelik yaşam döngüsü becerileri.";
+    if (key.startsWith("Use the Revolut X CLI")) return "Kripto işlemleri, piyasa verileri, izleme ve grid bot stratejileri için Revolut X CLI aracını kullanın.";
+    if (key.startsWith("Shopify developer tools for Cursor")) return "Shopify belgelerinde arama yapın; GraphQL, Liquid ve arayüz uzantısı kodu üretip doğrulayın. Telemetri OPT_OUT_INSTRUMENTATION=true ile kapatılabilir.";
+    if (key.startsWith("Stripe plugin for Cursor")) return "Stripe entegrasyonları, iyi uygulamalar, API/SDK yükseltme rehberliği ve Stripe MCP sunucusu içeren Cursor eklentisi.";
+    if (key.startsWith("Browser automation for Cursor")) return "Cursor için tarayıcı otomasyonu; sayfalarda gezinme, tıklama, form doldurma, veri çıkarma, ağ yakalama, sekme yönetimi ve ekran görüntüsü sağlar.";
+    if (key.startsWith("Connect and operate 1000+ external apps from Cursor")) return "Composio MCP ile 1.000'den fazla harici uygulamayı Cursor'dan bağlayıp yönetin; OAuth, araç yönlendirme ve uzak veri işleme alanı içerir.";
+    if (key.startsWith("Brainstorm, plan, debug, review, and compound learnings")) return "Yapay zekâ ajanlarıyla fikir üretin, planlayın, hata ayıklayın, inceleyin ve öğrenimleri biriktirin.";
+    if (key.startsWith("Upstash Context7 MCP server")) return "Güncel ve sürüme özel belgeler ile kod örneklerini kaynak depolardan LLM bağlamına getiren Context7 MCP sunucusu.";
+    if (key.startsWith("Scaffold and validate new Cursor plugins")) return "Yeni Cursor eklentilerini iskeletleyip doğrulayın; klasör kurulumu, bildirim dosyası üretimi ve pazar öncesi kalite denetimi yapar.";
+    if (key.startsWith("A collection of DataRobot agent skills")) return "Model eğitimi, dağıtım, tahmin ve izleme için DataRobot ajan becerileri koleksiyonu.";
+    if (key.startsWith("Cursor plugin for Firetiger agentic operations")) return "Beceriler ve MCP erişimiyle Firetiger ajan operasyonlarını Cursor'a getiren eklenti.";
+    if (key.startsWith("Skills for working with Langfuse")) return "Açık kaynak LLM mühendislik platformu Langfuse'ta izleme, istem yönetimi ve değerlendirme için beceriler.";
+    if (key.startsWith("Connect Cursor to hundreds of enterprise tools")) return "Merge CLI ile Cursor'u Jira, Salesforce, Slack, Gong, Workday ve yüzlerce kurumsal araca bağlayın.";
+    if (key.startsWith("Opsera DevSecOps Agent")) return "Kod tabanı için yapay zekâ destekli mimari analiz, güvenlik taraması, uyumluluk denetimi ve SQL güvenliği sağlayan Opsera DevSecOps ajanı.";
+    if (key.startsWith("Web search, content extraction, deep research, and data enrichment powered by parallel-cli")) return "parallel-cli ile web araması, içerik çıkarma, derin araştırma ve veri zenginleştirme.";
+    if (key.startsWith("Simpler, safer way to run MCPs")) return "MCP, beceri ve ajanları daha güvenli çalıştırın; çalışanları keşfedin, güvenlik ilkelerini uygulayın, sırları koruyun ve denetim izi tutun.";
+    if (key.startsWith("UI component and design system framework")) return "Bileşen kayıtlarında arama yapan, kaynak kod olarak bileşen kuran ve projeyi denetleyen shadcn/ui tasarım sistemi araçları.";
+    if (key.startsWith("Tools that let coding agents verify and show their work")) return "Kodlama ajanlarının çalışan uygulamanız üzerinde sonuçlarını doğrulayıp göstermesini sağlayan araçlar.";
+    if (key.startsWith("Core skills library: TDD")) return "TDD, hata ayıklama, işbirliği kalıpları ve kanıtlanmış teknikler için temel beceri kitaplığı.";
+    if (key.startsWith("Search, explore, and investigate your team's remote repositories")) return "Tabnine Context Engine ile uzak depolarda anlamsal kod arama, sembol bulma, dosya gezintisi ve OpenAPI sorgulama.";
+    if (key.startsWith("Context Engine CLI (ctx-cli) as focused skills")) return "Kiracı kurulumu, kod ve bilgi grafiği araması, hizmet inceleme, CVE/SAST önceliklendirme ve kodlama ilkesi denetimleri için ctx-cli becerileri.";
+    if (key.startsWith("A single unified Auth0 skill")) return "Çerçeveyi ve özelliği algılayarak giriş, MFA, kuruluşlar, özel alan adı, JWT doğrulama, geçiş ve hata ayıklama rehberlerini yükleyen Auth0 becerisi.";
+    if (key.startsWith("Buildkite MCP server and skills")) return "İşlem hattı tasarımı, derleme sorun giderme, ajan çalışma zamanı, CLI ve API için Buildkite MCP sunucusu ile becerileri.";
+    if (key.startsWith("Secure container images and hardened library dependencies")) return "Chainguard ile güvenli kapsayıcı imajları ve sağlamlaştırılmış bağımlılıklar; imaj, güvenlik duyurusu ve ilke yönetimi sağlar.";
+    if (key.startsWith("Connect Cursor to ThousandEyes MCP endpoints")) return "Ağ zekâsı iş akışları için Cursor'u Cisco ThousandEyes MCP uç noktalarına bağlayın.";
+    if (key.startsWith("Patterns for designing CLIs that coding agents can run reliably")) return "Ajanların güvenilir çalıştırabileceği CLI araçları için etkileşimsiz bayraklar, örnekli yardım, işlem hatları, anlaşılır hatalar ve dry-run kalıpları.";
+    if (key.startsWith("Use Cloudinary directly in Cursor")) return "Cloudinary'yi Cursor içinde kullanın; görsel ve videoları doğal dille yükleyin, yönetin, iyileştirin ve dönüştürün.";
+    if (key.startsWith("Incrementally learns durable user preferences")) return "Konuşma değişikliklerinden kalıcı kullanıcı tercihlerini ve çalışma alanı bilgilerini öğrenerek AGENTS.md dosyasını sade maddelerle günceller.";
+    if (key.startsWith("Corridor secures your AI-generated code")) return "Yapay zekâ tarafından üretilen kodu Corridor ile güvenceye alır; kullanmak için Corridor API anahtarı gerekir.";
+    if (key.startsWith("Build apps, scripts, CI pipelines, and automations on top of the Cursor TypeScript SDK")) return "Cursor TypeScript SDK üzerinde uygulama, betik, CI hattı ve otomasyon geliştirme; çalışma zamanı, kimlik doğrulama, akış ve MCP kalıpları.";
+    if (key.startsWith("Internal workflows used by Cursor developers")) return "Cursor geliştiricilerinin CI, kod inceleme, yayımlama, test güvenilirliği, kod temizliği ve iş özeti için kullandığı dahili iş akışları.";
+    if (key.startsWith("Dun & Bradstreet empowers teams to execute workflows such as entity resolution, Sales & Marketing")) return "D&B Commercial Graph ile kuruluş eşleştirme, satış, pazarlama, finans, ana veri, tedarik zinciri ve uyumluluk iş akışları.";
+    if (key.startsWith("Dun & Bradstreet empowers teams to execute risk workflows")) return "D&B Commercial Graph ile KYC/KYB, kuruluş eşleştirme, tarama, uyarı önceliklendirme ve ölçeklenebilir risk operasyonları.";
+    if (key.startsWith("Databricks skills for the CLI")) return "Databricks CLI, Apps, Lakebase, Model Serving, Lakeflow Jobs, bildirimsel işlem hatları ve sunucusuz geçiş için beceriler.";
+    if (key.startsWith("Endor Labs skills for setting up endorctl")) return "endorctl kurulumu ve bağımlılık yükseltmelerinin etkisini analiz etmek için Endor Labs becerileri.";
+    if (key.startsWith("eToro API integration for Cursor")) return "OAuth SSO, piyasa verileri, işlemler, hesap hesaplamaları, ajan portföyleri ve sosyal özellikler için eToro API entegrasyonu.";
+    if (key.startsWith("Forge — Work order management")) return "Yapay zekâ destekli geliştirme için iş emri yönetimi, geliştirici etkinliği takibi ve proje bağlamı.";
+    if (key.startsWith("Create HeyGen avatar videos")) return "HeyGen ile avatar videoları, kişiselleştirilmiş mesajlar ve çevrilmiş/dublajlı videolar oluşturun; ses klonlama ve dudak eşitleme içerir.";
+    if (key.startsWith("Generate images, videos, and more using Higgsfield")) return "Cursor içinden Higgsfield MCP ile görsel, video ve daha fazlasını üretin.";
+    if (key.startsWith("Drive Lovable from Cursor")) return "Cursor'dan Lovable projeleri oluşturun, ajana iş gönderin, bulut veritabanlarını yönetin ve dağıtım yapın.";
+    if (key.startsWith("Ideate, diagram, and align teams by connecting Cursor to Lucid")) return "Cursor'u Lucid'e bağlayarak fikir üretin, diyagram hazırlayın ve teknik mimariyi arayıp yönetin.";
+    if (key.startsWith("Use Magic Patterns")) return "Kodlama ajanınızdan Magic Patterns ile fikirleri prototipleyin, arayüz ilhamı üretin, yerel arayüz yükleyin ve tasarımları kod tabanına aktarın.";
+    if (key.startsWith("Create and share short video updates from agent work")) return "Ajan çalışmalarından kısa video güncellemeleri oluşturun ve paylaşın.";
+    if (key.startsWith("Mem0 memory layer for AI applications")) return "Yapay zekâ uygulamalarına kalıcı bellek, kişiselleştirme ve anlamsal arama ekleyen Mem0 bellek katmanı.";
+    if (key.startsWith("Microsoft Dataverse plugin for coding agents")) return "CRUD, toplu veri, gelişmiş sorgular, şema yaşam döngüsü ve ortam yönetimini MCP, CLI ve SDK ile birleştiren Dataverse eklentisi.";
+    if (key.startsWith("Modern Web Guidance is an agent skill")) return "Yapay zekâ ajanlarının eski geçici çözümler yerine modern, güvenli ve yüksek performanslı web API'leri kullanmasına yardım eden Chrome destekli rehber.";
+    if (key.startsWith("Connect Cursor to OneSignal")) return "Cursor'u OneSignal MCP sunucusu üzerinden OneSignal'a bağlayın.";
+    if (key.startsWith("Fan a large task out across parallel Cursor cloud agents")) return "Büyük bir görevi Cursor SDK ile paralel bulut ajanlarına dağıtın; planlayıcı, çalışan ve sonuç birleştirme akışlarını yönetir.";
+    if (key.startsWith("Connect Cursor to Plain")) return "Cursor'u Plain'e bağlayın; destek konuşmalarını, müşterileri, kiracıları ve yardım merkezi makalelerini düzenleyiciden yönetin.";
+    if (key.startsWith("Port MCP Server Gives Cursor's AI agent full engineering context")) return "Port MCP, ajana hizmetler, ekipler, bağımlılıklar, standartlar, sahiplik ve kullanılabilir eylemler hakkında tam mühendislik bağlamı verir.";
+    if (key.startsWith("if you want to go fast, go deep first")) return "Daha az fakat daha kaliteli kod için derin ve paralelleştirilebilir ajan iş akışları sunan pstack eklentisi.";
+    if (key.startsWith("Create, refine, and vectorize SVG assets")) return "QuiverAI MCP ile SVG varlıkları oluşturun, iyileştirin ve vektörleştirin.";
+    if (key.startsWith("Connect Cursor to Raisely")) return "Raisely MCP ile kampanyaları, bağışları, destekçileri ve diğer kayıtları sohbetten sorgulayıp yönetin.";
+    if (key.startsWith("Scan, understand, and fix React codebase diagnostics")) return "React Doctor ile React kod tabanı tanılarını tarayın, anlayın ve düzeltin.";
+    if (key.startsWith("Use Resolve for investigations")) return "İncelemeler, olaylar ve üretim bağlamı için Resolve kullanın.";
+    if (key.startsWith("Administrator skills for managing Resolve integrations")) return "Resolve entegrasyonlarını yönetmek; kaynakları oluşturmak, hata ayıklamak ve yapılandırmak için yönetici becerileri.";
+    if (key.startsWith("One-install mobile dev loops on cloud iOS/Android devices")) return "Bulut iOS/Android cihazlarında uygulamayı çalıştırın, değişiklikleri ekran görüntüleriyle doğrulayın ve cihaz kanıtıyla yayımlayın.";
+    if (key.startsWith("Roboflow computer vision skills")) return "Veri kümeleri, etiketleme, eğitim, iş akışları, çıkarım ve dağıtım için Roboflow bilgisayarlı görü becerileri ile MCP araçları.";
+    if (key.startsWith("AI agent skills for integrating the Scandit Data Capture SDK")) return "Barkod tarama, kimlik yakalama ve akıllı etiket yakalama için Scandit SDK seçim, belge ve uygulama rehberleri.";
+    if (key.startsWith("Plugin by Semgrep")) return "Cursor için MCP, kancalar ve beceriler üzerinden Semgrep güvenlik taraması sağlar.";
+    if (key.startsWith("Ship faster with Sinch in Cursor")) return "SMS, WhatsApp, RCS, ses, e-posta, doğrulama ve numaralar için Sinch becerileri ile MCP.";
+    if (key.startsWith("Snyk security scanning")) return "Cursor için Snyk güvenlik taraması, düzeltme ve bağımlılık sağlığı araçları.";
+    if (key.startsWith("Snyk API & Web MCP Server")) return "Hedef ekleme, kimlik doğrulama, DAST taraması ve bulgu önceliklendirme için Snyk API & Web MCP sunucusu.";
+    if (key.startsWith("Automatically enforce SonarQube code quality")) return "40'tan fazla dilde 7.000'den fazla kural, sır tarama, ajan analizi ve kalite kapılarıyla SonarQube kalite ve güvenliğini uygular.";
+    if (key.startsWith("AI-powered dependency intelligence")) return "Güvenlik açıklarını denetleyin, daha güvenli sürümleri bulun ve Sonatype verileriyle bağımlılık kararlarını iyileştirin.";
+    if (key.startsWith("Web search, content extraction, crawling, deep research")) return "Tavily tvly CLI ile web araması, içerik çıkarma, tarama, derin araştırma ve URL keşfi.";
+    if (key.startsWith("Thermo-nuclear branch review")) return "Derin doğruluk ve güvenlik denetimleri, sert kod kalitesi ölçütleri, paralel alt ajanlar ve birleştirmeye hazır akışlar sunar.";
+    if (key.startsWith("Reports this device's Cursor MCP servers to Zenity")) return "Oturum başında bu cihazdaki Cursor MCP sunucularını Zenity AI Edge'e bildirir; yapılandırmadaki sırları temizler ve iletmez.";
+    if (key.startsWith("Prospect, enrich leads, load outreach sequences")) return "Apollo.io ile potansiyel müşteri bulun, verileri zenginleştirin, erişim dizileri yükleyin ve satış analizlerini sorgulayın.";
+    if (key.startsWith("Add Arize AX observability to LLM applications")) return "LLM uygulamalarına Arize AX gözlemlenebilirliği; otomatik izleme, veri kümeleri, deneyler ve istem iyileştirme araçları ekler.";
+    if (key.startsWith("Connect Cursor to Asana")) return "Cursor'u Asana'ya bağlayın; görev oluşturun, projeleri güncelleyin, çalışma alanında arama yapın ve işleri yönetin.";
+    if (key.startsWith("Data engineering plugin - warehouse exploration")) return "Veri ambarı keşfi, veri hattı oluşturma ve Airflow entegrasyonu için veri mühendisliği eklentisi.";
+    if (key.startsWith("Atlan is the context layer for enterprise AI")) return "Kurumsal yapay zekâ için bilgi, veri ve anlam katmanı. Güvenilir kurumsal bağlamı arayın, veri soyunu izleyin ve yönetilen tanımlara erişin.";
+    if (key.startsWith("Atlassian plugin for Cursor")) return "Jira, Confluence, önceliklendirme, iş listeleri ve durum raporları için MCP ve beceriler içeren Atlassian eklentisi.";
+    if (key.startsWith("Forge app builder skill bundle")) return "Atlassian Forge uygulamalarını geliştirme, dağıtma ve sorun giderme için Forge MCP entegrasyonlu beceri paketi.";
+    if (key.startsWith("Use Amplitude like an expert")) return "Amplitude ile analitik ölçüm kurun, ürün fırsatlarını keşfedin, grafikleri inceleyin, pano ve deneyleri yönetin.";
+    if (key.startsWith("Bring Antimetal's software investigation intelligence")) return "Antimetal'in yazılım inceleme yeteneklerini Cursor'a getirir; sorunları önceliklendirir, temel nedenleri araştırır ve düzeltmeler uygular.";
+    if (key.startsWith("Development, customization, testing, and deployment skills for Adobe App Builder")) return "Adobe App Builder projelerini geliştirme, özelleştirme, test etme ve dağıtma becerileri.";
+    if (key.startsWith("Quote and execute intent-based (Fusion)")) return "1inch ile zincir içi ve zincirler arası token takasları, limit emirleri, portföy bakiyeleri, fiyatlar ve gaz tahminlerini yönetin.";
+    if (key.startsWith("Airwallex CLI plugin for Cursor")) return "Cursor için Airwallex komut satırı eklentisi.";
+    if (key.startsWith("Use Chargebee's API integration patterns")) return "Cursor içinde faturalandırma işlemleri için Chargebee API entegrasyonu, webhook, SDK ve şema rehberliği.";
+    if (key.startsWith("Ship stablecoin apps faster")) return "USDC ödemeleri, zincirler arası transferler, cüzdanlar ve akıllı sözleşmeler için Circle becerileri ve MCP sunucusu.";
+    if (key.startsWith("Build, deploy, and operate AI agents on AWS")) return "AWS üzerinde yapay zekâ ajanları oluşturma, dağıtma ve işletme; araç, bellek, çoklu ajan, gözlemleme ve güvenlik becerileri.";
+    if (key.startsWith("Build, train, and deploy AI models with deep AWS AI/ML expertise")) return "Amazon SageMaker AI uzmanlığıyla yapay zekâ modelleri oluşturun, eğitin ve dağıtın.";
+    if (key.startsWith("Render documentation — architecture notes")) return "Mimari notları, API başvurularını, çalışma kitaplarını ve kod tabanı anlatımlarını gezilebilir Cursor Tuvali olarak görüntüler.";
+    if (key.startsWith("Render PR diffs as interactive Cursor Canvases")) return "PR farklarını önem düzeyine göre düzenlenen, temel değişiklikleri ve riskli kodu vurgulayan etkileşimli Cursor tuvallerinde gösterir.";
+    if (key.startsWith("1Password Developer Environments for Cursor")) return "Proje sırlarını oluşturmak, içe aktarmak ve yönetmek için 1Password araçları. macOS veya Linux gerektirir; Windows desteklenmez.";
+    if (key.startsWith("CLI-backed repo compatibility scans")) return "Depoların başlatma, doğrulama ve belge uyumluluğunu gerçek davranışa göre denetleyen komut satırı taramaları ve Cursor ajanları.";
+    if (key.startsWith("AMD's verified Agent Skills in one plugin")) return "Ryzen AI ve AMD Instinct üzerinde yerel yapay zekâ, LLM sunumu ve GPU/PyTorch performans analizi için doğrulanmış AMD ajan becerileri.";
+    if (key.startsWith("Comprehensive integration guide for Chargebee billing platform")) return "Chargebee faturalandırma platformu için kapsamlı entegrasyon rehberi. API ve REST çağrıları, webhook olayları, müşteri yönetimi, abonelik yaşam döngüsü, ödeme, fatura ve diğer faturalandırma entegrasyonlarında kullanılır.";
+    if (key.startsWith("Analyze recent cloud agent runs to root-cause environment setup failures")) return "Son bulut ajanı çalıştırmalarını analiz ederek kurulum günlükleri, konuşma dökümleri ve ortam verilerinden ortam kurulum hatalarının temel nedenini bulun";
+    if (key.startsWith("Use /add-plugin to install a plugin from the Cursor")) return "Cursor Eklenti Pazarı'ndan eklenti yüklemek için /add-plugin kullanın";
+    if (key.startsWith("Use /plan to improve agent execution with Plan Mode")) return "/plan ile Plan Modu'nu kullanarak ajan yürütmesini iyileştirin";
+    if (key.startsWith("Use /create-hook to control and extend the agent loop with custom scripts")) return "/create-hook ile ajan döngüsünü özel betiklerle denetleyip genişletin";
+    if (key.startsWith("Use /simplify to have Cursor review all changed files for code quality and efficiency")) return "/simplify ile Cursor'un tüm değişen dosyaları kod kalitesi ve verimlilik için incelemesini sağlayın";
+    if (key.startsWith("Use /multitask so Cursor can work on your queued messages in parallel")) return "/multitask ile Cursor'un sıradaki mesajlarınız üzerinde paralel çalışmasını sağlayın";
+    if (key.startsWith("Use /review to have Cursor find bugs")) return "/review ile Cursor'un hataları, gerilemeleri, güvenlik sorunlarını ve eksik testleri bulmasını sağlayın";
+    if (key.startsWith("Use /review for an agentic code review of your changes")) return "/review ile değişikliklerinizi ajan destekli kod incelemesinden geçirin";
+    if (key.startsWith("Kullan /review for an agentic code review of your changes")) return "/review ile değişikliklerinizi ajan destekli kod incelemesinden geçirin";
+    if (key.startsWith("Debug Mode reproduces and solves your most difficult bugs")) return "Hata Ayıklama Modu en zor hatalarınızı yeniden oluşturup çözer; başlamak için Shift+Tab tuşlarına iki kez basın";
+    if (key.startsWith("Use /babysit to triage PR comments")) return "/babysit ile PR yorumlarını önceliklendirin, CI hatalarını düzeltin ve çakışmaları temizleyin";
+    if (key.startsWith("Kullan /babysit to triage PR comments")) return "/babysit ile PR yorumlarını önceliklendirin, CI hatalarını düzeltin ve çakışmaları temizleyin";
+    if (key.startsWith("Drag and drop agent chats to split your view")) return "Görünümünüzü döşenmiş panellere bölmek için ajan sohbetlerini sürükleyip bırakın";
+    if (key.startsWith("Use /multitask to run subagents to parallelize your requests instead of queuing them")) return "/multitask ile isteklerinizi sıraya almak yerine paralel çalıştırmak için alt ajanları kullanın";
+    if (key.startsWith("Try a new window for running parallel agents")) return "Paralel ajanları çalıştırmak için yeni bir pencere deneyin";
+    if (key.startsWith("After long sessions, use /split-to-prs to turn your work into small, reviewable PRs")) return "Uzun oturumlardan sonra çalışmanızı küçük ve incelenebilir PR'lara bölmek için /split-to-prs kullanın";
+    if (key === "After long sessions, use") return "Uzun oturumlardan sonra";
+    if (key.startsWith("Voice mode lets you dictate better prompts for your agents")) return "Ses modu, ajanlarınız için daha iyi istemleri dikte etmenizi sağlar";
+    if (key.startsWith("Use /ask to research your codebase before starting code changes")) return "Kod değişikliklerine başlamadan önce kod tabanınızı araştırmak için /ask kullanın";
+    if (key.startsWith("Ask Mode uses read-only agents to research your codebase")) return "Sor Modu, kod tabanınızı araştırmak için salt okunur ajanlar kullanır; başlamak için Shift+Tab tuşlarına basın";
+    if (key.startsWith("Sor Mod uses read-only agents to research your codebase")) return "Sor Modu, kod tabanınızı araştırmak için salt okunur ajanlar kullanır; başlamak için Shift+Tab tuşlarına basın";
+    if (key.startsWith("Cursor can respond with interactive visualizations alongside text")) return "Cursor, metnin yanında etkileşimli görselleştirmelerle yanıt verebilir; başlamak için /canvas kullanın";
+    if (key.startsWith("Use /canvas to get interactive visualizations like dashboards from Cursor")) return "/canvas ile Cursor'dan pano gibi etkileşimli görselleştirmeler alın";
+    if (key.startsWith("Use /automate to create Cursor Automations without leaving your agent chat")) return "/automate ile ajan sohbetinden ayrılmadan Cursor Otomasyonları oluşturun";
+    if (key.startsWith("Use /cloud or /local to move agent sessions between runtimes")) return "/cloud veya /local ile ajan oturumlarını çalışma ortamları arasında taşıyın";
+    if (key.startsWith("Use /cloud to run agents remotely for better parallelization and durable execution")) return "/cloud ile daha iyi paralelleştirme ve kalıcı yürütme için ajanları uzaktan çalıştırın";
+    if (key.startsWith("Use /create-rule to control agent behavior through system-level instructions")) return "/create-rule ile ajan davranışını sistem düzeyi talimatlarla denetleyin";
+    if (key.startsWith("Use /create-skill to customize Cursor for your workflows")) return "/create-skill ile Cursor'u iş akışlarınıza göre özelleştirin";
+    if (key.startsWith("Use /create-subagent to set up specialized agents that Cursor can use to parallelize work")) return "/create-subagent ile Cursor'un işi paralelleştirmek için kullanabileceği uzman ajanlar kurun";
+    if (key.startsWith("Use /debug to solve bugs that are hard to reproduce or understand")) return "/debug ile yeniden üretmesi veya anlaması zor hataları çözün";
+    if (key.startsWith("Use /in-cloud to start a subagent in its own cloud VM")) return "/in-cloud ile yerel çalışma alanınızı boş tutarak alt ajanı kendi bulut VM'inde başlatın";
+    if (key.startsWith("Use /loop to run a prompt on a schedule")) return "/loop ile bir istemi zamanlamaya göre çalıştırın";
+    if (key.startsWith("Use /model to pick the best model for your task")) return "/model ile göreviniz için en uygun modeli seçin; maliyet-yetenek dengesi için Composer'ı kullanın";
+    if (key.startsWith("Use /shell to run commands in the terminal")) return "/shell ile terminalde komut çalıştırın";
+    if (key.startsWith("Use /split-to-prs")) return "/split-to-prs ile çalışmanızı küçük PR'lara ayırın";
+    if (key === "Use /automate") return "/automate kullan";
+    if (key === "Use /cloud") return "/cloud kullan";
+    if (key === "Use /cloud or /local") return "/cloud veya /local kullan";
+    if (key === "Use /create-rule") return "/create-rule kullan";
+    if (key === "Use /create-skill") return "/create-skill kullan";
+    if (key === "Use /create-subagent") return "/create-subagent kullan";
+    if (key === "Use /debug") return "/debug kullan";
+    if (key === "Use /in-cloud") return "/in-cloud kullan";
+    if (key === "Use /loop") return "/loop kullan";
+    if (key === "Use /model") return "/model kullan";
+    if (key === "Use /shell") return "/shell kullan";
+    if (key === "Use /review") return "/review kullan";
+    if (key === "Kullan /review") return "/review kullan";
+    if (key === "Use /plan") return "/plan kullan";
+    if (key === "Use /ask") return "/ask kullan";
+    if (key === "Use /canvas") return "/canvas kullan";
+    if (key === "Use /multitask") return "/multitask kullan";
+    if (key === "Use /simplify") return "/simplify kullan";
+    if (key === "Use /add-plugin") return "/add-plugin kullan";
+    if (key.startsWith("Use @browser to inspect page elements")) return "@browser ile sayfa öğelerini inceleyin, konsol günlüklerini görüntüleyin ve ağ trafiğini analiz edin";
+    if (key.startsWith("Kullan @browser to inspect page elements")) return "Sayfa öğelerini incelemek, konsol günlüklerini görüntülemek ve ağ trafiğini analiz etmek için @browser kullanın";
+    if (key.startsWith("Ajan skills help you customize Cursor for your workflows")) return "Ajan becerileri Cursor'u iş akışlarınıza göre özelleştirmenize yardımcı olur; başlamak için /create-skill kullanın";
+    if (key.startsWith("Cursor syncs your local skills")) return "Cursor, yerel becerilerinizi Bulut Ajanlarında kullanabilmeniz için eşitler. Eşitlemeyi kapatmak için bu seçeneği devre dışı bırakın.";
+    if (key.startsWith("Try Plan Mode")) return "Ajan sonuçlarını ve doğruluğunu iyileştirmek için Plan Modunu deneyin";
+    if (key.startsWith("With your Cursor Pro subscription")) return "Cursor Pro aboneliğinizle kendi Google anahtarınızı kullanmanız gerekmez!";
+    if (key.startsWith("Turn Off Google Key")) return "Google Anahtarını Kapat";
+    if (key.startsWith("Google API Key")) return "Google API Anahtarı";
+    if (key.startsWith("Anthropic's most powerful model")) return "Anthropic'in en güçlü modeli; zor görevler için idealdir.";
+    if (key.startsWith("This model has special data retention policies")) return "Bu modelin özel veri saklama politikaları vardır.";
+    const usageReset = key.match(/^Usage limits reset on (.+) \((\d+) days? left\)$/);
+    if (usageReset) return `Kullanım sınırları ${usageReset[1]} tarihinde sıfırlanır (${usageReset[2]} gün kaldı)`;
+    const usedPercent = key.match(/^(\d+)% used$/);
+    if (usedPercent) return `%${usedPercent[1]} kullanıldı`;
+    const monthlyPrice = key.match(/^(\$\d+)\/mo$/);
+    if (monthlyPrice) return `${monthlyPrice[1]}/ay`;
+    if (key.startsWith("to control and extend the agent loop")) return "ile ajan döngüsünü özel betiklerle denetleyip genişletin";
+    if (key.startsWith("to research your codebase before starting code changes")) return "ile kod değişikliklerine başlamadan önce kod tabanınızı araştırın";
+    if (key.startsWith("for an agentic code review of your changes")) return "ile değişikliklerinizi ajan destekli kod incelemesinden geçirin";
+    if (key.startsWith("reproduces and solves your most difficult bugs")) return "en zor hatalarınızı yeniden oluşturup çözer; başlamak için Shift+Tab tuşlarına iki kez basın";
+    if (key.startsWith("to have Cursor find bugs, regressions")) return "ile Cursor'un hataları, gerilemeleri, güvenlik sorunlarını ve eksik testleri bulmasını sağlayın";
+    if (key.startsWith("to triage PR comments, fix CI failures")) return "ile PR yorumlarını önceliklendirin, CI hatalarını düzeltin ve çakışmaları temizleyin";
+    if (key.startsWith("to improve agent execution with Plan Mode")) return "ile Plan Modu'nu kullanarak ajan yürütmesini iyileştirin";
+    if (key.startsWith("to have Cursor review all changed files for code quality and efficiency")) return "ile Cursor'un tüm değişen dosyaları kod kalitesi ve verimlilik için incelemesini sağlayın";
+    if (key.startsWith("so Cursor can work on your queued messages in parallel")) return "ile Cursor'un sıradaki mesajlarınız üzerinde paralel çalışmasını sağlayın";
+    if (key.startsWith(" so Cursor can work on your queued messages in parallel")) return " ile Cursor'un sıradaki mesajlarınız üzerinde paralel çalışmasını sağlayın";
+    if (key.startsWith("to turn your work into small, reviewable PRs")) return "ile çalışmanızı küçük ve incelenebilir PR'lara bölün";
+    if (key.startsWith("to get interactive visualizations like dashboards from Cursor")) return "ile Cursor'dan pano gibi etkileşimli görselleştirmeler alın";
+    if (key.startsWith("to create Cursor Automations without leaving your agent chat")) return "ile ajan sohbetinden ayrılmadan Cursor Otomasyonları oluşturun";
+    if (key.startsWith("to create Cursor Otomasyonları without leaving your agent chat")) return "ile ajan sohbetinden ayrılmadan Cursor Otomasyonları oluşturun";
+    if (key.startsWith("or /local to move agent sessions between runtimes")) return "veya /local ile ajan oturumlarını çalışma ortamları arasında taşıyın";
+    if (key.startsWith("to move agent sessions between runtimes")) return "ile ajan oturumlarını çalışma ortamları arasında taşıyın";
+    if (key.startsWith("to run agents remotely for better parallelization and durable execution")) return "ile daha iyi paralelleştirme ve kalıcı yürütme için ajanları uzaktan çalıştırın";
+    if (key.startsWith("to control agent behavior through system-level instructions")) return "ile ajan davranışını sistem düzeyi talimatlarla denetleyin";
+    if (key.startsWith("to customize Cursor for your workflows")) return "ile Cursor'u iş akışlarınıza göre özelleştirin";
+    if (key.startsWith("to set up specialized agents that Cursor can use to parallelize work")) return "ile Cursor'un işi paralelleştirmek için kullanabileceği uzman ajanlar kurun";
+    if (key.startsWith("to solve bugs that are hard to reproduce or understand")) return "ile yeniden üretmesi veya anlaması zor hataları çözün";
+    if (key.startsWith("to start a subagent in its own cloud VM")) return "ile yerel çalışma alanınızı boş tutarak alt ajanı kendi bulut VM'inde başlatın";
+    if (key.startsWith("to run a prompt on a schedule")) return "ile bir istemi zamanlamaya göre çalıştırın";
+    if (key.startsWith("to pick the best model for your task")) return "ile göreviniz için en uygun modeli seçin; maliyet-yetenek dengesi için Composer'ı kullanın";
+    if (key.startsWith("to run commands in the terminal")) return "ile terminalde komut çalıştırın";
+    if (key.startsWith("to run subagents to parallelize your requests")) return "ile isteklerinizi sıraya almak yerine paralel çalıştırmak için alt ajanları kullanın";
+    if (key.startsWith("The predecessor to Cursor Grok 4.6")) return "Cursor Grok 4.6'nın öncülü; karmaşık kodlama ve bilgi çalışmaları için geliştirildi.";
+    if (key.startsWith("OpenAI's flagship GPT-5.6 model.")) return "OpenAI'nin amiral gemisi GPT-5.6 modeli. Yeni azami akıl yürütme çabasıyla en güçlü ajan tabanlı kodlama, biyoloji ve siber güvenlik yeteneklerini sunar.";
+    if (key.startsWith("Cursor installation appears corrupted")) return "Cursor kurulumunuz bozuk görünüyor. Lütfen Cursor'u yeniden kurun.";
+    if (key.startsWith("Search Cursor to find a prior conversation")) return "Önceki bir konuşmayı bulmak için Cursor'da arayın veya konuşmalar genelinde özetleyin";
+    if (key.startsWith("Messages sent while Cursor is working can steer it mid-run")) return "Cursor çalışırken gönderilen mesajlar çalışmayı kesmeden akışı yönlendirebilir — bu seçeneği Ajanlar ayarlarındaki Yeni Mesajlar bölümünden açın";
+    if (key.startsWith("Plan Mode improves agent outcomes and accuracy")) return "Plan Modu, ajan sonuçlarını ve doğruluğunu iyileştirir — başlamak için Shift+Tab tuşlarına basın";
+    if (key === "Includes Cursor Grok and Composer") return "Cursor Grok ve Composer dahil";
+    if (key === "256k context window") return "256 bin bağlam penceresi";
+    if (key === "272k context window") return "272 bin bağlam penceresi";
+    if (key === "Version: medium reasoning effort") return "Sürüm: orta akıl yürütme çabası";
+    if (key.startsWith("to inspect page elements")) return "ile sayfa öğelerini inceleyin, konsol günlüklerini görüntüleyin ve ağ trafiğini analiz edin";
+    if (key.startsWith("to install a plugin from the Cursor")) return "ile Cursor Eklenti Pazarı'ndan eklenti yükleyin";
+    if (key.startsWith("lets you dictate better prompts")) return "ajanlarınız için daha iyi istemleri dikte etmenizi sağlar";
+    if (key.startsWith("uses read-only agents to research your codebase")) return "kod tabanınızı araştırmak için salt okunur ajanlar kullanır; başlamak için Shift+Tab tuşlarına basın";
+    if (key.startsWith("improves agent outcomes and accuracy")) return "ajan sonuçlarını ve doğruluğunu iyileştirir; başlamak için Shift+Tab tuşlarına basın";
+    if (key.startsWith("Tell Cursor to use subagents to break down tasks")) return "Cursor'a görevleri bölmek, paralel çalışmak ve bağlamı korumak için alt ajanları kullanmasını söyleyin";
+    if (key.startsWith("Select Composer in your model picker")) return "Zeka ve maliyet arasında iyi denge için model seçicide Composer'ı seçin";
+    if (key.startsWith("Seç Composer in your model picker")) return "Zeka ve maliyet arasında iyi denge için model seçicide Composer'ı seçin";
+    if (key.startsWith("Composer in your model picker")) return "model seçicide Composer'ı seçin; zeka ve maliyet arasında iyi denge sağlar";
+    if (key.startsWith("in your model picker for a great balance")) return "model seçicide; zeka ve maliyet arasında iyi denge sağlar";
+    if (key.startsWith("Craft-first interface design for dashboards")) return "Panolar, yönetim panelleri, SaaS uygulamaları, araçlar, ayar sayfaları, veri arayüzleri ve etkileşimli ürünler için görsel kalite odaklı arayüz tasarımı.";
+    if (key.startsWith("Use when the task requires automating a real browser from the terminal")) return "Görev terminalden gerçek bir tarayıcıyı otomatikleştirmeyi gerektirdiğinde kullanılır: gezinme, form doldurma, ekran görüntüsü, veri çıkarma ve UI akışı hata ayıklama.";
+    if (key.startsWith("Fine-tune models on Azure AI Foundry using SFT")) return "Azure AI Foundry üzerinde SFT, DPO veya RFT ile model ince ayarı yapar; veri hazırlama, eğitim işi gönderme, dağıtım ve değerlendirmeyi kapsar.";
+    if (key.startsWith("Discovers available Azure OpenAI model capacity across regions")) return "Bölgeler ve projeler genelinde Azure OpenAI model kapasitesini keşfeder; kota sınırlarını analiz eder ve uygun dağıtım konumlarını önerir.";
+    if (key.startsWith("Interactive guided deployment flow for Azure OpenAI models")) return "Azure OpenAI modelleri için tam özelleştirme kontrollü etkileşimli dağıtım akışı; model sürümü, SKU, kapasite ve ilke seçimlerinde adım adım ilerletir.";
+    if (key.startsWith("Intelligently deploys Azure OpenAI models to optimal regions")) return "Azure OpenAI modellerini tüm bölgelerdeki kapasiteyi analiz ederek en uygun bölgelere akıllıca dağıtır.";
+    if (key.startsWith("Unified Azure OpenAI model deployment skill")) return "Azure OpenAI model dağıtımı için birleşik beceri; hızlı hazır dağıtımlar, tam özelleştirilmiş dağıtımlar ve kapasite keşfini yönetir.";
+    if (key.startsWith("Deploy, evaluate, fine-tune, and manage Foundry agents end-to-end")) return "Foundry ajanlarını uçtan uca dağıtma, değerlendirme, ince ayar yapma ve yönetme becerisi.";
+    if (key.startsWith("Creates and maintains Figma Code Connect template files")) return "Figma bileşenlerini kod parçacıklarıyla eşleyen Figma Code Connect şablon dosyalarını oluşturur ve bakımını yapar.";
+    if (key.startsWith("**MANDATORY prerequisite** — you MUST invoke this skill BEFORE every `create_new_file`")) return "Zorunlu ön koşul: Her `create_new_file` araç çağrısından önce bu beceri kullanılmalıdır.";
+    if (key.startsWith("**MANDATORY prerequisite** — you MUST invoke this skill BEFORE calling the `get_design_context`")) return "Zorunlu ön koşul: `get_design_context` Figma MCP aracı çağrılmadan önce bu beceri kullanılmalıdır.";
+    if (key.startsWith("Use this skill alongside figma-use when the task involves translating an application page")) return "Bir uygulama sayfasını, görünümü veya çok bölümlü yerleşimi Figma'ya çevirmek gerektiğinde bu beceri figma-use ile birlikte kullanılır.";
+    if (key.startsWith("MANDATORY prerequisite — load this skill BEFORE every `generate_diagram`")) return "Zorunlu ön koşul: Her `generate_diagram` çağrısından önce bu beceri yüklenmelidir.";
+    if (key.startsWith("Build or update a professional-grade design system in Figma")) return "Figma'da kod tabanından profesyonel düzeyde tasarım sistemi oluşturur veya günceller; değişkenler, tokenlar ve bileşen kitaplıklarını kapsar.";
+    if (key.startsWith("Translates Figma motion and animations into production-ready")) return "Figma hareket ve animasyonlarını üretime hazır uygulama koduna çevirir.";
+    if (key.startsWith("SwiftUI ↔ Figma translation")) return "SwiftUI ve Figma arasında çeviri yapar; Swift, SwiftUI, iOS, iPhone veya iPad işleri için kullanılır.";
+    if (key.startsWith("This skill helps agents use Figma's use_figma MCP tool in the FigJam context")) return "Ajanların FigJam bağlamında Figma'nın use_figma MCP aracını kullanmasına yardımcı olur.";
+    if (key.startsWith("Motion / animation context for the `use_figma` MCP tool")) return "`use_figma` MCP aracı için hareket ve animasyon bağlamı sağlar.";
+    if (key.startsWith("This skill helps agents use Figma's use_figma MCP tool in the Slides context")) return "Ajanların Slides bağlamında Figma'nın use_figma MCP aracını kullanmasına yardımcı olur.";
+    match = key.match(/^Tab Stats: (\d+)\/(\d+) \(([^)]+)\)$/);
+    if (match) return `Sekme istatistikleri: ${match[1]}/${match[2]} (${match[3]})`;
+    match = key.match(/^Agent Stats: (\d+)\/(\d+) \(([^)]+)\)$/);
+    if (match) return `Ajan istatistikleri: ${match[1]}/${match[2]} (${match[3]})`;
+    match = key.match(/^Agent AI Stats \(Today\): (\d+)\/(\d+) lines \(([^)]+)\)$/);
+    if (match) return `Ajan AI istatistikleri (Bugün): ${match[1]}/${match[2]} satır (${match[3]})`;
+    if (key.startsWith("let you control and extend the agent loop")) return "ajan döngüsünü kontrol edip genişletmenizi sağlar — başlamak için /create-hook kullanın";
+    if (key.startsWith("Automate repetitive tasks with always-on agents")) return "Sürekli açık ajanlarla tekrarlanan görevleri otomatikleştirin ve Cursor'un yerleşik ajanlarını ekibiniz için yapılandırın.";
+    return null;
+  };
+  globalThis.__cursorTrTranslateValue = translateValue;
+  globalThis.__cursorTrTranslateModelTooltip = translateModelTooltipValue;
+  const translate = (root) => {
+    const nodes = [];
+    if (root && root.nodeType === Node.ELEMENT_NODE) nodes.push(root);
+    if (root && root.querySelectorAll) nodes.push(...root.querySelectorAll(".action-label, .action-menu-item, button, input, textarea, [data-placeholder], [aria-placeholder]"));
+    for (const el of nodes) {
+      for (const attr of attrs) {
+        const value = el.getAttribute && el.getAttribute(attr);
+        const translated = translateValue(value);
+        if (translated) el.setAttribute(attr, translated);
+      }
+      if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
+        const translated = translateValue(el.placeholder);
+        if (translated) el.placeholder = translated;
+      }
+    }
+    const textRoot = root?.nodeType === Node.TEXT_NODE ? root.parentElement : root;
+    if (!textRoot || !document.createTreeWalker) return;
+    const walker = document.createTreeWalker(textRoot, NodeFilter.SHOW_TEXT);
+    let textNode;
+    while ((textNode = walker.nextNode())) {
+      const parent = textNode.parentElement;
+      if (!parent || parent.closest(protectedSelector)) continue;
+      const value = textNode.nodeValue.trim();
+      const translated = translateValue(value);
+      if (translated) textNode.nodeValue = textNode.nodeValue.replace(value, translated);
+    }
+  };
+  // Ana ekranin altindaki donen ipuclari React tarafindan parcalara ayrilir.
+  // Komut parcasi <code> icinde oldugu icin genel koruma kurali bu alani atlar;
+  // ayrica yeni ipucu her zaman MutationObserver'in gordugu bir dugum eklemesiyle
+  // gelmez. Bu hedefli tarayici, bicimlendirmeyi bozmadan her metin parcasini cevirir.
+  const translateRotatingTips = () => {
+    document.querySelectorAll(".glass-empty-state-rotating-tips__text, .agent-panel-empty-state-footer-region").forEach(container => {
+      const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
+      let textNode;
+      while ((textNode = walker.nextNode())) {
+        const value = textNode.nodeValue.trim();
+        const translated = translateValue(value);
+        if (translated) textNode.nodeValue = textNode.nodeValue.replace(value, translated);
+      }
+    });
+  };
+  // Sınıf adları Cursor güncellemelerinde değişebiliyor. Ana ekrandaki ipucu
+  // her zaman pencerenin alt bandında bulunduğu için sınıftan bağımsız yedek
+  // denetim yalnızca bu dar alandaki metin düğümlerini işler.
+  const translateBottomBand = () => {
+    if (!document.body || !document.createTreeWalker) return;
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    let textNode;
+    while ((textNode = walker.nextNode())) {
+      const parent = textNode.parentElement;
+      if (!parent || parent.closest(".monaco-editor, .xterm, textarea, pre, [data-component=\"glass-empty-state-rotating-tips\"]")) continue;
+      const rect = parent.getBoundingClientRect();
+      if (rect.bottom < innerHeight - 140 || rect.top > innerHeight) continue;
+      const value = textNode.nodeValue.trim();
+      const translated = translateValue(value);
+      if (translated) textNode.nodeValue = textNode.nodeValue.replace(value, translated);
+    }
+  };
+  // Dönen ipuçlarının güncel DOM'u sınıf adı taşımıyor ve cümleyi
+  // "Use" + <code>/komut</code> + devamı şeklinde üç ayrı düğüme bölüyor.
+  // Sınıf/konum tahmini kullanmadan yalnızca benzersiz komut devamlarını bul,
+  // baştaki Use/Kullan düğümünü kaldır ve doğal Türkçe devamı yerleştir.
+  const commandTipFragments = [
+    ["/model", "to pick the best model for your task and select Composer for a great balance of cost vs. capability", " ile göreviniz için en uygun modeli seçin; maliyet ve yetenek dengesi için Composer'ı kullanın"],
+    ["/loop", "to run a prompt on a schedule", " ile bir istemi zamanlamaya göre çalıştırın"],
+    ["/in-cloud", "to start a subagent in its own cloud VM, keeping your local workspace free", " ile yerel çalışma alanınızı boş tutarak bir alt ajanı kendi bulut sanal makinesinde başlatın"],
+    ["/create-hook", "to get started", " — başlamak için /create-hook kullanın"],
+    ["/create-hook", "let you control and extend the agent loop", "Kancalar, ajan döngüsünü kontrol edip genişletmenizi sağlar"],
+    ["/create-hook", "Kancalar let you control and extend the agent loop", "Kancalar, ajan döngüsünü kontrol edip genişletmenizi sağlar"],
+    ["/goal", "to set an objective that Cursor keeps pursuing until it is complete", " ile Cursor'un tamamlanana kadar izlemeyi sürdüreceği bir hedef belirleyin"]
+  ];
+  const translateCommandTipFragments = () => {
+    if (!document.body || !document.createTreeWalker) return;
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    let textNode;
+    while ((textNode = walker.nextNode())) {
+      const normalized = textNode.nodeValue.replace(/\s+/g, " ").trim();
+      const def = commandTipFragments.find(([, source]) => normalized.startsWith(source));
+      if (!def) continue;
+      const [command, source, translated] = def;
+      let scope = textNode.parentElement;
+      for (let i = 0; scope && i < 8; i++, scope = scope.parentElement) {
+        const content = (scope.textContent || "").replace(/\s+/g, " ");
+        if (!content.includes(command) || !content.includes(source)) continue;
+        const prefixWalker = document.createTreeWalker(scope, NodeFilter.SHOW_TEXT);
+        let prefixNode;
+        while ((prefixNode = prefixWalker.nextNode())) {
+          if (["Use", "Kullan"].includes(prefixNode.nodeValue.trim())) {
+            prefixNode.nodeValue = "";
+            break;
+          }
+        }
+        break;
+      }
+      const leading = (textNode.nodeValue.match(/^\s*/) || [""])[0];
+      textNode.nodeValue = leading + translated;
+    }
+  };
+  // Cursor 3.14+ dönen ipucunun ekranda görünen kopyasını data-slot="current"
+  // altında, ekran okuyucu kopyasını ise ayrı bir düğümde tutuyor. Metin düğümü
+  // değişikliği React animasyonu tarafından geri alınabildiği için görünür kopyayı
+  // veri niteliği + CSS ile sun; React'in iç durumuna dokunma.
+  const ensureRotatingTipVisualStyle = () => {
+    if (document.getElementById("cursor-tr-rotating-tip-visual-style")) return;
+    const style = document.createElement("style");
+    style.id = "cursor-tr-rotating-tip-visual-style";
+    style.textContent =
+      '[data-cursor-tr-tip-label]{font-size:0!important}' +
+      '[data-cursor-tr-tip-label]>*{display:none!important}' +
+      '[data-cursor-tr-tip-label]::after{' +
+      'content:attr(data-cursor-tr-tip-label);font-size:14px!important;' +
+      'line-height:18px!important;white-space:normal!important}';
+    document.head.appendChild(style);
+  };
+  const markVisibleRotatingTip = () => {
+    ensureRotatingTipVisualStyle();
+    const items = document.querySelectorAll(
+      '[data-component="glass-empty-state-rotating-tips"] [data-has-close-button] > div:first-child, ' +
+      '[data-component="glass-empty-state-rotating-tips"], ' +
+      '[data-slot="current"]'
+    );
+    for (const item of items) {
+      const scope = item.closest('[data-component="glass-empty-state-rotating-tips"]');
+      if (!scope && !item.matches('[data-component="glass-empty-state-rotating-tips"]')) continue;
+      const value = (item.textContent || "").replace(/\s+/g, " ").trim();
+      if (!value) continue;
+      if (/find a prior conversation|across conversations/i.test(value)) {
+        item.setAttribute("data-cursor-tr-tip-label", "Önceki bir konuşmayı bulmak için Cursor'a sorun veya konuşmalar genelinde özetleyin");
+        continue;
+      }
+      const lookupValue = value.replace(/\bveya\b/gi, "or")
+        .replace(/^Kancalar\b/gi, "Hooks")
+        .replace(/^Yapılandır\b/gi, "Configure");
+      let translated = translateValue(lookupValue);
+      if (!translated && (value.includes("extend the agent loop") || value.includes("control and extend"))) {
+        translated = "Kancalar, ajan döngüsünü kontrol edip genişletmenizi sağlar — başlamak için /create-hook kullanın";
+      }
+      // Bazı komut adlarının bağlacı (/cloud or /local -> /cloud veya /local)
+      // daha önce çevrilmiş olabilir. Bu durumda bütün cümle eşleşmez; görünen
+      // komut önekini koruyup İngilizce açıklama devamını bağımsız çevir.
+      if (!translated && /^Kullan\s+\/[a-z-]+/i.test(value)) {
+        const match = value.match(/\s(?=(?:to|for|so|lets|uses|reproduces)\b)/i);
+        if (match && typeof match.index === "number") {
+          const prefix = value.slice(0, match.index).replace(/^Kullan\s+/i, "");
+          const suffix = value.slice(match.index + 1);
+          const translatedSuffix = translateValue(suffix) ||
+            translateValue(suffix.replace(/\bveya\b/gi, "or"));
+          if (translatedSuffix) translated = prefix + " " + translatedSuffix;
+        }
+      }
+      if (translated && translated !== value) {
+        item.setAttribute("data-cursor-tr-tip-label", translated);
+      } else if (!/find a prior conversation/i.test(value)) {
+        item.removeAttribute("data-cursor-tr-tip-label");
+      }
+    }
+  };
+  // Model/çaba menüsü React'in seçim mantığında aynı metinleri anahtar olarak
+  // kullanıyor. Text node'u değiştirmek seçime tıklanınca pencereyi
+  // kilitleyebiliyor. Bu nedenle yalnızca görsel sunumu CSS pseudo-content ile
+  // Türkçeleştir; React'in sahip olduğu özgün değerler aynen kalsın.
+  const effortVisualLabels = new Map([
+    ["Effort", "Çaba"], ["Low", "Düşük"], ["Medium", "Orta"],
+    ["High", "Yüksek"], ["Fast", "Hızlı"],
+    ["Extra High", "Ekstra Yüksek"], ["Extra high", "Ekstra Yüksek"],
+    ["High Fast", "Yüksek Hızlı"], ["Medium Fast", "Orta Hızlı"],
+    ["Low Fast", "Düşük Hızlı"],
+    ["Cursor Grok 4.5 High Fast", "Cursor Grok 4.5 Yüksek Hızlı"],
+    ["Cloud", "Bulut"], ["Local", "Yerel"], ["Team Pool", "Ekip Havuzu"],
+    ["Cursor Light", "Cursor Açık"],
+    ["Cursor Light Colorblind (Beta)", "Cursor Açık — Renk Körlüğü (Beta)"],
+    ["Cursor Dark", "Cursor Koyu"],
+    ["Cursor Dark High Contrast", "Cursor Koyu Yüksek Karşıtlık"]
+  ]);
+  const ensureEffortStyle = () => {
+    if (document.getElementById("cursor-tr-effort-visual-style")) return;
+    const style = document.createElement("style");
+    style.id = "cursor-tr-effort-visual-style";
+    style.textContent = '[data-cursor-tr-effort-label]{font-size:0!important;text-align:left!important}' +
+      '[data-cursor-tr-effort-label]::after{content:attr(data-cursor-tr-effort-label);font-size:13px!important;order:-1;margin-right:auto;text-align:left!important}' +
+      '[placeholder*="Search Remote Machines"],[placeholder*="Uzak Makinelerde Ara"]{text-align:left!important;direction:ltr!important}' +
+      '[role="menuitem"]{text-align:left!important;justify-content:flex-start!important}' +
+      '[role="menuitem"]>[data-radix-collection-item], [role="menuitem"] svg:last-child{margin-left:auto!important}' +
+      '[data-cursor-tr-remote-label]{display:flex!important;align-items:center!important;gap:8px!important;padding-left:4px!important;text-align:left!important;justify-content:flex-start!important}' +
+      '[data-cursor-tr-remote-label] svg{position:static!important;flex:0 0 auto!important}' +
+      '[data-cursor-tr-remote-label] svg:last-of-type{margin-left:auto!important}';
+    document.head.appendChild(style);
+  };
+  const markRemoteMachineLabels = () => {
+    ensureEffortStyle();
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    let textNode;
+    while ((textNode = walker.nextNode())) {
+      const key = textNode.nodeValue.replace(/\s+/g, " ").trim();
+      if (!["Remote Machines", "Uzak Makineler"].includes(key)) continue;
+      const parent = textNode.parentElement;
+      const item = parent?.closest('[role="menuitem"], [role="menu"], [data-radix-menu-content]');
+      if (item) item.setAttribute("data-cursor-tr-remote-label", "Uzak Makineler");
+    }
+  };
+  const markEffortLabels = () => {
+    ensureEffortStyle();
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    let textNode;
+    while ((textNode = walker.nextNode())) {
+      const key = textNode.nodeValue.trim();
+      const translated = effortVisualLabels.get(key);
+      if (!translated) continue;
+      const parent = textNode.parentElement;
+      if (!parent || parent.closest(".monaco-editor, .xterm, textarea, pre")) continue;
+      // Birleşik kapalı seçici her yerde güvenle işaretlenebilir. Tek sözcüklü
+      // değerler ise yalnızca Effort/Model seçeneklerinin bulunduğu açılır
+      // katmanda işaretlenir.
+      let allowed = key.includes(" ");
+      if (!allowed) {
+        // Acik secici farkli Cursor surumlerinde Radix/menu/listbox
+        // kapsayicilarindan biriyle olusturuluyor. Metni degistirmeden bu
+        // katmanlarda gorunen etiketi isaretlemek guvenlidir.
+        allowed = Boolean(parent.closest(
+          '[role="menu"], [role="listbox"], [data-radix-menu-content], [data-radix-popper-content-wrapper]'
+        ));
+      }
+      if (!allowed) {
+        let scope = parent;
+        for (let i = 0; scope && i < 16; i++, scope = scope.parentElement) {
+          const content = scope.textContent || "";
+          if (content.includes("Effort") && content.includes("Low") &&
+              content.includes("Medium") && content.includes("High") &&
+              content.includes("Model")) { allowed = true; break; }
+        }
+      }
+      if (!allowed && ["Low", "Medium", "High", "Fast"].includes(key)) {
+        // Kapali secicide yalnizca secili deger gorunur. Mesaj kutusunun
+        // icindeki dar dugmeyi hedefle; ayni kelimelerin editor veya ayarlar
+        // ekranindaki kullanimlarina dokunma.
+        const button = parent.closest('button, [role="button"]');
+        if (button && (button.textContent || "").trim().startsWith(key)) {
+          let composer = button.parentElement;
+          for (let i = 0; composer && i < 8; i++, composer = composer.parentElement) {
+            if (composer.querySelector('textarea, [contenteditable="true"]')) {
+              const rect = button.getBoundingClientRect();
+              if (rect.width < 180 && rect.height < 64) allowed = true;
+              break;
+            }
+          }
+        }
+      }
+      if (allowed) parent.setAttribute("data-cursor-tr-effort-label", translated);
+    }
+  };
+  const start = () => {
+    translate(document.body);
+    translateRotatingTips();
+    translateBottomBand();
+    translateCommandTipFragments();
+    markVisibleRotatingTip();
+    markEffortLabels();
+    markRemoteMachineLabels();
+    new MutationObserver(records => {
+      for (const record of records) {
+        if (record.type === "attributes") {
+          translate(record.target);
+        }
+        if (record.type === "characterData") {
+          translate(record.target.parentElement);
+          if (record.target.parentElement?.closest(".glass-empty-state-rotating-tips__text")) translateRotatingTips();
+        }
+        for (const node of record.addedNodes || []) {
+          translate(node);
+          if (node.parentElement?.closest(".glass-empty-state-rotating-tips__text")) translateRotatingTips();
+        }
+        translateCommandTipFragments();
+        markVisibleRotatingTip();
+        markEffortLabels();
+        markRemoteMachineLabels();
+      }
+    }).observe(document.body, {
+      subtree: true,
+      childList: true,
+      characterData: true,
+      attributes: true,
+      attributeFilter: attrs
+    });
+    // Cursor ipucu metnini bazen mevcut React dugumlerini yeniden kullanarak
+    // degistiriyor. Dusuk maliyetli hedefli kontrol bu durumu da kapsar.
+    setInterval(() => {
+      translateRotatingTips();
+      translateBottomBand();
+      translateCommandTipFragments();
+      markVisibleRotatingTip();
+      markEffortLabels();
+      markRemoteMachineLabels();
+    }, 750);
+  };
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start, {once: true});
+  else start();
+})();
+'''
+
+if __name__ == '__main__':
+    for fname in FILES:
+        if not os.path.exists(fname):
+            print(fname, 'yok, atlandi')
+            continue
+        original = io.open(fname, encoding='utf-8').read()
+        marker_token = '/* ' + MARKER + ' */'
+        # Onceki calismadan kalan katmani ayir. Aksi halde asagidaki statik
+        # degisimler ceviri Map'inin Ingilizce anahtarlarini da Turkcelestirir
+        # ve dinamik menuler bir sonraki calismada eslesmez.
+        text = original
+        marker_at = text.find(marker_token)
+        if marker_at >= 0:
+            text = text[:marker_at].rstrip()
+        core_positions = [text.find('/* ' + marker + ' */') for marker in CORE_MARKERS]
+        core_positions = [position for position in core_positions if position >= 0]
+        if core_positions:
+            core_at = min(core_positions)
+            prefix, core_suffix = text[:core_at].rstrip(), text[core_at:]
+            # Yeni Cursor surumleri alt ipucunu bazen metin dugumunde, bazen
+            # kapsayici/altbilgi bolgesinde olusturuyor. Calisan cekirdek katmanin
+            # hepsini ayni cumle olarak okuyabilmesi icin secicileri genislet.
+            tip_selector = '.glass-empty-state-rotating-tips__text, .glass-empty-state-rotating-tips__content, .glass-empty-state-rotating-tips, [data-component="glass-empty-state-rotating-tips"], .agent-panel-empty-state-footer-region'
+            for old_call, new_call in (
+                ('element?.matches?.(".glass-empty-state-rotating-tips__text")', f'element?.matches?.("{tip_selector}")'),
+                ('element?.closest?.(".glass-empty-state-rotating-tips__text")', f'element?.closest?.("{tip_selector}")'),
+                ('querySelectorAll?.(".glass-empty-state-rotating-tips__text")', f'querySelectorAll?.("{tip_selector}")'),
+                ('document.querySelectorAll(".glass-empty-state-rotating-tips__text")', f'document.querySelectorAll("{tip_selector}")'),
+            ):
+                core_suffix = core_suffix.replace(old_call, new_call)
+
+            if 'find a prior conversation' not in core_suffix:
+                core_suffix = core_suffix.replace(
+                    'let translated = translations.get(key);',
+                    'let translated = translations.get(key);\n    if (!translated && /(?:Ask|Search|Sor)\\s+Cursor to find a prior conversation/i.test(key)) translated = "Önceki bir konuşmayı bulmak için Cursor\\\'a sorun veya konuşmalar genelinde özetleyin";'
+                )
+
+            # Ekranda gorulen yeni beceri ipucu eski "Use /create-skill" kalibiyla
+            # baslamiyor; hem tamamen Ingilizce hem de kismen cevrilmis bicimini yakala.
+            if 'Agent skills help you customize Cursor for your workflows' not in core_suffix:
+                core_suffix = core_suffix.replace(
+                    'let translated = translations.get(key);',
+                    'let translated = translations.get(key);\n    if (!translated && /^(?:Agent|Ajan) skills help you customize Cursor for your workflows/i.test(key)) translated = "Ajan becerileri Cursor\\\'u iş akışlarınıza göre özelleştirmenize yardımcı olur — başlamak için /create-skill kullanın";'
+                )
+            # Calistigi canli ekranda dogrulanan eski tip katmani, React'in
+            # parcaladigi cumleyi genel "komutunu kullanin" metnine indiriyordu.
+            # Tam cumleyi komuta gore burada uret; sonraki DOM katmanina baglanma.
+            if 'Voice mode lets you dictate better prompts for your agents/i.test(key)' not in core_suffix:
+                core_suffix = core_suffix.replace(
+                    'if (!translated) {\n      const command = key.match(/(\\/[A-Za-z0-9_-]+)/)?.[1];',
+                    'if (!translated && /^Voice mode lets you dictate better prompts for your agents/i.test(key)) translated = "Ses modu, ajanlarınız için daha iyi istemleri dikte etmenizi sağlar";\n    if (!translated) {\n      const command = key.match(/(\\/[A-Za-z0-9_-]+)/)?.[1];'
+                )
+            if '({"/review":' not in core_suffix:
+                core_suffix = core_suffix.replace(
+                    'translated = `${command} komutunu kullanın`;',
+                    'translated = ({"/review":"/review ile değişikliklerinizi ajan destekli kod incelemesinden geçirin","/create-rule":"/create-rule ile ajan davranışını sistem düzeyi talimatlarla denetleyin","/create-skill":"/create-skill ile Cursor\'u iş akışlarınıza göre özelleştirin","/create-subagent":"/create-subagent ile uzman ajanlar kurun","/model":"/model ile göreviniz için en uygun modeli seçin","/multitask":"/multitask ile sıradaki mesajlarınızı paralel çalıştırın","/plan":"/plan ile Plan Modu kullanarak ajan yürütmesini iyileştirin","/debug":"/debug ile yeniden üretmesi zor hataları çözün","/split-to-prs":"/split-to-prs ile çalışmanızı küçük ve incelenebilir PR\'lara bölün","/automate":"/automate ile Cursor Otomasyonları oluşturun","/cloud":"/cloud ile ajanları uzaktan çalıştırın","/loop":"/loop ile bir istemi zamanlamaya göre çalıştırın","/shell":"/shell ile terminalde komut çalıştırın"}[command] || `${command} komutunu kullanın`);'
+                )
+        else:
+            prefix, core_suffix = text.rstrip(), ''
+        changed = 0
+        for old, new in STATIC.items():
+            count = prefix.count(old)
+            if count:
+                prefix = prefix.replace(old, new)
+                changed += count
+        text = prefix
+        if core_suffix:
+            text += '\n\n' + core_suffix.lstrip()
+        text = text.rstrip() + OVERLAY
+        if text != original:
+            changed += 1
+        io.open(fname, 'w', encoding='utf-8', newline='').write(text)
+        print('%s degisim: %d' % (fname, changed))

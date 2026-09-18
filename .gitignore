@@ -1,0 +1,47 @@
+﻿# Binaries, Bundles and large runtime archives
+*.exe
+*.asar
+*.asar.orig
+*.asar.patched
+*.zip
+*.tar.gz
+workbench.desktop.main.js
+workbench.glass.main.js
+cursor-agent-exec-main.js
+cursor-local-agent-runtime-main.js
+orijinal-*/
+referans-*/
+deploy-rollback/
+ceviri-son-hali/
+_test-*/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.spec
+build/
+dist/
+_chk.mjs
+
+# Logs, Screenshots and temp files
+*.log
+*.png
+*.jpg
+*.jpeg
+*.tmp
+apply_report.txt
+deploy_result.txt
+fix_deploy_result.txt
+TEK_TIK_SONUC.txt
+son-commit.txt
+product.json
+nls.messages.json
+nls.cache.*.json
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+.codebase-memory/
