@@ -51,5 +51,5 @@ $status = (Get-Content -LiteralPath $result -Raw).Trim()
 if ($status -ne 'OK_VERIFIED') { throw "Kurulum doğrulanamadı: $status" }
 
 Remove-Item -LiteralPath "$env:APPDATA\Cursor\code.lock" -Force -ErrorAction SilentlyContinue
-Start-Process -FilePath $cursorExe
+[void]([wmiclass]'Win32_Process').Create($cursorExe)
 Write-Host 'HIZLI_DAGITIM=OK_VERIFIED'
