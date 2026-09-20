@@ -55,12 +55,17 @@ STATIC = {
     '"No tools, prompts, or resources"': '"Ara\\xe7, istem veya kaynak yok"',
     '${e.enabledToolCount} tools`),(e.promptCount??0)>0&&t.push(`${e.promptCount} prompts`),(e.resourceCount??0)>0&&t.push(`${e.resourceCount} resources`),t.length>0?`${t.join(", ")} enabled`': '${e.enabledToolCount} ara\\xe7`),(e.promptCount??0)>0&&t.push(`${e.promptCount} istem`),(e.resourceCount??0)>0&&t.push(`${e.resourceCount} kaynak`),t.length>0?`${t.join(", ")} etkin`',
     '${t.enabledToolCount} tools`),(t.promptCount??0)>0&&e.push(`${t.promptCount} prompts`),(t.resourceCount??0)>0&&e.push(`${t.resourceCount} resources`),e.length>0?`${e.join(", ")} enabled`': '${t.enabledToolCount} ara\\xe7`),(t.promptCount??0)>0&&e.push(`${t.promptCount} istem`),(t.resourceCount??0)>0&&e.push(`${t.resourceCount} kaynak`),e.length>0?`${e.join(", ")} etkin`',
-    "pxi(i,e.parameters,n);return r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name}": "pxi(i,e.parameters,n);return (r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name)?.replace?.(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\")?.replace?.(\"Medium Fast\",\"Orta H\u0131zl\u0131\")?.replace?.(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\")}",
-    "Nfn(i,t.parameters,n);return r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name}": "Nfn(i,t.parameters,n);return (r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name)?.replace?.(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\")?.replace?.(\"Medium Fast\",\"Orta H\u0131zl\u0131\")?.replace?.(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\")}",
-    "c=i.displayName;let l;if(t[0]!==c||t[1]!==o)": "c=(i.displayName||\"\").replace(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\").replace(\"Medium Fast\",\"Orta H\u0131zl\u0131\").replace(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\");let l;if(t[0]!==c||t[1]!==o)",
-    "l=i.displayName;let c;if(e[0]!==l||e[1]!==o)": "l=(i.displayName||\"\").replace(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\").replace(\"Medium Fast\",\"Orta H\u0131zl\u0131\").replace(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\");let c;if(e[0]!==l||e[1]!==o)",
-    "t[3]!==n?(u=R0(\"div\",{...s,\"data-testid\":\"parameter-submenu-title\",children:n}),t[3]=n,t[4]=u):u=t[4]": "t[3]!==n?(u=R0(\"div\",{...s,\"data-testid\":\"parameter-submenu-title\",children:typeof n===\"string\"?n.replace(\"(fast)\",\"(h\u0131zl\u0131)\").replace(\"(Fast)\",\"(H\u0131zl\u0131)\").replace(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\"):n}),t[3]=n,t[4]=u):u=t[4]",
-    "e[3]!==n?(u=Rx(\"div\",{...s,\"data-testid\":\"parameter-submenu-title\",children:n}),e[3]=n,e[4]=u):u=e[4]": "e[3]!==n?(u=Rx(\"div\",{...s,\"data-testid\":\"parameter-submenu-title\",children:typeof n===\"string\"?n.replace(\"(fast)\",\"(h\u0131zl\u0131)\").replace(\"(Fast)\",\"(H\u0131zl\u0131)\").replace(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\"):n}),e[3]=n,e[4]=u):u=e[4]",
+    "pxi(i,e.parameters,n);return r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name}": "pxi(i,e.parameters,n);return (r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name)?.replace?.(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\")?.replace?.(\"Medium Fast\",\"Orta H\u0131zl\u0131\")?.replace?.(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\")?.replace?.(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\")}",
+    "Nfn(i,t.parameters,n);return r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name}": "Nfn(i,t.parameters,n);return (r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name)?.replace?.(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\")?.replace?.(\"Medium Fast\",\"Orta H\u0131zl\u0131\")?.replace?.(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\")?.replace?.(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\")}",
+    "gxi(i,e.parameters,n);return r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name}": "gxi(i,e.parameters,n);return (r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name)?.replace?.(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\")?.replace?.(\"Medium Fast\",\"Orta H\u0131zl\u0131\")?.replace?.(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\")?.replace?.(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\")}",
+    "Lfn(i,t.parameters,n);return r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name}": "Lfn(i,t.parameters,n);return (r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name)?.replace?.(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\")?.replace?.(\"Medium Fast\",\"Orta H\u0131zl\u0131\")?.replace?.(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\")?.replace?.(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\")}",
+    "c=i.displayName;let l;if(t[0]!==c||t[1]!==o)": "c=(i.displayName||\"\").replace(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\").replace(\"Medium Fast\",\"Orta H\u0131zl\u0131\").replace(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\").replace(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\").replace(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\");let l;if(t[0]!==c||t[1]!==o)",
+    "l=i.displayName;let c;if(e[0]!==l||e[1]!==o)": "l=(i.displayName||\"\").replace(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\").replace(\"Medium Fast\",\"Orta H\u0131zl\u0131\").replace(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\").replace(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\").replace(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\");let c;if(e[0]!==l||e[1]!==o)",
+    "t[3]!==n?(u=R0(\"div\",{...s,\"data-testid\":\"parameter-submenu-title\",children:n}),t[3]=n,t[4]=u):u=t[4]": "t[3]!==n?(u=R0(\"div\",{...s,\"data-testid\":\"parameter-submenu-title\",children:typeof n===\"string\"?n.replace(\"(fast)\",\"(h\u0131zl\u0131)\").replace(\"(Fast)\",\"(H\u0131zl\u0131)\").replace(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\").replace(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\"):n}),t[3]=n,t[4]=u):u=t[4]",
+    "e[3]!==n?(u=Rx(\"div\",{...s,\"data-testid\":\"parameter-submenu-title\",children:n}),e[3]=n,e[4]=u):u=e[4]": "e[3]!==n?(u=Rx(\"div\",{...s,\"data-testid\":\"parameter-submenu-title\",children:typeof n===\"string\"?n.replace(\"(fast)\",\"(h\u0131zl\u0131)\").replace(\"(Fast)\",\"(H\u0131zl\u0131)\").replace(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\").replace(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\"):n}),e[3]=n,e[4]=u):u=e[4]",
+    "t[3]!==n?(u=N0(\"div\",{...s,\"data-testid\":\"parameter-submenu-title\",children:n}),t[3]=n,t[4]=u):u=t[4]": "t[3]!==n?(u=N0(\"div\",{...s,\"data-testid\":\"parameter-submenu-title\",children:typeof n===\"string\"?n.replace(\"(fast)\",\"(h\u0131zl\u0131)\").replace(\"(Fast)\",\"(H\u0131zl\u0131)\").replace(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\").replace(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\"):n}),t[3]=n,t[4]=u):u=t[4]",
+    "e[3]!==n?(u=Dx(\"div\",{...s,\"data-testid\":\"parameter-submenu-title\",children:n}),e[3]=n,e[4]=u):u=e[4]": "e[3]!==n?(u=Dx(\"div\",{...s,\"data-testid\":\"parameter-submenu-title\",children:typeof n===\"string\"?n.replace(\"(fast)\",\"(h\u0131zl\u0131)\").replace(\"(Fast)\",\"(H\u0131zl\u0131)\").replace(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\").replace(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\"):n}),e[3]=n,e[4]=u):u=e[4]",
+    '"No additional models available. Add a non-thinking model in Settings."': '"Kullan\u0131labilir ek model yok. Ayarlar\'dan d\xfc\u015f\xfcnme \xf6zelli\u011fi olmayan bir model ekleyin."',
     '"New Agents Window"': '"Yeni Ajanlar Penceresi"',
     '"Zen Mode"': '"Zen Modu"',
     '"Secondary Side Bar"': '"İkincil Kenar Çubuğu"',
@@ -211,11 +216,11 @@ OVERLAY = r'''
     ["Enter a test Teams message...", "Test Teams mesajı girin..."],
     ["Enter the message that was reacted to...", "Tepki verilen mesajı girin..."],
     ["Allow agents on this computer to be controlled remotely from mobile", "Bu bilgisayardaki ajanların mobilden uzaktan denetlenmesine izin ver"],
-    '"Turn Remote Control on again to reset this computer"': '"Bu bilgisayar\\u0131 s\\u0131f\\u0131rlamak i\\xe7in Uzaktan Denetim\'i tekrar a\\xe7\\u0131n"',
+    ["Turn Remote Control on again to reset this computer", "Bu bilgisayarı sıfırlamak için Uzaktan Denetim'i tekrar açın"],
     ["Trusted Devices", "Güvenilen Cihazlar"],
     ["No other devices are approved for Remote Control yet", "Henüz Uzaktan Denetim için onaylanmış başka cihaz yok"],
     ["Unnamed device", "Adsız cihaz"],
-    '"Enable Remote Control for this computer"': '"Bu bilgisayar i\\xe7in Uzaktan Denetim\'i etkinle\\u015ftir"',
+    ["Enable Remote Control for this computer", "Bu bilgisayar için Uzaktan Denetim'i etkinleştir"],
     ["Search repositories...", "Depolarda ara..."],
     ["Search repositories", "Depolarda ara"],
     ["Search repositories, environments...", "Depolarda ve ortamlarda ara..."],
@@ -384,6 +389,14 @@ OVERLAY = r'''
     ["+ High Fast", "+ Yüksek Hızlı"],
     ["+ Medium Fast", "+ Orta Hızlı"],
     ["+ Low Fast", "+ Düşük Hızlı"],
+    ["No Thinking", "Düşünme Yok"],
+    ["No thinking", "Düşünme Yok"],
+    ["no thinking", "düşünme yok"],
+    ["Claude Sonnet 4 No Thinking", "Claude Sonnet 4 Düşünme Yok"],
+    ["Meta's flagship model, great for agentic coding.", "Meta'nın amiral gemisi modeli; ajan tabanlı kodlama için idealdir."],
+    ["Meta's flagship model, great for coding.", "Meta'nın amiral gemisi modeli; kodlama için idealdir."],
+    ["great for agentic coding.", "ajan tabanlı kodlama için idealdir."],
+    ["great for agentic coding", "ajan tabanlı kodlama için idealdir"],
     ["Cursor Models", "Cursor Modelleri"],
     ["Other Models", "Diğer Modeller"],
     ["Composer 2.5 (Fast)", "Composer 2.5 (Hızlı)"],
@@ -819,6 +832,21 @@ OVERLAY = r'''
     ["Earlier OpenAI model, for complex tasks.", "Karmaşık görevler için önceki OpenAI modeli."],
     ["Fast, affordable GPT-5.6 tier with strong capability at the lowest GPT-5.6 cost. Roughly corresponds to nano on earlier GPT models.", "En düşük GPT-5.6 maliyetinde güçlü yetenek sunan hızlı ve uygun fiyatlı GPT-5.6 katmanı. Önceki GPT modellerindeki nano sınıfına yaklaşık olarak karşılık gelir."],
     ["Good default for everyday tasks, balanced for quality and speed.", "Günlük görevler için kalite ve hız dengesi sunan iyi bir varsayılan."],
+    ["Meta's flagship model, great for agentic coding.", "Meta'nın amiral gemisi modeli; ajan tabanlı kodlama için idealdir."],
+    ["Meta's flagship model, great for coding.", "Meta'nın amiral gemisi modeli; kodlama için idealdir."],
+    ["Meta's fast model, great for daily use.", "Meta'nın hızlı modeli; günlük kullanım için idealdir."],
+    ["great for agentic coding.", "ajan tabanlı kodlama için idealdir."],
+    ["great for agentic coding", "ajan tabanlı kodlama için idealdir"],
+    ["Version: no thinking effort", "Sürüm: düşünme yok"],
+    ["Version: no thinking", "Sürüm: düşünme yok"],
+    ["Version: none reasoning effort", "Sürüm: akıl yürütme yok"],
+    ["Version: none effort", "Sürüm: çaba yok"],
+    ["Version: off", "Sürüm: kapalı"],
+    ["Version: disabled", "Sürüm: devre dışı"],
+    ["Claude Sonnet 4 No Thinking", "Claude Sonnet 4 Düşünme Yok"],
+    ["No Thinking", "Düşünme Yok"],
+    ["No thinking", "Düşünme Yok"],
+    ["no thinking", "düşünme yok"],
     ["Google's flash model, great for daily use.", "Google'ın hızlı Flash modeli; günlük kullanım için idealdir."],
     ["Google's latest flagship model, great for daily use.", "Google'ın en yeni amiral gemisi modeli; günlük kullanım için idealdir."],
     ["Google's latest flash model, great for daily use.", "Google'ın en yeni Flash modeli; günlük kullanım için idealdir."],
@@ -907,6 +935,8 @@ OVERLAY = r'''
     if (key.includes("High Fast")) return key.replace(/High Fast/g, "Yüksek Hızlı");
     if (key.includes("Medium Fast")) return key.replace(/Medium Fast/g, "Orta Hızlı");
     if (key.includes("Low Fast")) return key.replace(/Low Fast/g, "Düşük Hızlı");
+    if (key.includes("No Thinking")) return key.replace(/No Thinking/g, "Düşünme Yok");
+    if (key.includes("No thinking")) return key.replace(/No thinking/g, "Düşünme Yok");
     if (key.includes("(fast)")) return key.replace(/\(fast\)/g, "(hızlı)");
     if (key.includes("(Fast)")) return key.replace(/\(Fast\)/g, "(Hızlı)");
     // Guncelleme statik NLS ile cumlenin baska kelimelerini de kismen
@@ -1464,6 +1494,10 @@ OVERLAY = r'''
     ["+ High Fast", "+ Yüksek Hızlı"],
     ["+ Medium Fast", "+ Orta Hızlı"],
     ["+ Low Fast", "+ Düşük Hızlı"],
+    ["No Thinking", "Düşünme Yok"],
+    ["No thinking", "Düşünme Yok"],
+    ["no thinking", "düşünme yok"],
+    ["Claude Sonnet 4 No Thinking", "Claude Sonnet 4 Düşünme Yok"],
     ["Cloud", "Bulut"], ["Local", "Yerel"], ["Team Pool", "Ekip Havuzu"],
     ["Cursor Light", "Cursor Açık"],
     ["Cursor Light Colorblind (Beta)", "Cursor Açık — Renk Körlüğü (Beta)"],
@@ -1527,7 +1561,7 @@ OVERLAY = r'''
               content.includes("Model")) { allowed = true; break; }
         }
       }
-      if (!allowed && ["Low", "Medium", "High", "Fast"].includes(key)) {
+      if (!allowed && ["Low", "Medium", "High", "Fast", "No Thinking", "No thinking"].includes(key)) {
         // Kapali secicide yalnizca secili deger gorunur. Mesaj kutusunun
         // icindeki dar dugmeyi hedefle; ayni kelimelerin editor veya ayarlar
         // ekranindaki kullanimlarina dokunma.
