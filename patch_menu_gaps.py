@@ -55,12 +55,12 @@ STATIC = {
     '"No tools, prompts, or resources"': '"Ara\\xe7, istem veya kaynak yok"',
     '${e.enabledToolCount} tools`),(e.promptCount??0)>0&&t.push(`${e.promptCount} prompts`),(e.resourceCount??0)>0&&t.push(`${e.resourceCount} resources`),t.length>0?`${t.join(", ")} enabled`': '${e.enabledToolCount} ara\\xe7`),(e.promptCount??0)>0&&t.push(`${e.promptCount} istem`),(e.resourceCount??0)>0&&t.push(`${e.resourceCount} kaynak`),t.length>0?`${t.join(", ")} etkin`',
     '${t.enabledToolCount} tools`),(t.promptCount??0)>0&&e.push(`${t.promptCount} prompts`),(t.resourceCount??0)>0&&e.push(`${t.resourceCount} resources`),e.length>0?`${e.join(", ")} enabled`': '${t.enabledToolCount} ara\\xe7`),(t.promptCount??0)>0&&e.push(`${t.promptCount} istem`),(t.resourceCount??0)>0&&e.push(`${t.resourceCount} kaynak`),e.length>0?`${e.join(", ")} etkin`',
-    "pxi(i,e.parameters,n);return r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name}": "pxi(i,e.parameters,n);return (r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name)?.replace?.(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\")?.replace?.(\"Medium Fast\",\"Orta H\u0131zl\u0131\")?.replace?.(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\")?.replace?.(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\")}",
-    "Nfn(i,t.parameters,n);return r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name}": "Nfn(i,t.parameters,n);return (r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name)?.replace?.(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\")?.replace?.(\"Medium Fast\",\"Orta H\u0131zl\u0131\")?.replace?.(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\")?.replace?.(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\")}",
-    "gxi(i,e.parameters,n);return r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name}": "gxi(i,e.parameters,n);return (r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name)?.replace?.(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\")?.replace?.(\"Medium Fast\",\"Orta H\u0131zl\u0131\")?.replace?.(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\")?.replace?.(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\")}",
-    "Lfn(i,t.parameters,n);return r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name}": "Lfn(i,t.parameters,n);return (r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name)?.replace?.(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\")?.replace?.(\"Medium Fast\",\"Orta H\u0131zl\u0131\")?.replace?.(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\")?.replace?.(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\")}",
-    "c=i.displayName;let l;if(t[0]!==c||t[1]!==o)": "c=(i.displayName||\"\").replace(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\").replace(\"Medium Fast\",\"Orta H\u0131zl\u0131\").replace(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\").replace(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\").replace(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\");let l;if(t[0]!==c||t[1]!==o)",
-    "l=i.displayName;let c;if(e[0]!==l||e[1]!==o)": "l=(i.displayName||\"\").replace(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\").replace(\"Medium Fast\",\"Orta H\u0131zl\u0131\").replace(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\").replace(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\").replace(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\");let c;if(e[0]!==l||e[1]!==o)",
+    "pxi(i,e.parameters,n);return r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name}": "pxi(i,e.parameters,n);return (r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name)?.replace?.(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\")?.replace?.(\"Medium Fast\",\"Orta H\u0131zl\u0131\")?.replace?.(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\")?.replace?.(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(/\\s+High$/, \" Y\xfcksek\")?.replace?.(/\\s+Medium$/, \" Orta\")?.replace?.(/\\s+Low$/, \" D\xfc\u015f\xfck\")?.replace?.(/\\s+Max$/, \" Azami\")}",
+    "Nfn(i,t.parameters,n);return r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name}": "Nfn(i,t.parameters,n);return (r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name)?.replace?.(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\")?.replace?.(\"Medium Fast\",\"Orta H\u0131zl\u0131\")?.replace?.(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\")?.replace?.(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(/\\s+High$/, \" Y\xfcksek\")?.replace?.(/\\s+Medium$/, \" Orta\")?.replace?.(/\\s+Low$/, \" D\xfc\u015f\xfck\")?.replace?.(/\\s+Max$/, \" Azami\")}",
+    "gxi(i,e.parameters,n);return r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name}": "gxi(i,e.parameters,n);return (r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name)?.replace?.(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\")?.replace?.(\"Medium Fast\",\"Orta H\u0131zl\u0131\")?.replace?.(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\")?.replace?.(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(/\\s+High$/, \" Y\xfcksek\")?.replace?.(/\\s+Medium$/, \" Orta\")?.replace?.(/\\s+Low$/, \" D\xfc\u015f\xfck\")?.replace?.(/\\s+Max$/, \" Azami\")}",
+    "Lfn(i,t.parameters,n);return r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name}": "Lfn(i,t.parameters,n);return (r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name)?.replace?.(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\")?.replace?.(\"Medium Fast\",\"Orta H\u0131zl\u0131\")?.replace?.(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\")?.replace?.(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(/\\s+High$/, \" Y\xfcksek\")?.replace?.(/\\s+Medium$/, \" Orta\")?.replace?.(/\\s+Low$/, \" D\xfc\u015f\xfck\")?.replace?.(/\\s+Max$/, \" Azami\")}",
+    "c=i.displayName;let l;if(t[0]!==c||t[1]!==o)": "c=(i.displayName||\"\").replace(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\").replace(\"Medium Fast\",\"Orta H\u0131zl\u0131\").replace(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\").replace(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\").replace(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\").replace(/\\s+High$/,\" Y\xfcksek\").replace(/\\s+Medium$/,\" Orta\").replace(/\\s+Low$/,\" D\xfc\u015f\xfck\").replace(/\\s+Max$/,\" Azami\");let l;if(t[0]!==c||t[1]!==o)",
+    "l=i.displayName;let c;if(e[0]!==l||e[1]!==o)": "l=(i.displayName||\"\").replace(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\").replace(\"Medium Fast\",\"Orta H\u0131zl\u0131\").replace(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\").replace(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\").replace(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\").replace(/\\s+High$/,\" Y\xfcksek\").replace(/\\s+Medium$/,\" Orta\").replace(/\\s+Low$/,\" D\xfc\u015f\xfck\").replace(/\\s+Max$/,\" Azami\");let c;if(e[0]!==l||e[1]!==o)",
     "t[3]!==n?(u=R0(\"div\",{...s,\"data-testid\":\"parameter-submenu-title\",children:n}),t[3]=n,t[4]=u):u=t[4]": "t[3]!==n?(u=R0(\"div\",{...s,\"data-testid\":\"parameter-submenu-title\",children:typeof n===\"string\"?n.replace(\"(fast)\",\"(h\u0131zl\u0131)\").replace(\"(Fast)\",\"(H\u0131zl\u0131)\").replace(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\").replace(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\"):n}),t[3]=n,t[4]=u):u=t[4]",
     "e[3]!==n?(u=Rx(\"div\",{...s,\"data-testid\":\"parameter-submenu-title\",children:n}),e[3]=n,e[4]=u):u=e[4]": "e[3]!==n?(u=Rx(\"div\",{...s,\"data-testid\":\"parameter-submenu-title\",children:typeof n===\"string\"?n.replace(\"(fast)\",\"(h\u0131zl\u0131)\").replace(\"(Fast)\",\"(H\u0131zl\u0131)\").replace(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\").replace(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\"):n}),e[3]=n,e[4]=u):u=e[4]",
     "t[3]!==n?(u=N0(\"div\",{...s,\"data-testid\":\"parameter-submenu-title\",children:n}),t[3]=n,t[4]=u):u=t[4]": "t[3]!==n?(u=N0(\"div\",{...s,\"data-testid\":\"parameter-submenu-title\",children:typeof n===\"string\"?n.replace(\"(fast)\",\"(h\u0131zl\u0131)\").replace(\"(Fast)\",\"(H\u0131zl\u0131)\").replace(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\").replace(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\"):n}),t[3]=n,t[4]=u):u=t[4]",
@@ -133,6 +133,26 @@ STATIC = {
     'Ee(9231,"Source Control")': 'Ee(9231,"Kaynak Denetimi")',
     'Ee(7262,"Explorer")': 'Ee(7262,"Gezgin")',
     'Ee(7263,"Explorer")': 'Ee(7263,"Gezgin")',
+    '"Planning next moves"': '"Sıradaki adımlar planlanıyor"',
+    '"Wrapping up"': '"Tamamlanıyor"',
+    '"Starting up"': '"Başlatılıyor"',
+    '"Couldn\'t start"': '"Başlatılamadı"',
+    '"Stopped with error"': '"Hatayla durduruldu"',
+    '"Add a follow-up"': '"Takip mesajı ekle"',
+    '"Add a follow up"': '"Takip mesajı ekle"',
+    'loadingAction:"Reading",completedAction:"Read"': 'loadingAction:"Okunuyor",completedAction:"Okundu"',
+    'loadingAction:"Using",completedAction:"Used"': 'loadingAction:"Kullanılıyor",completedAction:"Kullanıldı"',
+    'loadingAction:c?.loadingAction??"Exploring"': 'loadingAction:c?.loadingAction??"Keşfediliyor"',
+    'loadingAction:l?.loadingAction??"Exploring"': 'loadingAction:l?.loadingAction??"Keşfediliyor"',
+    'text:o??`${t} file${t===1?"":"s"}`': 'text:o??`${t} dosya`',
+    'compactText:o!==void 0?"1 file":void 0': 'compactText:o!==void 0?"1 dosya":void 0',
+    'text:o??`${e} file${e===1?"":"s"}`': 'text:o??`${e} dosya`',
+    'action:"Clicked"': 'action:"Tıklandı"',
+    'action:"Clicked on page"': 'action:"Sayfaya tıklandı"',
+    'action:"Navigated to"': 'action:"Gidildi:"',
+    'action:"Took snapshot"': 'action:"Anlık görüntü alındı"',
+    'action:"Typed"': 'action:"Yazıldı"',
+    'action:"Filled"': 'action:"Dolduruldu"',
 }
 
 OVERLAY = r'''
@@ -140,6 +160,33 @@ OVERLAY = r'''
 /* CURSOR_TR_MENU_GAPS_V1 */
 ;(() => {
   const translations = new Map([
+    ["Planning next moves", "Sıradaki adımlar planlanıyor"],
+    ["Wrapping up", "Tamamlanıyor"],
+    ["Starting up", "Başlatılıyor"],
+    ["Thinking", "Düşünülüyor"],
+    ["Exploring", "Keşfediliyor"],
+    ["Reading", "Okunuyor"],
+    ["Reading...", "Okunuyor..."],
+    ["Using", "Kullanılıyor"],
+    ["Used", "Kullanıldı"],
+    ["Generating", "Üretiliyor"],
+    ["Generated", "Üretildi"],
+    ["Deleting", "Siliniyor"],
+    ["Deleted", "Silindi"],
+    ["Ran", "Çalıştırıldı"],
+    ["Running", "Çalıştırılıyor"],
+    ["Add a follow-up", "Takip mesajı ekle"],
+    ["Add a follow up", "Takip mesajı ekle"],
+    ["Ask follow-ups in the worktree", "Çalışma ağacında takip mesajları sorun"],
+    ["Send follow-up", "Takip mesajı gönder"],
+    ["Cycle Effort", "Çaba Düzeyini Değiştir"],
+    ["Cycle effort", "Çaba düzeyini değiştir"],
+    ["Switch Model and Retry", "Model Değiştir ve Yeniden Dene"],
+    ["Claude Fable 5.1 High", "Claude Fable 5.1 Yüksek"],
+    ["Claude Fable 5.1 Medium", "Claude Fable 5.1 Orta"],
+    ["Claude Fable 5.1 Low", "Claude Fable 5.1 Düşük"],
+    ["Claude Fable 5.1 Max", "Claude Fable 5.1 Azami"],
+    ["Claude Fable 5.1", "Claude Fable 5.1"],
     ["OUTLINE", "ANA HAT"],
     ["Outline", "Ana Hat"],
     ["OUTPUT", "ÇIKTI"],
@@ -907,7 +954,13 @@ OVERLAY = r'''
     ["Version: minimal effort", "Sürüm: en düşük çaba"],
     ["Version: none reasoning effort", "Sürüm: akıl yürütme yok"],
     ["Version: preview", "Sürüm: önizleme"],
-    ["Learn more", "Daha fazla bilgi"]
+    ["Learn more", "Daha fazla bilgi"],
+    ["Cycle Effort", "Çaba Düzeyini Değiştir"],
+    ["Cycle effort", "Çaba düzeyini değiştir"],
+    ["Switch Model", "Model Değiştir"],
+    ["Switch model", "Model değiştir"],
+    ["Add a follow up", "Takip mesajı ekle"],
+    ["Add a follow-up", "Takip mesajı ekle"]
   ];
   const translateModelTooltipValue = (value) => {
     let result = String(value || "");
@@ -920,6 +973,21 @@ OVERLAY = r'''
   const translateValue = (value) => {
     let key = String(value || "").replace(/\s+/g, " ").trim();
     if (translations.has(key)) return translations.get(key);
+    const matchEffort = key.match(/^(.+?)\s+(High|Medium|Low|Max|Extra High)$/);
+    if (matchEffort) {
+      const effortMap = {
+        "High": "Yüksek",
+        "Medium": "Orta",
+        "Low": "Düşük",
+        "Max": "Azami",
+        "Extra High": "Ekstra Yüksek"
+      };
+      return `${matchEffort[1]} ${effortMap[matchEffort[2]]}`;
+    }
+    const matchExploring = key.match(/^Exploring\s+(\d+)\s+files?$/i);
+    if (matchExploring) return `${matchExploring[1]} dosya keşfediliyor`;
+    const matchReading = key.match(/^Reading\s+(\d+)\s+files?$/i);
+    if (matchReading) return `${matchReading[1]} dosya okunuyor`;
     let matchFilesChanged = key.match(/^(\d+)\s+Files?\s+Changed$/i);
     if (matchFilesChanged) return `${matchFilesChanged[1]} Dosya Değişti`;
     const modelTooltipValue = translateModelTooltipValue(value);
@@ -1520,7 +1588,13 @@ OVERLAY = r'''
     ["Cursor Light", "Cursor Açık"],
     ["Cursor Light Colorblind (Beta)", "Cursor Açık — Renk Körlüğü (Beta)"],
     ["Cursor Dark", "Cursor Koyu"],
-    ["Cursor Dark High Contrast", "Cursor Koyu Yüksek Karşıtlık"]
+    ["Cursor Dark High Contrast", "Cursor Koyu Yüksek Karşıtlık"],
+    ["Claude Fable 5.1 High", "Claude Fable 5.1 Yüksek"],
+    ["Claude Fable 5.1 Medium", "Claude Fable 5.1 Orta"],
+    ["Claude Fable 5.1 Low", "Claude Fable 5.1 Düşük"],
+    ["Claude Fable 5.1 Max", "Claude Fable 5.1 Azami"],
+    ["Claude Sonnet 4.6 High", "Claude Sonnet 4.6 Yüksek"],
+    ["Claude Sonnet 4.5 High", "Claude Sonnet 4.5 Yüksek"]
   ]);
   const ensureEffortStyle = () => {
     if (document.getElementById("cursor-tr-effort-visual-style")) return;
@@ -1554,7 +1628,20 @@ OVERLAY = r'''
     let textNode;
     while ((textNode = walker.nextNode())) {
       const key = textNode.nodeValue.trim();
-      const translated = effortVisualLabels.get(key);
+      let translated = effortVisualLabels.get(key);
+      if (!translated) {
+        const match = key.match(/^(.+?)\s+(High|Medium|Low|Max|Extra High)$/);
+        if (match) {
+          const effortMap = {
+            "High": "Yüksek",
+            "Medium": "Orta",
+            "Low": "Düşük",
+            "Max": "Azami",
+            "Extra High": "Ekstra Yüksek"
+          };
+          translated = `${match[1]} ${effortMap[match[2]]}`;
+        }
+      }
       if (!translated) continue;
       const parent = textNode.parentElement;
       if (!parent || parent.closest(".monaco-editor, .xterm, textarea, pre")) continue;
