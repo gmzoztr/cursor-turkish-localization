@@ -14,6 +14,22 @@ CORE_MARKERS = [
 # Bunlar yalnizca kullaniciya gorunen komut/menu basliklaridir. Kod kimlikleri
 # (zenMode, auxiliaryBar vb.) ayridir ve degistirilmez.
 STATIC = {
+    'loadingAction:"Reading",completedAction:"Read"': 'loadingAction:"Okunuyor",completedAction:"Okundu"',
+    'loadingAction:"Using",completedAction:"Used"': 'loadingAction:"Kullanılıyor",completedAction:"Kullanıldı"',
+    'loadingAction:c?.loadingAction??"Exploring"': 'loadingAction:c?.loadingAction??"Keşfediliyor"',
+    'loadingAction:l?.loadingAction??"Exploring"': 'loadingAction:l?.loadingAction??"Keşfediliyor"',
+    'text:o??`${t} file${t===1?"":"s"}`': 'text:o??`${t} dosya`',
+    'compactText:o!==void 0?"1 file":void 0': 'compactText:o!==void 0?"1 dosya":void 0',
+    'text:o??`${e} file${e===1?"":"s"}`': 'text:o??`${e} dosya`',
+    'action:"Clicked"': 'action:"Tıklandı"',
+    'action:"Clicked on page"': 'action:"Sayfaya tıklandı"',
+    'action:"Navigated to"': 'action:"Gidildi:"',
+    'action:"Took snapshot"': 'action:"Anlık görüntü alındı"',
+    'action:"Typed"': 'action:"Yazıldı"',
+    'action:"Filled"': 'action:"Dolduruldu"',
+    '"Add a follow-up"': '"Takip mesajı ekle"',
+    '"Add a follow up"': '"Takip mesajı ekle"',
+    '"Allow agents on this computer to be controlled remotely from mobile"': '"Bu bilgisayardaki ajanların mobilden uzaktan denetlenmesine izin ver"',
     '"Allow agents on this computer to be controlled remotely from mobile"': '"Bu bilgisayardaki ajanlar\\u0131n mobilden uzaktan denetlenmesine izin ver"',
     '"Turn Remote Control on again to reset this computer"': '"Bu bilgisayar\\u0131 s\\u0131f\\u0131rlamak i\\xe7in Uzaktan Denetim\'i tekrar a\\xe7\\u0131n"',
     '"Trusted Devices"': '"G\\xfcvenilen Cihazlar"',
@@ -55,12 +71,12 @@ STATIC = {
     '"No tools, prompts, or resources"': '"Ara\\xe7, istem veya kaynak yok"',
     '${e.enabledToolCount} tools`),(e.promptCount??0)>0&&t.push(`${e.promptCount} prompts`),(e.resourceCount??0)>0&&t.push(`${e.resourceCount} resources`),t.length>0?`${t.join(", ")} enabled`': '${e.enabledToolCount} ara\\xe7`),(e.promptCount??0)>0&&t.push(`${e.promptCount} istem`),(e.resourceCount??0)>0&&t.push(`${e.resourceCount} kaynak`),t.length>0?`${t.join(", ")} etkin`',
     '${t.enabledToolCount} tools`),(t.promptCount??0)>0&&e.push(`${t.promptCount} prompts`),(t.resourceCount??0)>0&&e.push(`${t.resourceCount} resources`),e.length>0?`${e.join(", ")} enabled`': '${t.enabledToolCount} ara\\xe7`),(t.promptCount??0)>0&&e.push(`${t.promptCount} istem`),(t.resourceCount??0)>0&&e.push(`${t.resourceCount} kaynak`),e.length>0?`${e.join(", ")} etkin`',
-    "pxi(i,e.parameters,n);return r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name}": "pxi(i,e.parameters,n);return (r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name)?.replace?.(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\")?.replace?.(\"Medium Fast\",\"Orta H\u0131zl\u0131\")?.replace?.(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\")?.replace?.(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(/\\s+High$/, \" Y\xfcksek\")?.replace?.(/\\s+Medium$/, \" Orta\")?.replace?.(/\\s+Low$/, \" D\xfc\u015f\xfck\")?.replace?.(/\\s+Max$/, \" Azami\")}",
-    "Nfn(i,t.parameters,n);return r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name}": "Nfn(i,t.parameters,n);return (r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name)?.replace?.(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\")?.replace?.(\"Medium Fast\",\"Orta H\u0131zl\u0131\")?.replace?.(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\")?.replace?.(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(/\\s+High$/, \" Y\xfcksek\")?.replace?.(/\\s+Medium$/, \" Orta\")?.replace?.(/\\s+Low$/, \" D\xfc\u015f\xfck\")?.replace?.(/\\s+Max$/, \" Azami\")}",
-    "gxi(i,e.parameters,n);return r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name}": "gxi(i,e.parameters,n);return (r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name)?.replace?.(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\")?.replace?.(\"Medium Fast\",\"Orta H\u0131zl\u0131\")?.replace?.(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\")?.replace?.(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(/\\s+High$/, \" Y\xfcksek\")?.replace?.(/\\s+Medium$/, \" Orta\")?.replace?.(/\\s+Low$/, \" D\xfc\u015f\xfck\")?.replace?.(/\\s+Max$/, \" Azami\")}",
-    "Lfn(i,t.parameters,n);return r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name}": "Lfn(i,t.parameters,n);return (r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name)?.replace?.(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\")?.replace?.(\"Medium Fast\",\"Orta H\u0131zl\u0131\")?.replace?.(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\")?.replace?.(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(/\\s+High$/, \" Y\xfcksek\")?.replace?.(/\\s+Medium$/, \" Orta\")?.replace?.(/\\s+Low$/, \" D\xfc\u015f\xfck\")?.replace?.(/\\s+Max$/, \" Azami\")}",
-    "c=i.displayName;let l;if(t[0]!==c||t[1]!==o)": "c=(i.displayName||\"\").replace(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\").replace(\"Medium Fast\",\"Orta H\u0131zl\u0131\").replace(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\").replace(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\").replace(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\").replace(/\\s+High$/,\" Y\xfcksek\").replace(/\\s+Medium$/,\" Orta\").replace(/\\s+Low$/,\" D\xfc\u015f\xfck\").replace(/\\s+Max$/,\" Azami\");let l;if(t[0]!==c||t[1]!==o)",
-    "l=i.displayName;let c;if(e[0]!==l||e[1]!==o)": "l=(i.displayName||\"\").replace(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\").replace(\"Medium Fast\",\"Orta H\u0131zl\u0131\").replace(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\").replace(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\").replace(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\").replace(/\\s+High$/,\" Y\xfcksek\").replace(/\\s+Medium$/,\" Orta\").replace(/\\s+Low$/,\" D\xfc\u015f\xfck\").replace(/\\s+Max$/,\" Azami\");let c;if(e[0]!==l||e[1]!==o)",
+    "pxi(i,e.parameters,n);return r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name}": "pxi(i,e.parameters,n);return (r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name)?.replace?.(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\")?.replace?.(\"Medium Fast\",\"Orta H\u0131zl\u0131\")?.replace?.(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\")?.replace?.(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\")}",
+    "Nfn(i,t.parameters,n);return r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name}": "Nfn(i,t.parameters,n);return (r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name)?.replace?.(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\")?.replace?.(\"Medium Fast\",\"Orta H\u0131zl\u0131\")?.replace?.(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\")?.replace?.(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\")}",
+    "gxi(i,e.parameters,n);return r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name}": "gxi(i,e.parameters,n);return (r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name)?.replace?.(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\")?.replace?.(\"Medium Fast\",\"Orta H\u0131zl\u0131\")?.replace?.(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\")?.replace?.(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\")}",
+    "Lfn(i,t.parameters,n);return r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name}": "Lfn(i,t.parameters,n);return (r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name)?.replace?.(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\")?.replace?.(\"Medium Fast\",\"Orta H\u0131zl\u0131\")?.replace?.(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\")?.replace?.(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\")}",
+    "c=i.displayName;let l;if(t[0]!==c||t[1]!==o)": "c=(i.displayName||\"\").replace(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\").replace(\"Medium Fast\",\"Orta H\u0131zl\u0131\").replace(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\").replace(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\").replace(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\");let l;if(t[0]!==c||t[1]!==o)",
+    "l=i.displayName;let c;if(e[0]!==l||e[1]!==o)": "l=(i.displayName||\"\").replace(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\").replace(\"Medium Fast\",\"Orta H\u0131zl\u0131\").replace(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\").replace(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\").replace(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\");let c;if(e[0]!==l||e[1]!==o)",
     "t[3]!==n?(u=R0(\"div\",{...s,\"data-testid\":\"parameter-submenu-title\",children:n}),t[3]=n,t[4]=u):u=t[4]": "t[3]!==n?(u=R0(\"div\",{...s,\"data-testid\":\"parameter-submenu-title\",children:typeof n===\"string\"?n.replace(\"(fast)\",\"(h\u0131zl\u0131)\").replace(\"(Fast)\",\"(H\u0131zl\u0131)\").replace(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\").replace(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\"):n}),t[3]=n,t[4]=u):u=t[4]",
     "e[3]!==n?(u=Rx(\"div\",{...s,\"data-testid\":\"parameter-submenu-title\",children:n}),e[3]=n,e[4]=u):u=e[4]": "e[3]!==n?(u=Rx(\"div\",{...s,\"data-testid\":\"parameter-submenu-title\",children:typeof n===\"string\"?n.replace(\"(fast)\",\"(h\u0131zl\u0131)\").replace(\"(Fast)\",\"(H\u0131zl\u0131)\").replace(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\").replace(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\"):n}),e[3]=n,e[4]=u):u=e[4]",
     "t[3]!==n?(u=N0(\"div\",{...s,\"data-testid\":\"parameter-submenu-title\",children:n}),t[3]=n,t[4]=u):u=t[4]": "t[3]!==n?(u=N0(\"div\",{...s,\"data-testid\":\"parameter-submenu-title\",children:typeof n===\"string\"?n.replace(\"(fast)\",\"(h\u0131zl\u0131)\").replace(\"(Fast)\",\"(H\u0131zl\u0131)\").replace(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\").replace(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\"):n}),t[3]=n,t[4]=u):u=t[4]",
@@ -133,29 +149,6 @@ STATIC = {
     'Ee(9231,"Source Control")': 'Ee(9231,"Kaynak Denetimi")',
     'Ee(7262,"Explorer")': 'Ee(7262,"Gezgin")',
     'Ee(7263,"Explorer")': 'Ee(7263,"Gezgin")',
-    '"Add a follow-up"': '"Takip mesajı ekle"',
-    '"Add a follow up"': '"Takip mesajı ekle"',
-    'loadingAction:"Reading",completedAction:"Read"': 'loadingAction:"Okunuyor",completedAction:"Okundu"',
-    'loadingAction:"Using",completedAction:"Used"': 'loadingAction:"Kullanılıyor",completedAction:"Kullanıldı"',
-    'loadingAction:c?.loadingAction??"Exploring"': 'loadingAction:c?.loadingAction??"Keşfediliyor"',
-    'loadingAction:l?.loadingAction??"Exploring"': 'loadingAction:l?.loadingAction??"Keşfediliyor"',
-    'text:o??`${t} file${t===1?"":"s"}`': 'text:o??`${t} dosya`',
-    'compactText:o!==void 0?"1 file":void 0': 'compactText:o!==void 0?"1 dosya":void 0',
-    'text:o??`${e} file${e===1?"":"s"}`': 'text:o??`${e} dosya`',
-    'action:"Clicked"': 'action:"Tıklandı"',
-    'action:"Clicked on page"': 'action:"Sayfaya tıklandı"',
-    'action:"Navigated to"': 'action:"Gidildi:"',
-    'action:"Took snapshot"': 'action:"Anlık görüntü alındı"',
-    'action:"Typed"': 'action:"Yazıldı"',
-    'action:"Filled"': 'action:"Dolduruldu"',
-}
-
-REVERT_STATIC = {
-    '"Sıradaki adımlar planlanıyor"': '"Planning next moves"',
-    '"Tamamlanıyor"': '"Wrapping up"',
-    '"Başlatılıyor"': '"Starting up"',
-    '"Başlatılamadı"': '"Couldn\'t start"',
-    '"Hatayla durduruldu"': '"Stopped with error"',
 }
 
 OVERLAY = r'''
@@ -163,9 +156,16 @@ OVERLAY = r'''
 /* CURSOR_TR_MENU_GAPS_V1 */
 ;(() => {
   const translations = new Map([
+    ["OUTLINE", "ANA HAT"],
+    ["Outline", "Ana Hat"],
+    ["OUTPUT", "ÇIKTI"],
+    ["Output", "Çıktı"],
+    ["SOURCE CONTROL", "KAYNAK DENETİMİ"],
+    ["Source Control", "Kaynak Denetimi"],
+    ["EXPLORER", "GEZGİN"],
+    ["Explorer", "Gezgin"],
     ["Planning next moves", "Sıradaki adımlar planlanıyor"],
     ["Wrapping up", "Tamamlanıyor"],
-    ["Starting up", "Başlatılıyor"],
     ["Thinking", "Düşünülüyor"],
     ["Exploring", "Keşfediliyor"],
     ["Reading", "Okunuyor"],
@@ -177,15 +177,13 @@ OVERLAY = r'''
     ["Deleting", "Siliniyor"],
     ["Deleted", "Silindi"],
     ["Ran", "Çalıştırıldı"],
-    ["Running", "Çalıştırılıyor"],
     ["Add a follow-up", "Takip mesajı ekle"],
     ["Add a follow up", "Takip mesajı ekle"],
     ["Ask follow-ups in the worktree", "Çalışma ağacında takip mesajları sorun"],
     ["Send follow-up", "Takip mesajı gönder"],
     ["Cycle Effort", "Çaba Düzeyini Değiştir"],
     ["Cycle effort", "Çaba düzeyini değiştir"],
-    ["Couldn't start", "Başlatılamadı"],
-    ["Stopped with error", "Hatayla durduruldu"],
+    ["Switch Model and Retry", "Model Değiştir ve Yeniden Dene"],
     ["OUTLINE", "ANA HAT"],
     ["Outline", "Ana Hat"],
     ["OUTPUT", "ÇIKTI"],
@@ -866,6 +864,12 @@ OVERLAY = r'''
   ]);
   const attrs = ["aria-label", "title", "placeholder", "data-placeholder", "aria-placeholder"];
   const modelTooltipReplacements = [
+    ["Cycle Effort", "Çaba Düzeyini Değiştir"],
+    ["Cycle effort", "Çaba düzeyini değiştir"],
+    ["Switch Model", "Model Değiştir"],
+    ["Switch model", "Model değiştir"],
+    ["Add a follow up", "Takip mesajı ekle"],
+    ["Add a follow-up", "Takip mesajı ekle"],
     ["Model used to build this plan", "Bu planı oluşturan model"],
     ["Select element", "Öğe seç"],
     ["Take Screenshot", "Ekran görüntüsü al"],
@@ -953,13 +957,7 @@ OVERLAY = r'''
     ["Version: minimal effort", "Sürüm: en düşük çaba"],
     ["Version: none reasoning effort", "Sürüm: akıl yürütme yok"],
     ["Version: preview", "Sürüm: önizleme"],
-    ["Learn more", "Daha fazla bilgi"],
-    ["Cycle Effort", "Çaba Düzeyini Değiştir"],
-    ["Cycle effort", "Çaba düzeyini değiştir"],
-    ["Switch Model", "Model Değiştir"],
-    ["Switch model", "Model değiştir"],
-    ["Add a follow up", "Takip mesajı ekle"],
-    ["Add a follow-up", "Takip mesajı ekle"]
+    ["Learn more", "Daha fazla bilgi"]
   ];
   const translateModelTooltipValue = (value) => {
     let result = String(value || "");
@@ -1432,6 +1430,23 @@ OVERLAY = r'''
       }
     });
   };
+  // Sınıf adları Cursor güncellemelerinde değişebiliyor. Ana ekrandaki ipucu
+  // her zaman pencerenin alt bandında bulunduğu için sınıftan bağımsız yedek
+  // denetim yalnızca bu dar alandaki metin düğümlerini işler.
+  const translateBottomBand = () => {
+    if (!document.body || !document.createTreeWalker) return;
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    let textNode;
+    while ((textNode = walker.nextNode())) {
+      const parent = textNode.parentElement;
+      if (!parent || parent.closest(".monaco-editor, .xterm, textarea, pre, [data-component=\"glass-empty-state-rotating-tips\"]")) continue;
+      const rect = parent.getBoundingClientRect();
+      if (rect.bottom < innerHeight - 140 || rect.top > innerHeight) continue;
+      const value = textNode.nodeValue.trim();
+      const translated = translateValue(value);
+      if (translated) textNode.nodeValue = textNode.nodeValue.replace(value, translated);
+    }
+  };
   // Dönen ipuçlarının güncel DOM'u sınıf adı taşımıyor ve cümleyi
   // "Use" + <code>/komut</code> + devamı şeklinde üç ayrı düğüme bölüyor.
   // Sınıf/konum tahmini kullanmadan yalnızca benzersiz komut devamlarını bul,
@@ -1446,34 +1461,30 @@ OVERLAY = r'''
     ["/goal", "to set an objective that Cursor keeps pursuing until it is complete", " ile Cursor'un tamamlanana kadar izlemeyi sürdüreceği bir hedef belirleyin"]
   ];
   const translateCommandTipFragments = () => {
-    const containers = document.querySelectorAll(
-      '[data-component="glass-empty-state-rotating-tips"], .glass-empty-state-rotating-tips__text, .glass-empty-state-rotating-tips__content, .agent-panel-empty-state-footer-region'
-    );
-    for (const container of containers) {
-      const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
-      let textNode;
-      while ((textNode = walker.nextNode())) {
-        const normalized = textNode.nodeValue.replace(/\s+/g, " ").trim();
-        const def = commandTipFragments.find(([, source]) => normalized.startsWith(source));
-        if (!def) continue;
-        const [command, source, translated] = def;
-        let scope = textNode.parentElement;
-        for (let i = 0; scope && i < 8; i++, scope = scope.parentElement) {
-          const content = (scope.textContent || "").replace(/\s+/g, " ");
-          if (!content.includes(command) || !content.includes(source)) continue;
-          const prefixWalker = document.createTreeWalker(scope, NodeFilter.SHOW_TEXT);
-          let prefixNode;
-          while ((prefixNode = prefixWalker.nextNode())) {
-            if (["Use", "Kullan"].includes(prefixNode.nodeValue.trim())) {
-              prefixNode.nodeValue = "";
-              break;
-            }
+    if (!document.body || !document.createTreeWalker) return;
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    let textNode;
+    while ((textNode = walker.nextNode())) {
+      const normalized = textNode.nodeValue.replace(/\s+/g, " ").trim();
+      const def = commandTipFragments.find(([, source]) => normalized.startsWith(source));
+      if (!def) continue;
+      const [command, source, translated] = def;
+      let scope = textNode.parentElement;
+      for (let i = 0; scope && i < 8; i++, scope = scope.parentElement) {
+        const content = (scope.textContent || "").replace(/\s+/g, " ");
+        if (!content.includes(command) || !content.includes(source)) continue;
+        const prefixWalker = document.createTreeWalker(scope, NodeFilter.SHOW_TEXT);
+        let prefixNode;
+        while ((prefixNode = prefixWalker.nextNode())) {
+          if (["Use", "Kullan"].includes(prefixNode.nodeValue.trim())) {
+            prefixNode.nodeValue = "";
+            break;
           }
-          break;
         }
-        const leading = (textNode.nodeValue.match(/^\s*/) || [""])[0];
-        textNode.nodeValue = leading + translated;
+        break;
       }
+      const leading = (textNode.nodeValue.match(/^\s*/) || [""])[0];
+      textNode.nodeValue = leading + translated;
     }
   };
   // Cursor 3.14+ dönen ipucunun ekranda görünen kopyasını data-slot="current"
@@ -1505,9 +1516,7 @@ OVERLAY = r'''
       const value = (item.textContent || "").replace(/\s+/g, " ").trim();
       if (!value) continue;
       if (/find a prior conversation|across conversations/i.test(value)) {
-        if (item.getAttribute("data-cursor-tr-tip-label") !== "Önceki bir konuşmayı bulmak için Cursor'a sorun veya konuşmalar genelinde özetleyin") {
-          item.setAttribute("data-cursor-tr-tip-label", "Önceki bir konuşmayı bulmak için Cursor'a sorun veya konuşmalar genelinde özetleyin");
-        }
+        item.setAttribute("data-cursor-tr-tip-label", "Önceki bir konuşmayı bulmak için Cursor'a sorun veya konuşmalar genelinde özetleyin");
         continue;
       }
       const lookupValue = value.replace(/\bveya\b/gi, "or")
@@ -1531,13 +1540,9 @@ OVERLAY = r'''
         }
       }
       if (translated && translated !== value) {
-        if (item.getAttribute("data-cursor-tr-tip-label") !== translated) {
-          item.setAttribute("data-cursor-tr-tip-label", translated);
-        }
+        item.setAttribute("data-cursor-tr-tip-label", translated);
       } else if (!/find a prior conversation/i.test(value)) {
-        if (item.hasAttribute("data-cursor-tr-tip-label")) {
-          item.removeAttribute("data-cursor-tr-tip-label");
-        }
+        item.removeAttribute("data-cursor-tr-tip-label");
       }
     }
   };
@@ -1546,6 +1551,19 @@ OVERLAY = r'''
   // kilitleyebiliyor. Bu nedenle yalnızca görsel sunumu CSS pseudo-content ile
   // Türkçeleştir; React'in sahip olduğu özgün değerler aynen kalsın.
   const effortVisualLabels = new Map([
+    ["Claude Fable 5.1 High", "Claude Fable 5.1 Yüksek"],
+    ["Claude Fable 5.1 Medium", "Claude Fable 5.1 Orta"],
+    ["Claude Fable 5.1 Low", "Claude Fable 5.1 Düşük"],
+    ["Claude Fable 5.1 Max", "Claude Fable 5.1 Azami"],
+    ["Claude Fable 5 High", "Claude Fable 5 Yüksek"],
+    ["Claude Sonnet 4.6 High", "Claude Sonnet 4.6 Yüksek"],
+    ["Claude Sonnet 4.5 High", "Claude Sonnet 4.5 Yüksek"],
+    ["Cycle Effort", "Çaba Düzeyini Değiştir"],
+    ["Cycle effort", "Çaba düzeyini değiştir"],
+    ["Switch Model and Retry", "Model Değiştir ve Yeniden Dene"],
+    ["Switch Model", "Model Değiştir"],
+    ["Switch model", "Model değiştir"],
+    ["Kimi K3 Max", "Kimi K3 Azami"],
     ["Effort", "Çaba"], ["Low", "Düşük"], ["Medium", "Orta"],
     ["High", "Yüksek"], ["Fast", "Hızlı"],
     ["Extra High", "Ekstra Yüksek"], ["Extra high", "Ekstra Yüksek"],
@@ -1569,13 +1587,7 @@ OVERLAY = r'''
     ["Cursor Light", "Cursor Açık"],
     ["Cursor Light Colorblind (Beta)", "Cursor Açık — Renk Körlüğü (Beta)"],
     ["Cursor Dark", "Cursor Koyu"],
-    ["Cursor Dark High Contrast", "Cursor Koyu Yüksek Karşıtlık"],
-    ["Claude Fable 5.1 High", "Claude Fable 5.1 Yüksek"],
-    ["Claude Fable 5.1 Medium", "Claude Fable 5.1 Orta"],
-    ["Claude Fable 5.1 Low", "Claude Fable 5.1 Düşük"],
-    ["Claude Fable 5.1 Max", "Claude Fable 5.1 Azami"],
-    ["Claude Sonnet 4.6 High", "Claude Sonnet 4.6 Yüksek"],
-    ["Claude Sonnet 4.5 High", "Claude Sonnet 4.5 Yüksek"]
+    ["Cursor Dark High Contrast", "Cursor Koyu Yüksek Karşıtlık"]
   ]);
   const ensureEffortStyle = () => {
     if (document.getElementById("cursor-tr-effort-visual-style")) return;
@@ -1593,104 +1605,105 @@ OVERLAY = r'''
   };
   const markRemoteMachineLabels = () => {
     ensureEffortStyle();
-    const items = document.querySelectorAll('[role="menuitem"], [role="menu"], [data-radix-menu-content]');
-    for (const item of items) {
-      if (item.getAttribute("data-cursor-tr-remote-label") === "Uzak Makineler") continue;
-      const text = item.textContent || "";
-      if (text.includes("Remote Machines")) {
-        item.setAttribute("data-cursor-tr-remote-label", "Uzak Makineler");
-      }
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    let textNode;
+    while ((textNode = walker.nextNode())) {
+      const key = textNode.nodeValue.replace(/\s+/g, " ").trim();
+      if (!["Remote Machines", "Uzak Makineler"].includes(key)) continue;
+      const parent = textNode.parentElement;
+      const item = parent?.closest('[role="menuitem"], [role="menu"], [data-radix-menu-content]');
+      if (item) item.setAttribute("data-cursor-tr-remote-label", "Uzak Makineler");
     }
   };
   const markEffortLabels = () => {
     ensureEffortStyle();
-    const containers = document.querySelectorAll(
-      '[role="menu"], [role="listbox"], [data-radix-menu-content], [data-radix-popper-content-wrapper], [data-testid="parameter-submenu-title"], button, [role="button"]'
-    );
-    for (const container of containers) {
-      const isMenu = Boolean(container.closest('[role="menu"], [role="listbox"], [data-radix-menu-content], [data-radix-popper-content-wrapper], [data-testid="parameter-submenu-title"]'));
-      let isComposerButton = false;
-      if (!isMenu && (container.tagName === "BUTTON" || container.getAttribute("role") === "button")) {
-        let parent = container.parentElement;
-        for (let i = 0; parent && i < 6; i++, parent = parent.parentElement) {
-          if (parent.querySelector('textarea, [contenteditable="true"]')) {
-            isComposerButton = true;
-            break;
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    let textNode;
+    while ((textNode = walker.nextNode())) {
+      const key = textNode.nodeValue.trim();
+      if (!key) continue;
+      let translated = effortVisualLabels.get(key);
+      if (!translated) {
+        const match = key.match(/^(.+?)\s+(High|Medium|Low|Max|Extra High)$/);
+        if (match) {
+          const effortMap = {
+            "High": "Yüksek",
+            "Medium": "Orta",
+            "Low": "Düşük",
+            "Max": "Azami",
+            "Extra High": "Ekstra Yüksek"
+          };
+          translated = `${match[1]} ${effortMap[match[2]]}`;
+        }
+      }
+      if (!translated) continue;
+      const parent = textNode.parentElement;
+      if (!parent || parent.closest(".monaco-editor, .xterm, textarea, pre")) continue;
+      // Birleşik kapalı seçici her yerde güvenle işaretlenebilir. Tek sözcüklü
+      // değerler ise yalnızca Effort/Model seçeneklerinin bulunduğu açılır
+      // katmanda işaretlenir.
+      let allowed = key.includes(" ");
+      if (!allowed) {
+        // Acik secici farkli Cursor surumlerinde Radix/menu/listbox
+        // kapsayicilarindan biriyle olusturuluyor. Metni degistirmeden bu
+        // katmanlarda gorunen etiketi isaretlemek guvenlidir.
+        allowed = Boolean(parent.closest(
+          '[role="menu"], [role="listbox"], [data-radix-menu-content], [data-radix-popper-content-wrapper]'
+        ));
+      }
+      if (!allowed) {
+        let scope = parent;
+        for (let i = 0; scope && i < 16; i++, scope = scope.parentElement) {
+          const content = scope.textContent || "";
+          if (content.includes("Effort") && content.includes("Low") &&
+              content.includes("Medium") && content.includes("High") &&
+              content.includes("Model")) { allowed = true; break; }
+        }
+      }
+      if (!allowed && ["Low", "Medium", "High", "Fast", "No Thinking", "No thinking"].includes(key)) {
+        // Kapali secicide yalnizca secili deger gorunur. Mesaj kutusunun
+        // icindeki dar dugmeyi hedefle; ayni kelimelerin editor veya ayarlar
+        // ekranindaki kullanimlarina dokunma.
+        const button = parent.closest('button, [role="button"]');
+        if (button && (button.textContent || "").trim().startsWith(key)) {
+          let composer = button.parentElement;
+          for (let i = 0; composer && i < 8; i++, composer = composer.parentElement) {
+            if (composer.querySelector('textarea, [contenteditable="true"]')) {
+              const rect = button.getBoundingClientRect();
+              if (rect.width < 180 && rect.height < 64) allowed = true;
+              break;
+            }
           }
         }
       }
-      if (!isMenu && !isComposerButton) continue;
-
-      const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
-      let textNode;
-      while ((textNode = walker.nextNode())) {
-        const key = textNode.nodeValue.trim();
-        let translated = effortVisualLabels.get(key);
-        if (!translated) {
-          const match = key.match(/^(.+?)\s+(High|Medium|Low|Max|Extra High)$/);
-          if (match) {
-            const effortMap = {
-              "High": "Yüksek",
-              "Medium": "Orta",
-              "Low": "Düşük",
-              "Max": "Azami",
-              "Extra High": "Ekstra Yüksek"
-            };
-            translated = `${match[1]} ${effortMap[match[2]]}`;
-          }
-        }
-        if (!translated) continue;
-        const parent = textNode.parentElement;
-        if (!parent || parent.closest(".monaco-editor, .xterm, textarea, pre")) continue;
-        if (parent.getAttribute("data-cursor-tr-effort-label") !== translated) {
-          parent.setAttribute("data-cursor-tr-effort-label", translated);
-        }
-      }
+      if (allowed && parent.getAttribute("data-cursor-tr-effort-label") !== translated) parent.setAttribute("data-cursor-tr-effort-label", translated);
     }
   };
   const start = () => {
     translate(document.body);
     translateRotatingTips();
-    translateCommandTipFragments();
+        translateCommandTipFragments();
     markVisibleRotatingTip();
     markEffortLabels();
     markRemoteMachineLabels();
-
-    let passScheduled = false;
-    const runBackgroundPass = () => {
-      passScheduled = false;
-      translateCommandTipFragments();
-      markVisibleRotatingTip();
-      markEffortLabels();
-      markRemoteMachineLabels();
-    };
-    const scheduleBackgroundPass = () => {
-      if (passScheduled) return;
-      passScheduled = true;
-      if (typeof requestAnimationFrame === "function") {
-        requestAnimationFrame(runBackgroundPass);
-      } else {
-        setTimeout(runBackgroundPass, 60);
-      }
-    };
-
     new MutationObserver(records => {
-      let needsTip = false;
       for (const record of records) {
         if (record.type === "attributes") {
           translate(record.target);
         }
         if (record.type === "characterData") {
           translate(record.target.parentElement);
-          if (record.target.parentElement?.closest?.(".glass-empty-state-rotating-tips__text")) needsTip = true;
+          if (record.target.parentElement?.closest(".glass-empty-state-rotating-tips__text")) translateRotatingTips();
         }
         for (const node of record.addedNodes || []) {
           translate(node);
-          if (node.parentElement?.closest?.(".glass-empty-state-rotating-tips__text")) needsTip = true;
+          if (node.parentElement?.closest(".glass-empty-state-rotating-tips__text")) translateRotatingTips();
         }
+        translateCommandTipFragments();
+        markVisibleRotatingTip();
+        markEffortLabels();
+        markRemoteMachineLabels();
       }
-      if (needsTip) translateRotatingTips();
-      scheduleBackgroundPass();
     }).observe(document.body, {
       subtree: true,
       childList: true,
@@ -1698,8 +1711,15 @@ OVERLAY = r'''
       attributes: true,
       attributeFilter: attrs
     });
-
-    setInterval(runBackgroundPass, 1200);
+    // Cursor ipucu metnini bazen mevcut React dugumlerini yeniden kullanarak
+    // degistiriyor. Dusuk maliyetli hedefli kontrol bu durumu da kapsar.
+    setInterval(() => {
+      translateRotatingTips();
+            translateCommandTipFragments();
+      markVisibleRotatingTip();
+      markEffortLabels();
+      markRemoteMachineLabels();
+    }, 1500);
   };
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start, {once: true});
   else start();
@@ -1766,11 +1786,6 @@ if __name__ == '__main__':
         else:
             prefix, core_suffix = text.rstrip(), ''
         changed = 0
-        for old, orig in REVERT_STATIC.items():
-            count = prefix.count(old)
-            if count:
-                prefix = prefix.replace(old, orig)
-                changed += count
         for old, new in STATIC.items():
             count = prefix.count(old)
             if count:
