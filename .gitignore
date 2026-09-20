@@ -1,4 +1,4 @@
-﻿# Binaries, Bundles and large runtime archives
+# Binaries, Bundles and large runtime archives
 *.exe
 *.asar
 *.asar.orig
@@ -38,6 +38,7 @@ son-commit.txt
 product.json
 nls.messages.json
 nls.cache.*.json
+YENI-*.txt
 
 # OS / Editor
 .DS_Store
