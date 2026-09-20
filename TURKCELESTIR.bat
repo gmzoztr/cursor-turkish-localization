@@ -25,6 +25,10 @@ echo.
 echo ============================================================
 if %RC%==0 (
     echo   TAMAMLANDI. Cursor'i acabilirsiniz.
+    echo.
+    echo   ⭐ Projeyi faydali bulduysaniz GitHub'da bir Yildiz (Star)
+    echo      vererek destek olmayi unutmayin:
+    echo      https://github.com/gmzoztr/cursor-turkish-localization
 ) else (
     echo   HATA OLUSTU. Yukaridaki mesajlara ve apply_report.txt'ye bakin.
 )

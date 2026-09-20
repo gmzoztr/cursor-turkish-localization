@@ -5,8 +5,11 @@
 [![Tested On Cursor](https://img.shields.io/badge/Cursor%20Version-v3.21.16-purple.svg)](https://cursor.com)
 [![Rules Translated](https://img.shields.io/badge/Translated%20Rules%20%26%20Props-4%2C620%2B-brightgreen.svg)](nls-tm.json)
 [![Integrity Verified](https://img.shields.io/badge/IntegrityService-100%25%20Verified-blue.svg)](#-mimar%C3%AE-ve-b%C3%BCt%C3%BCnl%C3%BCk-integrityservice)
+[![GitHub Stars](https://img.shields.io/github/stars/gmzoztr/cursor-turkish-localization?style=social)](https://github.com/gmzoztr/cursor-turkish-localization)
 [![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Cross--Platform-lightgrey.svg)](#-kurulum-installation)
 [![Maintenance Commitment](https://img.shields.io/badge/Maintenance-Day--0%20SLA-orange.svg)](#-open-letter--proposal-to-the-cursor--anysphere-team)
+
+> 🌟 **Bu projeyi faydalı bulduysanız ve Cursor'ı Türkçe kullanmaktan memnunsanız, sağ üst köşeden projeye bir Yıldız (Star ⭐) vererek destek olabilirsiniz!**
 
 Dünyanın lider yapay zekâ destekli kod editörü olan **Cursor Desktop** için geliştirilmiş **en kapsamlı, modern ve mühendislik tabanlı Türkçe yerelleştirme projesidir**.
 

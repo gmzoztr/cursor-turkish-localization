@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 """
 Cursor Tek Tık Türkçe Yama ve Güncelleyici (single_click_patcher.py)
 ------------------------------------------------------------------
@@ -110,6 +110,9 @@ def run_pipeline():
 
     print("\n" + "=" * 65)
     print("  KURULUM TAMAMLANDI! CURSOR ARTIK %100 TÜRKÇE.")
+    print("\n  ⭐ Projeyi faydalı bulduysanız GitHub'da bir Yıldız (Star)")
+    print("     vererek destek olmayı unutmayın:")
+    print("     https://github.com/gmzoztr/cursor-turkish-localization")
     print("=" * 65)
     return True
 
