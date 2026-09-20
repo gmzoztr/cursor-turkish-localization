@@ -127,6 +127,12 @@ STATIC = {
     '"Select Workspace"': '"Çalışma Alanı Seç"',
     '"What should we name your repository?"': '"Deponuzun adı ne olsun?"',
     '"Who can see the code?"': '"Kodu kimler görebilir?"',
+    'name:Ee(8414,"Outline")': 'name:Ee(8414,"Ana Hat")',
+    'name:Ee(8466,"Output")': 'name:Ee(8466,"Çıktı")',
+    'name:Ee(8467,"Output")': 'name:Ee(8467,"Çıktı")',
+    'Ee(9231,"Source Control")': 'Ee(9231,"Kaynak Denetimi")',
+    'Ee(7262,"Explorer")': 'Ee(7262,"Gezgin")',
+    'Ee(7263,"Explorer")': 'Ee(7263,"Gezgin")',
 }
 
 OVERLAY = r'''
@@ -134,6 +140,18 @@ OVERLAY = r'''
 /* CURSOR_TR_MENU_GAPS_V1 */
 ;(() => {
   const translations = new Map([
+    ["OUTLINE", "ANA HAT"],
+    ["Outline", "Ana Hat"],
+    ["OUTPUT", "ÇIKTI"],
+    ["Output", "Çıktı"],
+    ["SOURCE CONTROL", "KAYNAK DENETİMİ"],
+    ["Source Control", "Kaynak Denetimi"],
+    ["EXPLORER", "GEZGİN"],
+    ["Explorer", "Gezgin"],
+    ["PROBLEMS", "SORUNLAR"],
+    ["Problems", "Sorunlar"],
+    ["EXTENSIONS", "UZANTILAR"],
+    ["Extensions", "Uzantılar"],
     ["Create repo", "Depo oluştur"],
     ["Create repository", "Depo oluştur"],
     ["Create Repository", "Depo Oluştur"],

@@ -223,7 +223,13 @@ if os.path.exists(keys_path) and langpacks:
     index = 0
     placeholder_re = re.compile(r'\{\d+\}')
     for module, names in keys_data:
-        module_translations = official.get(module, {})
+        module_translations = (
+            official.get(module)
+            or official.get(module.replace('.view.', '.'))
+            or official.get(module.replace('electron-sandbox', 'electron-browser'))
+            or official.get(module.replace('.view.', '.').replace('electron-sandbox', 'electron-browser'))
+            or {}
+        )
         for name in names:
             translated = module_translations.get(name)
             if isinstance(translated, str):
