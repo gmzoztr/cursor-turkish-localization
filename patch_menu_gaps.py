@@ -133,11 +133,6 @@ STATIC = {
     'Ee(9231,"Source Control")': 'Ee(9231,"Kaynak Denetimi")',
     'Ee(7262,"Explorer")': 'Ee(7262,"Gezgin")',
     'Ee(7263,"Explorer")': 'Ee(7263,"Gezgin")',
-    '"Planning next moves"': '"Sıradaki adımlar planlanıyor"',
-    '"Wrapping up"': '"Tamamlanıyor"',
-    '"Starting up"': '"Başlatılıyor"',
-    '"Couldn\'t start"': '"Başlatılamadı"',
-    '"Stopped with error"': '"Hatayla durduruldu"',
     '"Add a follow-up"': '"Takip mesajı ekle"',
     '"Add a follow up"': '"Takip mesajı ekle"',
     'loadingAction:"Reading",completedAction:"Read"': 'loadingAction:"Okunuyor",completedAction:"Okundu"',
@@ -153,6 +148,14 @@ STATIC = {
     'action:"Took snapshot"': 'action:"Anlık görüntü alındı"',
     'action:"Typed"': 'action:"Yazıldı"',
     'action:"Filled"': 'action:"Dolduruldu"',
+}
+
+REVERT_STATIC = {
+    '"Sıradaki adımlar planlanıyor"': '"Planning next moves"',
+    '"Tamamlanıyor"': '"Wrapping up"',
+    '"Başlatılıyor"': '"Starting up"',
+    '"Başlatılamadı"': '"Couldn\'t start"',
+    '"Hatayla durduruldu"': '"Stopped with error"',
 }
 
 OVERLAY = r'''
@@ -181,12 +184,8 @@ OVERLAY = r'''
     ["Send follow-up", "Takip mesajı gönder"],
     ["Cycle Effort", "Çaba Düzeyini Değiştir"],
     ["Cycle effort", "Çaba düzeyini değiştir"],
-    ["Switch Model and Retry", "Model Değiştir ve Yeniden Dene"],
-    ["Claude Fable 5.1 High", "Claude Fable 5.1 Yüksek"],
-    ["Claude Fable 5.1 Medium", "Claude Fable 5.1 Orta"],
-    ["Claude Fable 5.1 Low", "Claude Fable 5.1 Düşük"],
-    ["Claude Fable 5.1 Max", "Claude Fable 5.1 Azami"],
-    ["Claude Fable 5.1", "Claude Fable 5.1"],
+    ["Couldn't start", "Başlatılamadı"],
+    ["Stopped with error", "Hatayla durduruldu"],
     ["OUTLINE", "ANA HAT"],
     ["Outline", "Ana Hat"],
     ["OUTPUT", "ÇIKTI"],
@@ -973,17 +972,6 @@ OVERLAY = r'''
   const translateValue = (value) => {
     let key = String(value || "").replace(/\s+/g, " ").trim();
     if (translations.has(key)) return translations.get(key);
-    const matchEffort = key.match(/^(.+?)\s+(High|Medium|Low|Max|Extra High)$/);
-    if (matchEffort) {
-      const effortMap = {
-        "High": "Yüksek",
-        "Medium": "Orta",
-        "Low": "Düşük",
-        "Max": "Azami",
-        "Extra High": "Ekstra Yüksek"
-      };
-      return `${matchEffort[1]} ${effortMap[matchEffort[2]]}`;
-    }
     const matchExploring = key.match(/^Exploring\s+(\d+)\s+files?$/i);
     if (matchExploring) return `${matchExploring[1]} dosya keşfediliyor`;
     const matchReading = key.match(/^Reading\s+(\d+)\s+files?$/i);
@@ -1444,23 +1432,6 @@ OVERLAY = r'''
       }
     });
   };
-  // Sınıf adları Cursor güncellemelerinde değişebiliyor. Ana ekrandaki ipucu
-  // her zaman pencerenin alt bandında bulunduğu için sınıftan bağımsız yedek
-  // denetim yalnızca bu dar alandaki metin düğümlerini işler.
-  const translateBottomBand = () => {
-    if (!document.body || !document.createTreeWalker) return;
-    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
-    let textNode;
-    while ((textNode = walker.nextNode())) {
-      const parent = textNode.parentElement;
-      if (!parent || parent.closest(".monaco-editor, .xterm, textarea, pre, [data-component=\"glass-empty-state-rotating-tips\"]")) continue;
-      const rect = parent.getBoundingClientRect();
-      if (rect.bottom < innerHeight - 140 || rect.top > innerHeight) continue;
-      const value = textNode.nodeValue.trim();
-      const translated = translateValue(value);
-      if (translated) textNode.nodeValue = textNode.nodeValue.replace(value, translated);
-    }
-  };
   // Dönen ipuçlarının güncel DOM'u sınıf adı taşımıyor ve cümleyi
   // "Use" + <code>/komut</code> + devamı şeklinde üç ayrı düğüme bölüyor.
   // Sınıf/konum tahmini kullanmadan yalnızca benzersiz komut devamlarını bul,
@@ -1475,30 +1446,34 @@ OVERLAY = r'''
     ["/goal", "to set an objective that Cursor keeps pursuing until it is complete", " ile Cursor'un tamamlanana kadar izlemeyi sürdüreceği bir hedef belirleyin"]
   ];
   const translateCommandTipFragments = () => {
-    if (!document.body || !document.createTreeWalker) return;
-    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
-    let textNode;
-    while ((textNode = walker.nextNode())) {
-      const normalized = textNode.nodeValue.replace(/\s+/g, " ").trim();
-      const def = commandTipFragments.find(([, source]) => normalized.startsWith(source));
-      if (!def) continue;
-      const [command, source, translated] = def;
-      let scope = textNode.parentElement;
-      for (let i = 0; scope && i < 8; i++, scope = scope.parentElement) {
-        const content = (scope.textContent || "").replace(/\s+/g, " ");
-        if (!content.includes(command) || !content.includes(source)) continue;
-        const prefixWalker = document.createTreeWalker(scope, NodeFilter.SHOW_TEXT);
-        let prefixNode;
-        while ((prefixNode = prefixWalker.nextNode())) {
-          if (["Use", "Kullan"].includes(prefixNode.nodeValue.trim())) {
-            prefixNode.nodeValue = "";
-            break;
+    const containers = document.querySelectorAll(
+      '[data-component="glass-empty-state-rotating-tips"], .glass-empty-state-rotating-tips__text, .glass-empty-state-rotating-tips__content, .agent-panel-empty-state-footer-region'
+    );
+    for (const container of containers) {
+      const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
+      let textNode;
+      while ((textNode = walker.nextNode())) {
+        const normalized = textNode.nodeValue.replace(/\s+/g, " ").trim();
+        const def = commandTipFragments.find(([, source]) => normalized.startsWith(source));
+        if (!def) continue;
+        const [command, source, translated] = def;
+        let scope = textNode.parentElement;
+        for (let i = 0; scope && i < 8; i++, scope = scope.parentElement) {
+          const content = (scope.textContent || "").replace(/\s+/g, " ");
+          if (!content.includes(command) || !content.includes(source)) continue;
+          const prefixWalker = document.createTreeWalker(scope, NodeFilter.SHOW_TEXT);
+          let prefixNode;
+          while ((prefixNode = prefixWalker.nextNode())) {
+            if (["Use", "Kullan"].includes(prefixNode.nodeValue.trim())) {
+              prefixNode.nodeValue = "";
+              break;
+            }
           }
+          break;
         }
-        break;
+        const leading = (textNode.nodeValue.match(/^\s*/) || [""])[0];
+        textNode.nodeValue = leading + translated;
       }
-      const leading = (textNode.nodeValue.match(/^\s*/) || [""])[0];
-      textNode.nodeValue = leading + translated;
     }
   };
   // Cursor 3.14+ dönen ipucunun ekranda görünen kopyasını data-slot="current"
@@ -1530,7 +1505,9 @@ OVERLAY = r'''
       const value = (item.textContent || "").replace(/\s+/g, " ").trim();
       if (!value) continue;
       if (/find a prior conversation|across conversations/i.test(value)) {
-        item.setAttribute("data-cursor-tr-tip-label", "Önceki bir konuşmayı bulmak için Cursor'a sorun veya konuşmalar genelinde özetleyin");
+        if (item.getAttribute("data-cursor-tr-tip-label") !== "Önceki bir konuşmayı bulmak için Cursor'a sorun veya konuşmalar genelinde özetleyin") {
+          item.setAttribute("data-cursor-tr-tip-label", "Önceki bir konuşmayı bulmak için Cursor'a sorun veya konuşmalar genelinde özetleyin");
+        }
         continue;
       }
       const lookupValue = value.replace(/\bveya\b/gi, "or")
@@ -1554,9 +1531,13 @@ OVERLAY = r'''
         }
       }
       if (translated && translated !== value) {
-        item.setAttribute("data-cursor-tr-tip-label", translated);
+        if (item.getAttribute("data-cursor-tr-tip-label") !== translated) {
+          item.setAttribute("data-cursor-tr-tip-label", translated);
+        }
       } else if (!/find a prior conversation/i.test(value)) {
-        item.removeAttribute("data-cursor-tr-tip-label");
+        if (item.hasAttribute("data-cursor-tr-tip-label")) {
+          item.removeAttribute("data-cursor-tr-tip-label");
+        }
       }
     }
   };
@@ -1612,105 +1593,104 @@ OVERLAY = r'''
   };
   const markRemoteMachineLabels = () => {
     ensureEffortStyle();
-    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
-    let textNode;
-    while ((textNode = walker.nextNode())) {
-      const key = textNode.nodeValue.replace(/\s+/g, " ").trim();
-      if (!["Remote Machines", "Uzak Makineler"].includes(key)) continue;
-      const parent = textNode.parentElement;
-      const item = parent?.closest('[role="menuitem"], [role="menu"], [data-radix-menu-content]');
-      if (item) item.setAttribute("data-cursor-tr-remote-label", "Uzak Makineler");
+    const items = document.querySelectorAll('[role="menuitem"], [role="menu"], [data-radix-menu-content]');
+    for (const item of items) {
+      if (item.getAttribute("data-cursor-tr-remote-label") === "Uzak Makineler") continue;
+      const text = item.textContent || "";
+      if (text.includes("Remote Machines")) {
+        item.setAttribute("data-cursor-tr-remote-label", "Uzak Makineler");
+      }
     }
   };
   const markEffortLabels = () => {
     ensureEffortStyle();
-    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
-    let textNode;
-    while ((textNode = walker.nextNode())) {
-      const key = textNode.nodeValue.trim();
-      let translated = effortVisualLabels.get(key);
-      if (!translated) {
-        const match = key.match(/^(.+?)\s+(High|Medium|Low|Max|Extra High)$/);
-        if (match) {
-          const effortMap = {
-            "High": "Yüksek",
-            "Medium": "Orta",
-            "Low": "Düşük",
-            "Max": "Azami",
-            "Extra High": "Ekstra Yüksek"
-          };
-          translated = `${match[1]} ${effortMap[match[2]]}`;
-        }
-      }
-      if (!translated) continue;
-      const parent = textNode.parentElement;
-      if (!parent || parent.closest(".monaco-editor, .xterm, textarea, pre")) continue;
-      // Birleşik kapalı seçici her yerde güvenle işaretlenebilir. Tek sözcüklü
-      // değerler ise yalnızca Effort/Model seçeneklerinin bulunduğu açılır
-      // katmanda işaretlenir.
-      let allowed = key.includes(" ");
-      if (!allowed) {
-        // Acik secici farkli Cursor surumlerinde Radix/menu/listbox
-        // kapsayicilarindan biriyle olusturuluyor. Metni degistirmeden bu
-        // katmanlarda gorunen etiketi isaretlemek guvenlidir.
-        allowed = Boolean(parent.closest(
-          '[role="menu"], [role="listbox"], [data-radix-menu-content], [data-radix-popper-content-wrapper]'
-        ));
-      }
-      if (!allowed) {
-        let scope = parent;
-        for (let i = 0; scope && i < 16; i++, scope = scope.parentElement) {
-          const content = scope.textContent || "";
-          if (content.includes("Effort") && content.includes("Low") &&
-              content.includes("Medium") && content.includes("High") &&
-              content.includes("Model")) { allowed = true; break; }
-        }
-      }
-      if (!allowed && ["Low", "Medium", "High", "Fast", "No Thinking", "No thinking"].includes(key)) {
-        // Kapali secicide yalnizca secili deger gorunur. Mesaj kutusunun
-        // icindeki dar dugmeyi hedefle; ayni kelimelerin editor veya ayarlar
-        // ekranindaki kullanimlarina dokunma.
-        const button = parent.closest('button, [role="button"]');
-        if (button && (button.textContent || "").trim().startsWith(key)) {
-          let composer = button.parentElement;
-          for (let i = 0; composer && i < 8; i++, composer = composer.parentElement) {
-            if (composer.querySelector('textarea, [contenteditable="true"]')) {
-              const rect = button.getBoundingClientRect();
-              if (rect.width < 180 && rect.height < 64) allowed = true;
-              break;
-            }
+    const containers = document.querySelectorAll(
+      '[role="menu"], [role="listbox"], [data-radix-menu-content], [data-radix-popper-content-wrapper], [data-testid="parameter-submenu-title"], button, [role="button"]'
+    );
+    for (const container of containers) {
+      const isMenu = Boolean(container.closest('[role="menu"], [role="listbox"], [data-radix-menu-content], [data-radix-popper-content-wrapper], [data-testid="parameter-submenu-title"]'));
+      let isComposerButton = false;
+      if (!isMenu && (container.tagName === "BUTTON" || container.getAttribute("role") === "button")) {
+        let parent = container.parentElement;
+        for (let i = 0; parent && i < 6; i++, parent = parent.parentElement) {
+          if (parent.querySelector('textarea, [contenteditable="true"]')) {
+            isComposerButton = true;
+            break;
           }
         }
       }
-      if (allowed) parent.setAttribute("data-cursor-tr-effort-label", translated);
+      if (!isMenu && !isComposerButton) continue;
+
+      const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
+      let textNode;
+      while ((textNode = walker.nextNode())) {
+        const key = textNode.nodeValue.trim();
+        let translated = effortVisualLabels.get(key);
+        if (!translated) {
+          const match = key.match(/^(.+?)\s+(High|Medium|Low|Max|Extra High)$/);
+          if (match) {
+            const effortMap = {
+              "High": "Yüksek",
+              "Medium": "Orta",
+              "Low": "Düşük",
+              "Max": "Azami",
+              "Extra High": "Ekstra Yüksek"
+            };
+            translated = `${match[1]} ${effortMap[match[2]]}`;
+          }
+        }
+        if (!translated) continue;
+        const parent = textNode.parentElement;
+        if (!parent || parent.closest(".monaco-editor, .xterm, textarea, pre")) continue;
+        if (parent.getAttribute("data-cursor-tr-effort-label") !== translated) {
+          parent.setAttribute("data-cursor-tr-effort-label", translated);
+        }
+      }
     }
   };
   const start = () => {
     translate(document.body);
     translateRotatingTips();
-    translateBottomBand();
     translateCommandTipFragments();
     markVisibleRotatingTip();
     markEffortLabels();
     markRemoteMachineLabels();
+
+    let passScheduled = false;
+    const runBackgroundPass = () => {
+      passScheduled = false;
+      translateCommandTipFragments();
+      markVisibleRotatingTip();
+      markEffortLabels();
+      markRemoteMachineLabels();
+    };
+    const scheduleBackgroundPass = () => {
+      if (passScheduled) return;
+      passScheduled = true;
+      if (typeof requestAnimationFrame === "function") {
+        requestAnimationFrame(runBackgroundPass);
+      } else {
+        setTimeout(runBackgroundPass, 60);
+      }
+    };
+
     new MutationObserver(records => {
+      let needsTip = false;
       for (const record of records) {
         if (record.type === "attributes") {
           translate(record.target);
         }
         if (record.type === "characterData") {
           translate(record.target.parentElement);
-          if (record.target.parentElement?.closest(".glass-empty-state-rotating-tips__text")) translateRotatingTips();
+          if (record.target.parentElement?.closest?.(".glass-empty-state-rotating-tips__text")) needsTip = true;
         }
         for (const node of record.addedNodes || []) {
           translate(node);
-          if (node.parentElement?.closest(".glass-empty-state-rotating-tips__text")) translateRotatingTips();
+          if (node.parentElement?.closest?.(".glass-empty-state-rotating-tips__text")) needsTip = true;
         }
-        translateCommandTipFragments();
-        markVisibleRotatingTip();
-        markEffortLabels();
-        markRemoteMachineLabels();
       }
+      if (needsTip) translateRotatingTips();
+      scheduleBackgroundPass();
     }).observe(document.body, {
       subtree: true,
       childList: true,
@@ -1718,16 +1698,8 @@ OVERLAY = r'''
       attributes: true,
       attributeFilter: attrs
     });
-    // Cursor ipucu metnini bazen mevcut React dugumlerini yeniden kullanarak
-    // degistiriyor. Dusuk maliyetli hedefli kontrol bu durumu da kapsar.
-    setInterval(() => {
-      translateRotatingTips();
-      translateBottomBand();
-      translateCommandTipFragments();
-      markVisibleRotatingTip();
-      markEffortLabels();
-      markRemoteMachineLabels();
-    }, 750);
+
+    setInterval(runBackgroundPass, 1200);
   };
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start, {once: true});
   else start();
@@ -1794,6 +1766,11 @@ if __name__ == '__main__':
         else:
             prefix, core_suffix = text.rstrip(), ''
         changed = 0
+        for old, orig in REVERT_STATIC.items():
+            count = prefix.count(old)
+            if count:
+                prefix = prefix.replace(old, orig)
+                changed += count
         for old, new in STATIC.items():
             count = prefix.count(old)
             if count:
