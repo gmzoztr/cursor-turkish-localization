@@ -71,12 +71,16 @@ STATIC = {
     '"No tools, prompts, or resources"': '"Ara\\xe7, istem veya kaynak yok"',
     '${e.enabledToolCount} tools`),(e.promptCount??0)>0&&t.push(`${e.promptCount} prompts`),(e.resourceCount??0)>0&&t.push(`${e.resourceCount} resources`),t.length>0?`${t.join(", ")} enabled`': '${e.enabledToolCount} ara\\xe7`),(e.promptCount??0)>0&&t.push(`${e.promptCount} istem`),(e.resourceCount??0)>0&&t.push(`${e.resourceCount} kaynak`),t.length>0?`${t.join(", ")} etkin`',
     '${t.enabledToolCount} tools`),(t.promptCount??0)>0&&e.push(`${t.promptCount} prompts`),(t.resourceCount??0)>0&&e.push(`${t.resourceCount} resources`),e.length>0?`${e.join(", ")} enabled`': '${t.enabledToolCount} ara\\xe7`),(t.promptCount??0)>0&&e.push(`${t.promptCount} istem`),(t.resourceCount??0)>0&&e.push(`${t.resourceCount} kaynak`),e.length>0?`${e.join(", ")} etkin`',
-    "pxi(i,e.parameters,n);return r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name}": "pxi(i,e.parameters,n);return (r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name)?.replace?.(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\")?.replace?.(\"Medium Fast\",\"Orta H\u0131zl\u0131\")?.replace?.(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\")?.replace?.(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\")}",
-    "Nfn(i,t.parameters,n);return r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name}": "Nfn(i,t.parameters,n);return (r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name)?.replace?.(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\")?.replace?.(\"Medium Fast\",\"Orta H\u0131zl\u0131\")?.replace?.(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\")?.replace?.(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\")}",
-    "gxi(i,e.parameters,n);return r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name}": "gxi(i,e.parameters,n);return (r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name)?.replace?.(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\")?.replace?.(\"Medium Fast\",\"Orta H\u0131zl\u0131\")?.replace?.(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\")?.replace?.(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\")}",
-    "Lfn(i,t.parameters,n);return r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name}": "Lfn(i,t.parameters,n);return (r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name)?.replace?.(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\")?.replace?.(\"Medium Fast\",\"Orta H\u0131zl\u0131\")?.replace?.(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\")?.replace?.(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\")}",
-    "c=i.displayName;let l;if(t[0]!==c||t[1]!==o)": "c=(i.displayName||\"\").replace(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\").replace(\"Medium Fast\",\"Orta H\u0131zl\u0131\").replace(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\").replace(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\").replace(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\");let l;if(t[0]!==c||t[1]!==o)",
-    "l=i.displayName;let c;if(e[0]!==l||e[1]!==o)": "l=(i.displayName||\"\").replace(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\").replace(\"Medium Fast\",\"Orta H\u0131zl\u0131\").replace(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\").replace(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\").replace(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\");let c;if(e[0]!==l||e[1]!==o)",
+    "pxi(i,e.parameters,n);return r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name}": "pxi(i,e.parameters,n);return (r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name)?.replace?.(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\")?.replace?.(\"Medium Fast\",\"Orta H\u0131zl\u0131\")?.replace?.(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\")?.replace?.(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(/\\bHigh$/,\"Y\xfcksek\")?.replace?.(/\\bMedium$/,\"Orta\")?.replace?.(/\\bLow$/,\"D\xfc\u015f\xfck\")?.replace?.(/\\bMax$/,\"Azami\")?.replace?.(/\\bFast$/,\"H\u0131zl\u0131\")}",
+    "Nfn(i,t.parameters,n);return r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name}": "Nfn(i,t.parameters,n);return (r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name)?.replace?.(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\")?.replace?.(\"Medium Fast\",\"Orta H\u0131zl\u0131\")?.replace?.(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\")?.replace?.(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(/\\bHigh$/,\"Y\xfcksek\")?.replace?.(/\\bMedium$/,\"Orta\")?.replace?.(/\\bLow$/,\"D\xfc\u015f\xfck\")?.replace?.(/\\bMax$/,\"Azami\")?.replace?.(/\\bFast$/,\"H\u0131zl\u0131\")}",
+    "gxi(i,e.parameters,n);return r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name}": "gxi(i,e.parameters,n);return (r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name)?.replace?.(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\")?.replace?.(\"Medium Fast\",\"Orta H\u0131zl\u0131\")?.replace?.(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\")?.replace?.(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(/\\bHigh$/,\"Y\xfcksek\")?.replace?.(/\\bMedium$/,\"Orta\")?.replace?.(/\\bLow$/,\"D\xfc\u015f\xfck\")?.replace?.(/\\bMax$/,\"Azami\")?.replace?.(/\\bFast$/,\"H\u0131zl\u0131\")}",
+    "Lfn(i,t.parameters,n);return r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name}": "Lfn(i,t.parameters,n);return (r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name)?.replace?.(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\")?.replace?.(\"Medium Fast\",\"Orta H\u0131zl\u0131\")?.replace?.(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\")?.replace?.(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(/\\bHigh$/,\"Y\xfcksek\")?.replace?.(/\\bMedium$/,\"Orta\")?.replace?.(/\\bLow$/,\"D\xfc\u015f\xfck\")?.replace?.(/\\bMax$/,\"Azami\")?.replace?.(/\\bFast$/,\"H\u0131zl\u0131\")}",
+    "gxi(i,e.parameters,n);return (r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name)?.replace?.(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\")?.replace?.(\"Medium Fast\",\"Orta H\u0131zl\u0131\")?.replace?.(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\")?.replace?.(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\")}": "gxi(i,e.parameters,n);return (r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name)?.replace?.(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\")?.replace?.(\"Medium Fast\",\"Orta H\u0131zl\u0131\")?.replace?.(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\")?.replace?.(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(/\\bHigh$/,\"Y\xfcksek\")?.replace?.(/\\bMedium$/,\"Orta\")?.replace?.(/\\bLow$/,\"D\xfc\u015f\xfck\")?.replace?.(/\\bMax$/,\"Azami\")?.replace?.(/\\bFast$/,\"H\u0131zl\u0131\")}",
+    "Lfn(i,t.parameters,n);return (r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name)?.replace?.(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\")?.replace?.(\"Medium Fast\",\"Orta H\u0131zl\u0131\")?.replace?.(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\")?.replace?.(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\")}": "Lfn(i,t.parameters,n);return (r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name)?.replace?.(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\")?.replace?.(\"Medium Fast\",\"Orta H\u0131zl\u0131\")?.replace?.(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\")?.replace?.(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(/\\bHigh$/,\"Y\xfcksek\")?.replace?.(/\\bMedium$/,\"Orta\")?.replace?.(/\\bLow$/,\"D\xfc\u015f\xfck\")?.replace?.(/\\bMax$/,\"Azami\")?.replace?.(/\\bFast$/,\"H\u0131zl\u0131\")}",
+    "c=i.displayName;let l;if(t[0]!==c||t[1]!==o)": "c=(i.displayName||\"\").replace(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\").replace(\"Medium Fast\",\"Orta H\u0131zl\u0131\").replace(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\").replace(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\").replace(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\").replace(/\\bHigh$/,\"Y\xfcksek\").replace(/\\bMedium$/,\"Orta\").replace(/\\bLow$/,\"D\xfc\u015f\xfck\").replace(/\\bMax$/,\"Azami\").replace(/\\bFast$/,\"H\u0131zl\u0131\");let l;if(t[0]!==c||t[1]!==o)",
+    "l=i.displayName;let c;if(e[0]!==l||e[1]!==o)": "l=(i.displayName||\"\").replace(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\").replace(\"Medium Fast\",\"Orta H\u0131zl\u0131\").replace(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\").replace(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\").replace(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\").replace(/\\bHigh$/,\"Y\xfcksek\").replace(/\\bMedium$/,\"Orta\").replace(/\\bLow$/,\"D\xfc\u015f\xfck\").replace(/\\bMax$/,\"Azami\").replace(/\\bFast$/,\"H\u0131zl\u0131\");let c;if(e[0]!==l||e[1]!==o)",
+    "c=(i.displayName||\"\").replace(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\").replace(\"Medium Fast\",\"Orta H\u0131zl\u0131\").replace(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\").replace(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\").replace(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\");let l;if(t[0]!==c||t[1]!==o)": "c=(i.displayName||\"\").replace(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\").replace(\"Medium Fast\",\"Orta H\u0131zl\u0131\").replace(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\").replace(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\").replace(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\").replace(/\\bHigh$/,\"Y\xfcksek\").replace(/\\bMedium$/,\"Orta\").replace(/\\bLow$/,\"D\xfc\u015f\xfck\").replace(/\\bMax$/,\"Azami\").replace(/\\bFast$/,\"H\u0131zl\u0131\");let l;if(t[0]!==c||t[1]!==o)",
+    "l=(i.displayName||\"\").replace(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\").replace(\"Medium Fast\",\"Orta H\u0131zl\u0131\").replace(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\").replace(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\").replace(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\");let c;if(e[0]!==l||e[1]!==o)": "l=(i.displayName||\"\").replace(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\").replace(\"Medium Fast\",\"Orta H\u0131zl\u0131\").replace(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\").replace(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\").replace(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\").replace(/\\bHigh$/,\"Y\xfcksek\").replace(/\\bMedium$/,\"Orta\").replace(/\\bLow$/,\"D\xfc\u015f\xfck\").replace(/\\bMax$/,\"Azami\").replace(/\\bFast$/,\"H\u0131zl\u0131\");let c;if(e[0]!==l||e[1]!==o)",
     "t[3]!==n?(u=R0(\"div\",{...s,\"data-testid\":\"parameter-submenu-title\",children:n}),t[3]=n,t[4]=u):u=t[4]": "t[3]!==n?(u=R0(\"div\",{...s,\"data-testid\":\"parameter-submenu-title\",children:typeof n===\"string\"?n.replace(\"(fast)\",\"(h\u0131zl\u0131)\").replace(\"(Fast)\",\"(H\u0131zl\u0131)\").replace(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\").replace(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\"):n}),t[3]=n,t[4]=u):u=t[4]",
     "e[3]!==n?(u=Rx(\"div\",{...s,\"data-testid\":\"parameter-submenu-title\",children:n}),e[3]=n,e[4]=u):u=e[4]": "e[3]!==n?(u=Rx(\"div\",{...s,\"data-testid\":\"parameter-submenu-title\",children:typeof n===\"string\"?n.replace(\"(fast)\",\"(h\u0131zl\u0131)\").replace(\"(Fast)\",\"(H\u0131zl\u0131)\").replace(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\").replace(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\"):n}),e[3]=n,e[4]=u):u=e[4]",
     "t[3]!==n?(u=N0(\"div\",{...s,\"data-testid\":\"parameter-submenu-title\",children:n}),t[3]=n,t[4]=u):u=t[4]": "t[3]!==n?(u=N0(\"div\",{...s,\"data-testid\":\"parameter-submenu-title\",children:typeof n===\"string\"?n.replace(\"(fast)\",\"(h\u0131zl\u0131)\").replace(\"(Fast)\",\"(H\u0131zl\u0131)\").replace(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\").replace(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\"):n}),t[3]=n,t[4]=u):u=t[4]",
@@ -205,6 +209,19 @@ OVERLAY = r'''
     ["Who can see the code?", "Kodu kimler görebilir?"],
     ["This PC", "Bu Bilgisayar"],
     ["context used", "bağlam kullanıldı"],
+    ["Context", "Bağlam"],
+    ["Context Window", "Bağlam Penceresi"],
+    ["Context window", "Bağlam penceresi"],
+    ["context window", "bağlam penceresi"],
+    ["500k context window", "500 bin bağlam penceresi"],
+    ["500K context window", "500 bin bağlam penceresi"],
+    ["128k context window", "128 bin bağlam penceresi"],
+    ["128K context window", "128 bin bağlam penceresi"],
+    ["2M context window", "2 milyon bağlam penceresi"],
+    ["SpaceXAI's most powerful model, built for complex coding and knowledge work.", "SpaceXAI'ın karmaşık kodlama ve bilgi işleri için tasarlanmış en güçlü modeli."],
+    ["SpaceXAI's most powerful model, great for complex coding and knowledge work.", "SpaceXAI'ın karmaşık kodlama ve bilgi işleri için tasarlanmış en güçlü modeli."],
+    ["Significantly faster but consumes more usage", "Belirgin şekilde daha hızlıdır ancak daha fazla kullanım tüketir"],
+    ["Restore defaults", "Varsayılanlara sıfırla"],
     ["tokens", "belirteç"],
     ["Cloud Agent Approval Banners While Focused", "Odaklanmışken Bulut Ajanı Onay Banner'ları"],
     ["Also show the approval banner while Cursor is focused; the request card in the agent conversation always shows", "Cursor odaktayken de onay banner'ını göster; ajan konuşmasındaki istek kartı her zaman gösterilir"],
@@ -939,11 +956,20 @@ OVERLAY = r'''
     ["The same GPT-5.6 Sol model, using OpenAI's fast priority processing at 2x the price.", "Aynı GPT-5.6 Sol modeli; OpenAI'nin hızlı öncelikli işlemesiyle 2 kat fiyatlandırılır."],
     ["The same GPT-5.6 Terra model, using OpenAI's fast priority processing at 2x the price.", "Aynı GPT-5.6 Terra modeli; OpenAI'nin hızlı öncelikli işlemesiyle 2 kat fiyatlandırılır."],
     ["1M context window", "1 milyon bağlam penceresi"],
+    ["2M context window", "2 milyon bağlam penceresi"],
+    ["128k context window", "128 bin bağlam penceresi"],
+    ["128K context window", "128 bin bağlam penceresi"],
     ["200k context window", "200 bin bağlam penceresi"],
     ["256k context window", "256 bin bağlam penceresi"],
+    ["256K context window", "256 bin bağlam penceresi"],
     ["262k context window", "262 bin bağlam penceresi"],
     ["272k context window", "272 bin bağlam penceresi"],
     ["300k context window", "300 bin bağlam penceresi"],
+    ["500k context window", "500 bin bağlam penceresi"],
+    ["500K context window", "500 bin bağlam penceresi"],
+    ["SpaceXAI's most powerful model, built for complex coding and knowledge work.", "SpaceXAI'ın karmaşık kodlama ve bilgi işleri için tasarlanmış en güçlü modeli."],
+    ["SpaceXAI's most powerful model, great for complex coding and knowledge work.", "SpaceXAI'ın karmaşık kodlama ve bilgi işleri için tasarlanmış en güçlü modeli."],
+    ["Significantly faster but consumes more usage", "Belirgin şekilde daha hızlıdır ancak daha fazla kullanım tüketir"],
     ["Version: extra high effort", "Sürüm: ekstra yüksek çaba"],
     ["Version: extra high reasoning effort", "Sürüm: ekstra yüksek akıl yürütme çabası"],
     ["Version: high effort", "Sürüm: yüksek çaba"],
@@ -964,6 +990,10 @@ OVERLAY = r'''
     for (const [source, translated] of modelTooltipReplacements) {
       if (result.includes(source)) result = result.split(source).join(translated);
     }
+    result = result.replace(/(\d+)\s*k\s+context window/gi, "$1 bin bağlam penceresi");
+    result = result.replace(/(\d+)\s*m\s+context window/gi, "$1 milyon bağlam penceresi");
+    result = result.replace(/(\d+)\s+context window/gi, "$1 bağlam penceresi");
+    result = result.replace(/SpaceXAI's most powerful model, built for complex coding and knowledge work\./gi, "SpaceXAI'ın karmaşık kodlama ve bilgi işleri için tasarlanmış en güçlü modeli.");
     return result;
   };
   const protectedSelector = ".monaco-editor, .xterm, textarea, pre, code, [data-component=\"glass-empty-state-rotating-tips\"]";
@@ -1565,7 +1595,21 @@ OVERLAY = r'''
     ["Switch model", "Model değiştir"],
     ["Kimi K3 Max", "Kimi K3 Azami"],
     ["Effort", "Çaba"], ["Low", "Düşük"], ["Medium", "Orta"],
-    ["High", "Yüksek"], ["Fast", "Hızlı"],
+    ["High", "Yüksek"], ["Fast", "Hızlı"], ["Context", "Bağlam"],
+    ["Grok 4.7 High", "Grok 4.7 Yüksek"],
+    ["Grok 4.7 Medium", "Grok 4.7 Orta"],
+    ["Grok 4.7 Low", "Grok 4.7 Düşük"],
+    ["Grok 4.7 Max", "Grok 4.7 Azami"],
+    ["Grok 4.7 High Fast", "Grok 4.7 Yüksek Hızlı"],
+    ["Grok 4.7 Fast", "Grok 4.7 Hızlı"],
+    ["Grok 4.6 High", "Grok 4.6 Yüksek"],
+    ["Grok 4.6 Medium", "Grok 4.6 Orta"],
+    ["Grok 4.6 Low", "Grok 4.6 Düşük"],
+    ["Grok 4.6 Max", "Grok 4.6 Azami"],
+    ["Grok 4.6 High Fast", "Grok 4.6 Yüksek Hızlı"],
+    ["Grok 4.5 High", "Grok 4.5 Yüksek"],
+    ["Grok 4.5 Medium", "Grok 4.5 Orta"],
+    ["Grok 4.5 Low", "Grok 4.5 Düşük"],
     ["Extra High", "Ekstra Yüksek"], ["Extra high", "Ekstra Yüksek"],
     ["High Fast", "Yüksek Hızlı"], ["Medium Fast", "Orta Hızlı"],
     ["Low Fast", "Düşük Hızlı"],
@@ -1660,7 +1704,7 @@ OVERLAY = r'''
               content.includes("Model")) { allowed = true; break; }
         }
       }
-      if (!allowed && ["Low", "Medium", "High", "Fast", "No Thinking", "No thinking"].includes(key)) {
+      if (!allowed && ["Low", "Medium", "High", "Fast", "Context", "No Thinking", "No thinking"].includes(key)) {
         // Kapali secicide yalnizca secili deger gorunur. Mesaj kutusunun
         // icindeki dar dugmeyi hedefle; ayni kelimelerin editor veya ayarlar
         // ekranindaki kullanimlarina dokunma.
