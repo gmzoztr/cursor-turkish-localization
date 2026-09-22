@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 """Gec olusturulan IDE menulerinde kalan son Ingilizce etiketler."""
 import io, os
 
@@ -1824,7 +1824,7 @@ OVERLAY = r'''
   else start();
 
   // ── TARAMA MODU ──────────────────────────────────────────────────
-  // Ctrl+Alt+Shift+S → DOM'daki çevrilmemiş İngilizce metinleri tara
+  // Ctrl+T → DOM'daki çevrilmemiş İngilizce metinleri tara
   // Sonuç: %USERPROFILE%\cursor-tr-tarama.json
   const scanUnknownStrings = () => {
     const unknown = new Map(); // text → örnek selector
@@ -1865,7 +1865,7 @@ OVERLAY = r'''
     }
   };
   document.addEventListener("keydown", (e) => {
-    if (e.ctrlKey && e.altKey && e.shiftKey && e.key === "S") {
+    if (e.ctrlKey && !e.altKey && !e.shiftKey && (e.key === "t" || e.key === "T")) {
       e.preventDefault();
       scanUnknownStrings();
     }

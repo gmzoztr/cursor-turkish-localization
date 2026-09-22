@@ -32,7 +32,7 @@ def main():
     path = sys.argv[1] if len(sys.argv) > 1 else os.path.expanduser("~/cursor-tr-tarama.json")
     if not os.path.exists(path):
         print(f"HATA: {path} bulunamadı.")
-        print("Önce Cursor açıkken Ctrl+Alt+Shift+S tuşlarına basın.")
+        print("Önce Cursor açıkken Ctrl+T tuşlarına basın.")
         return
 
     with open(path, encoding="utf-8") as f:
