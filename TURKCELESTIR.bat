@@ -23,17 +23,35 @@ set RC=%ERRORLEVEL%
 
 echo.
 echo ============================================================
-if %RC%==0 (
-    echo   TAMAMLANDI. Cursor'i acabilirsiniz.
-    echo.
-    echo   ⭐ Projeyi faydali bulduysaniz GitHub'da bir Yildiz (Star)
-    echo      vererek destek olmayi unutmayin:
-    echo      https://github.com/gmzoztr/cursor-turkish-localization
-) else (
-    echo   HATA OLUSTU. Yukaridaki mesajlara ve apply_report.txt'ye bakin.
-)
+if %RC%==0 goto :SUCCESS
+goto :FAILURE
+
+:SUCCESS
+echo   TAMAMLANDI. Cursor'i acabilirsiniz.
+echo.
+echo   ⭐ Projeyi faydali bulduysaniz GitHub'da bir Yildiz (Star)
+echo      vererek projeye destek olmayi unutmayin!
+echo      https://github.com/gmzoztr/cursor-turkish-localization
+echo.
+echo   Rapor            : apply_report.txt
+echo   Yeni/eksik metin  : YENI-EKLENENLER.txt
+echo ============================================================
+echo.
+set "OPEN_STAR=E"
+set /p OPEN_STAR="  ⭐ Projeyi tarayicida acip Yildiz vermek ister misiniz? (E/h): "
+if /i not "%OPEN_STAR%"=="h" if /i not "%OPEN_STAR%"=="hayir" start https://github.com/gmzoztr/cursor-turkish-localization
+goto :EXIT
+
+:FAILURE
+echo   HATA OLUSTU. Yukaridaki mesajlara ve apply_report.txt'ye bakin.
 echo   Rapor            : apply_report.txt
 echo   Yeni/eksik metin  : YENI-EKLENENLER.txt
 echo ============================================================
 echo.
 pause
+exit /b %RC%
+
+:EXIT
+echo.
+echo   Tesekkurler!
+timeout /t 3 >nul

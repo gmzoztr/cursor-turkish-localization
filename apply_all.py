@@ -565,9 +565,10 @@ else:
 
 io.open('apply_report.txt', 'w', encoding='utf-8').write('\n'.join(report))
 print('\n' + '=' * 60)
-print('Rapor         : apply_report.txt')
+print('Kurulum BASARILI!')
+print('Rapor          : apply_report.txt')
 print('Yeni metinler  : YENI-EKLENENLER.txt (%d aday)' % total_new)
 print('Hover denetimi : YENI-HOVER-ETIKETLER.txt')
-if total_new:
-    print('-> Bu dosyayi Codex\'e gosterip "yeni ekleneni cevir" de.')
 print('=' * 60)
+print('\n⭐ Projeyi faydali bulduysaniz GitHub\'da bir Yildiz (Star) vererek destek olun:')
+print('   https://github.com/gmzoztr/cursor-turkish-localization\n')
