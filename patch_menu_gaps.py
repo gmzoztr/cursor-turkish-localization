@@ -71,6 +71,8 @@ STATIC = {
     '"No tools, prompts, or resources"': '"Ara\\xe7, istem veya kaynak yok"',
     '${e.enabledToolCount} tools`),(e.promptCount??0)>0&&t.push(`${e.promptCount} prompts`),(e.resourceCount??0)>0&&t.push(`${e.resourceCount} resources`),t.length>0?`${t.join(", ")} enabled`': '${e.enabledToolCount} ara\\xe7`),(e.promptCount??0)>0&&t.push(`${e.promptCount} istem`),(e.resourceCount??0)>0&&t.push(`${e.resourceCount} kaynak`),t.length>0?`${t.join(", ")} etkin`',
     '${t.enabledToolCount} tools`),(t.promptCount??0)>0&&e.push(`${t.promptCount} prompts`),(t.resourceCount??0)>0&&e.push(`${t.resourceCount} resources`),e.length>0?`${e.join(", ")} enabled`': '${t.enabledToolCount} ara\\xe7`),(t.promptCount??0)>0&&e.push(`${t.promptCount} istem`),(t.resourceCount??0)>0&&e.push(`${t.resourceCount} kaynak`),e.length>0?`${e.join(", ")} etkin`',
+    "function gxi(e,t,n){if(e.variants.length!==0)return ASn(e,t,n)}": "function gxi(e,t,n){if(e.variants.length!==0){const v=ASn(e,t,n);if(!v)return v;const tr=s=>typeof s===\"string\"?s.replace(\"High Fast\",\"Y\\xfcksek H\\u0131zl\\u0131\").replace(\"Medium Fast\",\"Orta H\\u0131zl\\u0131\").replace(\"Low Fast\",\"D\\xfc\\u015f\\xfck H\\u0131zl\\u0131\").replace(\"No Thinking\",\"D\\xfc\\u015f\\xfcnme Yok\").replace(/\\bHigh$/,\"Y\\xfcksek\").replace(/\\bMedium$/,\"Orta\").replace(/\\bLow$/,\"D\\xfc\\u015f\\xfck\").replace(/\\bMax$/,\"Azami\").replace(/\\bFast$/,\"H\\u0131zl\\u0131\"):s;return{...v,displayName:tr(v.displayName),displayNameOutsidePicker:tr(v.displayNameOutsidePicker)}}}",
+    "function Lfn(t,e,n){if(t.variants.length!==0)return Nfn(t,e,n)}": "function Lfn(t,e,n){if(t.variants.length!==0){const v=Nfn(t,e,n);if(!v)return v;const tr=s=>typeof s===\"string\"?s.replace(\"High Fast\",\"Y\\xfcksek H\\u0131zl\\u0131\").replace(\"Medium Fast\",\"Orta H\\u0131zl\\u0131\").replace(\"Low Fast\",\"D\\xfc\\u015f\\xfck H\\u0131zl\\u0131\").replace(\"No Thinking\",\"D\\xfc\\u015f\\xfcnme Yok\").replace(/\\bHigh$/,\"Y\\xfcksek\").replace(/\\bMedium$/,\"Orta\").replace(/\\bLow$/,\"D\\xfc\\u015f\\xfck\").replace(/\\bMax$/,\"Azami\").replace(/\\bFast$/,\"H\\u0131zl\\u0131\"):s;return{...v,displayName:tr(v.displayName),displayNameOutsidePicker:tr(v.displayNameOutsidePicker)}}}",
     "pxi(i,e.parameters,n);return r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name}": "pxi(i,e.parameters,n);return (r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name)?.replace?.(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\")?.replace?.(\"Medium Fast\",\"Orta H\u0131zl\u0131\")?.replace?.(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\")?.replace?.(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(/\\bHigh$/,\"Y\xfcksek\")?.replace?.(/\\bMedium$/,\"Orta\")?.replace?.(/\\bLow$/,\"D\xfc\u015f\xfck\")?.replace?.(/\\bMax$/,\"Azami\")?.replace?.(/\\bFast$/,\"H\u0131zl\u0131\")}",
     "Nfn(i,t.parameters,n);return r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name}": "Nfn(i,t.parameters,n);return (r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name)?.replace?.(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\")?.replace?.(\"Medium Fast\",\"Orta H\u0131zl\u0131\")?.replace?.(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\")?.replace?.(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(/\\bHigh$/,\"Y\xfcksek\")?.replace?.(/\\bMedium$/,\"Orta\")?.replace?.(/\\bLow$/,\"D\xfc\u015f\xfck\")?.replace?.(/\\bMax$/,\"Azami\")?.replace?.(/\\bFast$/,\"H\u0131zl\u0131\")}",
     "gxi(i,e.parameters,n);return r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name}": "gxi(i,e.parameters,n);return (r?.displayNameOutsidePicker??r?.displayName??i.inputboxShortModelName??i.clientDisplayName??i.name)?.replace?.(\"High Fast\",\"Y\xfcksek H\u0131zl\u0131\")?.replace?.(\"Medium Fast\",\"Orta H\u0131zl\u0131\")?.replace?.(\"Low Fast\",\"D\xfc\u015f\xfck H\u0131zl\u0131\")?.replace?.(\"No Thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(\"No thinking\",\"D\xfc\u015f\xfcnme Yok\")?.replace?.(/\\bHigh$/,\"Y\xfcksek\")?.replace?.(/\\bMedium$/,\"Orta\")?.replace?.(/\\bLow$/,\"D\xfc\u015f\xfck\")?.replace?.(/\\bMax$/,\"Azami\")?.replace?.(/\\bFast$/,\"H\u0131zl\u0131\")}",
@@ -1660,6 +1662,7 @@ OVERLAY = r'''
     // Silme onay diyaloğu
     ["This cannot be undone.", "Bu işlem geri alınamaz."],
     ["This cannot be undone", "Bu işlem geri alınamaz"],
+    ["Uncommitted", "İşlenmemiş"],
     // Eklenti sayfası
     ["Done", "Tamam"],
     // Güvenlik izinleri
@@ -1824,7 +1827,7 @@ OVERLAY = r'''
   else start();
 
   // ── TARAMA MODU ──────────────────────────────────────────────────
-  // Ctrl+T → DOM'daki çevrilmemiş İngilizce metinleri tara
+  // Alt+T → DOM'daki çevrilmemiş İngilizce metinleri tara
   // Sonuç: %USERPROFILE%\cursor-tr-tarama.json
   const scanUnknownStrings = () => {
     const unknown = new Map(); // text → örnek selector
@@ -1865,7 +1868,7 @@ OVERLAY = r'''
     }
   };
   document.addEventListener("keydown", (e) => {
-    if (e.ctrlKey && !e.altKey && !e.shiftKey && (e.key === "t" || e.key === "T")) {
+    if (e.altKey && !e.ctrlKey && !e.shiftKey && (e.key === "t" || e.key === "T")) {
       e.preventDefault();
       scanUnknownStrings();
     }
