@@ -1041,6 +1041,13 @@ OVERLAY = r'''
     if (key.includes("No thinking")) return key.replace(/No thinking/g, "Düşünme Yok");
     if (key.includes("(fast)")) return key.replace(/\(fast\)/g, "(hızlı)");
     if (key.includes("(Fast)")) return key.replace(/\(Fast\)/g, "(Hızlı)");
+    // Model seçicide tek başına çabalar: "Grok 4.7 High", "Claude Opus 5 High" vb.
+    if (/\bHigh\b/.test(key) && /\b(Grok|Claude|GPT|Gemini|Composer|Cursor|OpenAI|Sonnet|Haiku|Opus)\b/.test(key))
+      return key.replace(/\bHigh\b/g, "Yüksek").replace(/\bMedium\b/g, "Orta").replace(/\bLow\b/g, "Düşük").replace(/\bMax\b/g, "Azami").replace(/\bFast\b/g, "Hızlı");
+    if (/\bMedium\b/.test(key) && /\b(Grok|Claude|GPT|Gemini|Composer|Cursor|OpenAI|Sonnet|Haiku|Opus)\b/.test(key))
+      return key.replace(/\bHigh\b/g, "Yüksek").replace(/\bMedium\b/g, "Orta").replace(/\bLow\b/g, "Düşük").replace(/\bMax\b/g, "Azami").replace(/\bFast\b/g, "Hızlı");
+    if (/\bLow\b/.test(key) && /\b(Grok|Claude|GPT|Gemini|Composer|Cursor|OpenAI|Sonnet|Haiku|Opus)\b/.test(key))
+      return key.replace(/\bHigh\b/g, "Yüksek").replace(/\bMedium\b/g, "Orta").replace(/\bLow\b/g, "Düşük").replace(/\bMax\b/g, "Azami").replace(/\bFast\b/g, "Hızlı");
     // Guncelleme statik NLS ile cumlenin baska kelimelerini de kismen
     // Turkcelestirdiyse geri kalan metne baglanma; komut tum ipucunu belirler.
     const hintCommand = key.match(/^Use (\/[A-Za-z0-9_-]+)/i)?.[1];
@@ -1073,6 +1080,11 @@ OVERLAY = r'''
     if (match) return `Çalışma süresi: ${match[1]} sn`;
     match = key.match(/^Keşfetti (.+), (\d+) searches?, (\d+) tools?$/);
     if (match) return `Keşfetti ${match[1]}, ${match[2]} arama, ${match[3]} araç`;
+    // "Are you sure you want to delete "Untitled"? This cannot be undone."
+    match = key.match(/^Are you sure you want to delete "(.+)"\? This cannot be undone\.$/);
+    if (match) return `"${match[1]}" öğesini silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.`;
+    match = key.match(/^Are you sure you want to delete (.+)\? This cannot be undone\.$/);
+    if (match) return `${match[1]} öğesini silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.`;
     match = key.match(/^(?:Show|Göster) (\d+) more$/);
     if (match) return `${match[1]} tane daha göster`;
     match = key.match(/^(\d+)(d|mo|h|m|y)$/);
@@ -1634,7 +1646,21 @@ OVERLAY = r'''
     ["Cursor Light", "Cursor Açık"],
     ["Cursor Light Colorblind (Beta)", "Cursor Açık — Renk Körlüğü (Beta)"],
     ["Cursor Dark", "Cursor Koyu"],
-    ["Cursor Dark High Contrast", "Cursor Koyu Yüksek Karşıtlık"]
+    ["Cursor Dark High Contrast", "Cursor Koyu Yüksek Karşıtlık"],
+    // Otomasyon context menüsü
+    ["Edit Details", "Ayrıntıları Düzenle"],
+    ["Duplicate", "Çoğalt"],
+    ["Copy as JSON", "JSON olarak kopyala"],
+    // Silme onay diyaloğu
+    ["This cannot be undone.", "Bu işlem geri alınamaz."],
+    ["This cannot be undone", "Bu işlem geri alınamaz"],
+    // Eklenti sayfası
+    ["Done", "Tamam"],
+    // Güvenlik izinleri
+    ["Privacy & Data Handling", "Gizlilik ve Veri İşleme"],
+    ["API & RPC Privileges", "API ve RPC Ayrıcalıkları"],
+    ["Config & Template Injection", "Yapılandırma ve Şablon Enjeksiyonu"],
+    ["Filesystem & Resource Access", "Dosya Sistemi ve Kaynak Erişimi"]
   ]);
   const ensureEffortStyle = () => {
     if (document.getElementById("cursor-tr-effort-visual-style")) return;
@@ -1846,3 +1872,4 @@ if __name__ == '__main__':
             changed += 1
         io.open(fname, 'w', encoding='utf-8', newline='').write(text)
         print('%s degisim: %d' % (fname, changed))
+
