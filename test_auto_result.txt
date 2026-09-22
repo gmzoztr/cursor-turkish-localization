@@ -1,0 +1,51 @@
+=== Cursor TR Otomatik Test === 09/20/2026 16:58:17 ===
+[16:58:17] Adım 0: Yönetici yetkisi kontrol ediliyor...
+[16:58:17] PASS: Yönetici yetkisi var
+[16:58:17] Adım 1: İndirme atlandı (SkipDownload)
+[16:58:17] Adım 2: Kurulum atlandı (SkipInstall)
+[16:58:17] Adım 3: Türkçe yama uygulanıyor...
+workbench.desktop.main.js degisim: 1
+workbench.glass.main.js degisim: 1
+
+[16:58:23] PASS: patch_menu_gaps.py başarılı
+
+[16:58:44] PASS: deploy_all.ps1 başarılı
+[16:58:44] Adım 4: SHA-256 checksumlar doğrulanıyor...
+=================================================================
+  CURSOR T├£RK├çE YERELLE┼ŞT─░RME ÔÇö TAM DO─ŞRULAMA (VERIFY_ALL)
+=================================================================
+[*] Cursor S├╝r├╝m├╝ : v3.21.16
+[*] Commit ID     : 8ae78e8eee1e63479c7e0504b664bc0a80c68000
+-----------------------------------------------------------------
+[*] 1/3 Integrity Checksums Do─şrulan─▒yor...
+  [+] BA┼ŞARILI: 7/7 dosya SHA-256 b├╝t├╝nl├╝─ş├╝ %100 do─şruland─▒.
+      (Cursor 'Installation appears to be corrupt' uyar─▒s─▒ ASLA vermez)
+
+[*] 2/3 Dil ├ûnbelle─şi (CLP) Senkronizasyonu Kontrol Ediliyor...
+  [+] Bulunan CLP dizini: C:\Users\Work-D\AppData\Roaming\Cursor\clp\9fa7b08ce3585b4cb07e632f79153b2e.tr
+  [+] Commit NLS ├Ânbelle─şi mevcut (806,451 bayt): C:\Users\Work-D\AppData\Roaming\Cursor\clp\9fa7b08ce3585b4cb07e632f79153b2e.tr\8ae78e8eee1e63479c7e0504b664bc0a80c68000\nls.messages.json
+  [+] K├Âk NLS ├Ânbelle─şi mevcut (806,451 bayt): C:\Users\Work-D\AppData\Roaming\Cursor\clp\9fa7b08ce3585b4cb07e632f79153b2e.tr\nls.messages.json
+
+[*] 3/3 Canl─▒ Aray├╝z Dosyalar─▒ Boyut ve B├╝t├╝nl├╝k Kontrol├╝...
+  [+] workbench.desktop.main.js           : 38,647,038 bayt [TAMAM]
+  [+] workbench.glass.main.js             : 45,249,914 bayt [TAMAM]
+  [+] cursor-agent-exec-main.js           :  8,479,815 bayt [TAMAM]
+  [+] cursor-local-agent-runtime-main.js  :  5,949,404 bayt [TAMAM]
+
+=================================================================
+  SONU├ç: %100 DO─ŞRULANDI ÔÇö Cursor T├╝rk├ğe Yamas─▒ Kusursuz Aktif!
+  Ô¡É Destek olmak i├ğin: https://github.com/gmzoztr/cursor-turkish-localization
+=================================================================
+
+[16:58:45] PASS: Tüm SHA-256 checksumlar doğrulandı (7/7)
+[16:58:45] Adım 5: Cursor başlatılıyor, 45 sn kararlılık testi...
+[16:58:45] code.lock temizlendi
+[16:58:46] Cursor başlatıldı, 45 sn bekleniyor...
+[16:59:31] Cursor process sayısı: 17
+[16:59:31] PASS: Cursor 17 process ile ayakta
+[16:59:31] 
+[16:59:31] ╔══════════════════════════════════════════╗
+[16:59:31] ║   TÜM TESTLER BAŞARILI — YAMA ÇALIŞIYOR ║
+[16:59:31] ╚══════════════════════════════════════════╝
+=== TEST SONUCU: BAŞARILI ===
+[16:59:31] Rapor: C:\Users\Work-D\cursor-turkish-localization\test_auto_result.txt

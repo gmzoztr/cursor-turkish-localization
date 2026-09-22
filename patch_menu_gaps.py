@@ -1825,54 +1825,6 @@ OVERLAY = r'''
   };
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start, {once: true});
   else start();
-
-  // ── TARAMA MODU ──────────────────────────────────────────────────
-  // Alt+T → DOM'daki çevrilmemiş İngilizce metinleri tara
-  // Sonuç: %USERPROFILE%\cursor-tr-tarama.json
-  const scanUnknownStrings = () => {
-    const unknown = new Map(); // text → örnek selector
-    const isEnglish = (t) => /[a-zA-Z]/.test(t) && !/^[\d\s\-_./\\:]+$/.test(t);
-    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
-      acceptNode(node) {
-        const t = (node.nodeValue || "").trim();
-        if (!t || t.length < 3 || t.length > 300) return NodeFilter.FILTER_REJECT;
-        if (!isEnglish(t)) return NodeFilter.FILTER_REJECT;
-        // Editör içeriğini atla
-        const parent = node.parentElement;
-        if (!parent) return NodeFilter.FILTER_REJECT;
-        if (parent.closest(".monaco-editor,.lines-content,.view-line,code,pre,.cm-content,.CodeMirror"))
-          return NodeFilter.FILTER_REJECT;
-        return NodeFilter.FILTER_ACCEPT;
-      }
-    });
-    while (walker.nextNode()) {
-      const text = walker.currentNode.nodeValue.trim();
-      const translated = translateValue(text);
-      if (translated === text && !unknown.has(text)) {
-        const el = walker.currentNode.parentElement;
-        const sel = el ? (el.className || el.tagName || "") : "";
-        unknown.set(text, sel.toString().slice(0, 80));
-      }
-    }
-    const result = [...unknown.entries()].sort(([a],[b]) => a.localeCompare(b))
-      .map(([text, ctx]) => ({ text, ctx }));
-    try {
-      const fs = require("fs"), os = require("os"), path = require("path");
-      const out = path.join(os.homedir(), "cursor-tr-tarama.json");
-      fs.writeFileSync(out, JSON.stringify(result, null, 2), "utf8");
-      console.log("[cursor-tr] Tarama TAMAM: " + result.length + " eksik -> " + out);
-      alert("[Cursor TR] Tarama tamamlandi!\n" + result.length + " eksik string bulundu.\nDosya: " + out);
-    } catch(e) {
-      console.warn("[cursor-tr] Dosyaya yazılamadı:", e.message);
-      console.log("[cursor-tr] Eksikler:", result.slice(0, 100));
-    }
-  };
-  document.addEventListener("keydown", (e) => {
-    if (e.altKey && !e.ctrlKey && !e.shiftKey && (e.key === "t" || e.key === "T")) {
-      e.preventDefault();
-      scanUnknownStrings();
-    }
-  }, true);
 })();
 '''
 
