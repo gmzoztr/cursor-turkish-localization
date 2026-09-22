@@ -1094,6 +1094,12 @@ OVERLAY = r'''
     }
     match = key.match(/^Search Plugins for (.+)\.\.\.$/);
     if (match) return `${match[1]} için eklentilerde ara...`;
+    // "3 sources" gibi dinamik kaynak sayısı
+    match = key.match(/^(\d+)\s+sources?$/);
+    if (match) return `${match[1]} kaynak`;
+    // MCP araç sayısı: "12 tools"
+    match = key.match(/^(\d+)\s+tools?$/);
+    if (match) return `${match[1]} araç`;
     match = key.match(/^Use with caution\. Skip symlinks during \.cursorignore file discovery\. Enable only when all \.cursorignore files are reachable without symlinks(?: \(controlled by admin\))?\. Changing this setting requires restarting Cursor\.$/);
     if (match) return "Dikkatli kullanın. .cursorignore dosyaları aranırken sembolik bağlantıları atlayın. Yalnızca tüm .cursorignore dosyalarına sembolik bağlantı olmadan erişilebiliyorsa etkinleştirin. Bu ayarın değiştirilmesi Cursor'ın yeniden başlatılmasını gerektirir.";
     if (key.startsWith("Use Datadog directly in Cursor")) return "Datadog'u doğrudan Cursor içinde kullanın; günlükleri, metrikleri, izleri ve panoları doğal dille sorgulayın.";
@@ -1660,7 +1666,27 @@ OVERLAY = r'''
     ["Privacy & Data Handling", "Gizlilik ve Veri İşleme"],
     ["API & RPC Privileges", "API ve RPC Ayrıcalıkları"],
     ["Config & Template Injection", "Yapılandırma ve Şablon Enjeksiyonu"],
-    ["Filesystem & Resource Access", "Dosya Sistemi ve Kaynak Erişimi"]
+    ["Filesystem & Resource Access", "Dosya Sistemi ve Kaynak Erişimi"],
+    // MCP eklenti yapılandırma modalı
+    ["Requires connection", "Bağlantı gerekiyor"],
+    ["General Security", "Genel Güvenlik"],
+    ["AI & Agent Trust Boundaries", "YZ ve Ajan Güven Sınırları"],
+    ["Logout", "Çıkış Yap"],
+    ["Add Another Account", "Başka Hesap Ekle"],
+    ["Allow all", "Tümüne izin ver"],
+    ["Allow All", "Tümüne İzin Ver"],
+    ["Reads", "Okumalar"],
+    ["Writes", "Yazmalar"],
+    // Zaman etiketi (otomasyon listesi)
+    [" now", " şimdi"],
+    ["just now", "az önce"],
+    // One or more tools
+    ["One or more tools require additional authentication to be used", "Bir veya daha fazla araç kullanım için ek kimlik doğrulama gerektiriyor"],
+    // Dinamik kaynak sayısı
+    ["1 source", "1 kaynak"],
+    ["sources", "kaynak"],
+    // Manage butonu
+    ["Manage", "Yönet"]
   ]);
   const ensureEffortStyle = () => {
     if (document.getElementById("cursor-tr-effort-visual-style")) return;
@@ -1872,4 +1898,5 @@ if __name__ == '__main__':
             changed += 1
         io.open(fname, 'w', encoding='utf-8', newline='').write(text)
         print('%s degisim: %d' % (fname, changed))
+
 
