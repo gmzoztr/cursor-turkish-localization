@@ -1368,6 +1368,9 @@ OVERLAY = r'''
     if (key.startsWith("to run commands in the terminal")) return "ile terminalde komut çalıştırın";
     if (key.startsWith("to run subagents to parallelize your requests")) return "ile isteklerinizi sıraya almak yerine paralel çalıştırmak için alt ajanları kullanın";
     if (key.startsWith("The predecessor to Cursor Grok 4.6")) return "Cursor Grok 4.6'nın öncülü; karmaşık kodlama ve bilgi çalışmaları için geliştirildi.";
+    if (key.startsWith("The predecessor to Grok 4.7")) return "Grok 4.7'nin öncülü; karmaşık kodlama ve bilgi çalışmaları için geliştirildi.";
+    if (key.startsWith("The predecessor to Grok 4.6")) return "Grok 4.6'nın öncülü; karmaşık kodlama ve bilgi çalışmaları için geliştirildi.";
+    if (key.startsWith("The predecessor to Grok 4.5")) return "Grok 4.5'in öncülü; karmaşık kodlama ve bilgi çalışmaları için geliştirildi.";
     if (key.startsWith("OpenAI's flagship GPT-5.6 model.")) return "OpenAI'nin amiral gemisi GPT-5.6 modeli. Yeni azami akıl yürütme çabasıyla en güçlü ajan tabanlı kodlama, biyoloji ve siber güvenlik yeteneklerini sunar.";
     if (key.startsWith("Cursor installation appears corrupted")) return "Cursor kurulumunuz bozuk görünüyor. Lütfen Cursor'u yeniden kurun.";
     if (key.startsWith("Search Cursor to find a prior conversation")) return "Önceki bir konuşmayı bulmak için Cursor'da arayın veya konuşmalar genelinde özetleyin";
