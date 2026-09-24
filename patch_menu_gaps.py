@@ -116,6 +116,19 @@ STATIC = {
     '"Profile Image"': '"Profil Resmi"',
     '"Links"': '"Bağlantılar"',
     '"On-Demand"': '"İsteğe Bağlı"',
+    # Checklist Öncelik A - Upsell, Ayarlar ve Placeholderlar
+    '"Upgrade to unlock more models"': '"Daha fazla modelin kilidini açmak için yükseltin"',
+    '"More models are only available on paid plans."': '"Daha fazla model yalnızca ücretli planlarda kullanılabilir."',
+    '"Max mode is required for cloud agents."': '"Bulut ajanları için azami mod gereklidir."',
+    '"Show title bar in agent layout."': '"Ajan yerleşiminde başlık çubuğunu göster."',
+    '"Show title bar in agent layout"': '"Ajan yerleşiminde başlık çubuğunu göster"',
+    '"Entry-level plan with access to premium models, unlimited Tab completions, and more."': '"Premium modellere erişim, sınırsız Sekme tamamlamaları ve daha fazlasını içeren başlangıç düzeyi planı."',
+    'placeholder:"Ask questions"': 'placeholder:"Soru sorun"',
+    'placeholder:"Debug issues"': 'placeholder:"Sorunları ayıklayın"',
+    'placeholder:"Coordinate tasks"': 'placeholder:"Görevleri koordine edin"',
+    '"Included Usage"': '"Dahil Edilen Kullanım"',
+    '"Free Plan"': '"Ücretsiz Plan"',
+    '"$20/mo"': '"20 $/ay"',
     '<span class=minor-version-notification-text>New update available</span>': '<span class=minor-version-notification-text>Yeni güncelleme mevcut</span>',
     '<p class=update-notification-eyebrow>Update to v</p>': '<p class=update-notification-eyebrow>Sürüme güncelle: v</p>',
     '<span>New in </span>': '<span>Yenilikler: </span>',
@@ -1102,6 +1115,57 @@ OVERLAY = r'''
     // MCP araç sayısı: "12 tools"
     match = key.match(/^(\d+)\s+tools?$/);
     if (match) return `${match[1]} araç`;
+    // Tarih sıfırlanma formatı: "Resets Oct 23, 2026"
+    match = key.match(/^Resets\s+([A-Za-z]+)\s+(\d+),\s*(\d+)$/i);
+    if (match) {
+      const months = { Jan:"Oca", Feb:"Şub", Mar:"Mar", Apr:"Nis", May:"May", Jun:"Haz", Jul:"Tem", Aug:"Ağu", Sep:"Eyl", Oct:"Eki", Nov:"Kas", Dec:"Ara" };
+      const m = months[match[1].slice(0, 3)] || match[1];
+      return `${match[2]} ${m} ${match[3]} tarihinde sıfırlanır`;
+    }
+    // Cursor Settings komut paleti: "Cursor Settings: Agents" vb.
+    match = key.match(/^Cursor Settings:\s*(.+)$/i);
+    if (match) {
+      const sub = match[1].trim();
+      const subMap = {
+        "Agents": "Ajanlar",
+        "Beta": "Beta",
+        "Browser & Network": "Tarayıcı ve Ağ",
+        "General": "Genel",
+        "Models": "Modeller",
+        "Features": "Özellikler",
+        "Rules, Skills, Subagents": "Kurallar, Beceriler, Alt Ajanlar",
+        "Cloud Agents": "Bulut Ajanları",
+        "Git & PRs": "Git ve PR'lar",
+        "Indexing": "Dizinleme",
+        "Tab": "Sekme",
+        "Docs": "Belgeler",
+        "Workspaces": "Çalışma Alanları",
+        "Chat": "Sohbet"
+      };
+      return `Cursor Ayarları: ${subMap[sub] || sub}`;
+    }
+    // VS Code Ayar Başlıkları: "Files: Auto Save", "Editor: Font Size" vb.
+    match = key.match(/^(Editor|Files|Terminal|Workbench):\s*(.+)$/i);
+    if (match) {
+      const cat = match[1].toLowerCase();
+      const prop = match[2].trim();
+      const catMap = { editor: "Düzenleyici", files: "Dosyalar", terminal: "Terminal", workbench: "Çalışma Alanı" };
+      const propMap = {
+        "Auto Save": "Otomatik Kaydetme",
+        "Font Size": "Yazı Tipi Boyutu",
+        "Font Family": "Yazı Tipi Ailesi",
+        "Tab Size": "Sekme Boyutu",
+        "Cursor Style": "İmleç Stili",
+        "Multi Cursor Modifier": "Çoklu İmleç Değiştiricisi",
+        "Insert Spaces": "Boşluk Ekle",
+        "Detect Indentation": "Girintiyi Algıla",
+        "Word Wrap": "Sözcük Kaydırma",
+        "Line Numbers": "Satır Numaraları",
+        "Render Whitespace": "Boşlukları Göster",
+        "Minimap": "Mini Harita"
+      };
+      if (propMap[prop]) return `${catMap[cat] || match[1]}: ${propMap[prop]}`;
+    }
     match = key.match(/^Use with caution\. Skip symlinks during \.cursorignore file discovery\. Enable only when all \.cursorignore files are reachable without symlinks(?: \(controlled by admin\))?\. Changing this setting requires restarting Cursor\.$/);
     if (match) return "Dikkatli kullanın. .cursorignore dosyaları aranırken sembolik bağlantıları atlayın. Yalnızca tüm .cursorignore dosyalarına sembolik bağlantı olmadan erişilebiliyorsa etkinleştirin. Bu ayarın değiştirilmesi Cursor'ın yeniden başlatılmasını gerektirir.";
     if (key.startsWith("Use Datadog directly in Cursor")) return "Datadog'u doğrudan Cursor içinde kullanın; günlükleri, metrikleri, izleri ve panoları doğal dille sorgulayın.";
@@ -1689,7 +1753,76 @@ OVERLAY = r'''
     ["1 source", "1 kaynak"],
     ["sources", "kaynak"],
     // Manage butonu
-    ["Manage", "Yönet"]
+    ["Manage", "Yönet"],
+    // ── GÖRSEL CHECKLIST ÖNCELİK A ──
+    // Agents Window
+    ["Ask questions", "Soru sorun"],
+    ["Ask questions...", "Soru sorun..."],
+    ["Build from a design", "Bir tasarımdan derleyin"],
+    ["Derle from a design", "Bir tasarımdan derleyin"],
+    ["build from a design", "bir tasarımdan derleyin"],
+    ["derle from a design", "bir tasarımdan derleyin"],
+    ["Turn a frame into working UI in this repo", "Bir çerçeveyi bu depoda çalışan bir kullanıcı arayüzüne dönüştürün"],
+    ["Deploy my prototype", "Prototipimi dağıt"],
+    ["Put it on a live link anyone can open", "Herkesin açabileceği canlı bir bağlantıda yayınlayın"],
+    ["Upgrade for Automations, unlimited completions, MAX Mode, and more", "Otomasyonlar, sınırsız tamamlamalar, AZAMİ Mod ve daha fazlası için yükseltin"],
+    // Explorer / Kaynak denetimi (boş durum)
+    ["You have not yet opened a folder.", "Henüz bir klasör açmadınız."],
+    ["You have not yet opened a folder", "Henüz bir klasör açmadınız"],
+    ["You can clone a repository locally.", "Bir depoyu yerel olarak klonlayabilirsiniz."],
+    ["You can clone a repository locally", "Bir depoyu yerel olarak klonlayabilirsiniz"],
+    ["In order to use Git features, you can open a folder containing a Git repository or clone from a URL.", "Git özelliklerini kullanmak için Git deposu içeren bir klasör açabilir veya bir URL'den klonlayabilirsiniz."],
+    ["In order to use Git features, you can open a folder containing a Git repository or clone from a URL", "Git özelliklerini kullanmak için Git deposu içeren bir klasör açabilir veya bir URL'den klonlayabilirsiniz"],
+    ["To learn more about how to use Git and source control in VS Code read our docs.", "VS Code'da Git ve kaynak denetimini nasıl kullanacağınızı öğrenmek için belgelerimizi okuyun."],
+    ["To learn more about how to use Git and source control in VS Code", "VS Code'da Git ve kaynak denetimini nasıl kullanacağınızı öğrenmek için"],
+    ["read our docs", "belgelerimizi okuyun"],
+    // Cursor Settings
+    ["Upgrade to Pro", "Pro'ya Yükselt"],
+    ["Entry-level plan with access to premium models, unlimited Tab completions, and more.", "Premium modellere erişim, sınırsız Sekme tamamlamaları ve daha fazlasını içeren başlangıç düzeyi planı."],
+    ["Title Bar", "Başlık Çubuğu"],
+    ["Show title bar in agent layout.", "Ajan yerleşiminde başlık çubuğunu göster."],
+    ["Show title bar in agent layout", "Ajan yerleşiminde başlık çubuğunu göster"],
+    ["Included Usage", "Dahil Edilen Kullanım"],
+    ["Pro $20/ay", "Pro · 20 $/ay"],
+    ["Pro $20/mo", "Pro · 20 $/ay"],
+    ["$20/mo", "20 $/ay"],
+    ["$20/ay", "20 $/ay"],
+    // IDE Composer / upsell
+    ["Upgrade to unlock more models", "Daha fazla modelin kilidini açmak için yükseltin"],
+    ["More models are only available on paid plans.", "Daha fazla model yalnızca ücretli planlarda kullanılabilir."],
+    ["Free Plan", "Ücretsiz Plan"],
+    ["Free Plan · Yükselt", "Ücretsiz Plan · Yükselt"],
+    // VS Code Settings başlıkları
+    ["Files: Auto Save", "Dosyalar: Otomatik Kaydetme"],
+    ["Editor: Font Size", "Düzenleyici: Yazı Tipi Boyutu"],
+    ["Editor: Font Family", "Düzenleyici: Yazı Tipi Ailesi"],
+    ["Editor: Tab Size", "Düzenleyici: Sekme Boyutu"],
+    ["Editor: Cursor Style", "Düzenleyici: İmleç Stili"],
+    ["Editor: Multi Cursor Modifier", "Düzenleyici: Çoklu İmleç Değiştiricisi"],
+    ["Editor: Insert Spaces", "Düzenleyici: Boşluk Ekle"],
+    ["Editor: Detect Indentation", "Düzenleyici: Girintiyi Algıla"],
+    ["Editor: Word Wrap", "Düzenleyici: Sözcük Kaydırma"],
+    ["Editor: Line Numbers", "Düzenleyici: Satır Numaraları"],
+    ["Editor: Minimap", "Düzenleyici: Mini Harita"],
+    // Komut paleti
+    ["Görüntüle: Agents Window ajanına geç", "Görüntüle: Ajanlar Penceresine Geç"],
+    ["Switch to Agents Window Agent", "Ajanlar Penceresine Geç"],
+    ["Switch to Agents Window", "Ajanlar Penceresine Geç"],
+    ["Add XHR/fetch Breakpoint", "XHR/fetch Kesme Noktası Ekle"],
+    ["Cursor Deeplink: Debug: Trigger Arbitrary Deeplink", "Cursor Derin Bağlantı: Hata Ayıklama: İsteğe Bağlı Derin Bağlantıyı Tetikle"],
+    ["Trigger Arbitrary Deeplink", "İsteğe Bağlı Derin Bağlantıyı Tetikle"],
+    ["Cursor Settings: Agents", "Cursor Ayarları: Ajanlar"],
+    ["Cursor Settings: Beta", "Cursor Ayarları: Beta"],
+    ["Cursor Settings: Browser & Network", "Cursor Ayarları: Tarayıcı ve Ağ"],
+    ["Cursor Settings: General", "Cursor Ayarları: Genel"],
+    ["Cursor Settings: Models", "Cursor Ayarları: Modeller"],
+    ["Cursor Settings: Features", "Cursor Ayarları: Özellikler"],
+    ["Cursor Settings: Rules, Skills, Subagents", "Cursor Ayarları: Kurallar, Beceriler, Alt Ajanlar"],
+    ["Cursor Settings: Cloud Agents", "Cursor Ayarları: Bulut Ajanları"],
+    ["Cursor Settings: Git & PRs", "Cursor Ayarları: Git ve PR'lar"],
+    ["Cursor Settings: Indexing", "Cursor Ayarları: Dizinleme"],
+    ["Cursor Settings: Tab", "Cursor Ayarları: Sekme"],
+    ["Cursor Settings: Docs", "Cursor Ayarları: Belgeler"]
   ]);
   const ensureEffortStyle = () => {
     if (document.getElementById("cursor-tr-effort-visual-style")) return;
