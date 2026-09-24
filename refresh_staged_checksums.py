@@ -11,6 +11,8 @@ product = json.load(io.open('product.json', encoding='utf-8'))
 for relative in list(product.get('checksums', {})):
     if relative == 'vs/workbench/workbench.desktop.main.js':
         path = 'workbench.desktop.main.js'
+    elif relative == 'vs/workbench/workbench.glass.main.js':
+        path = 'workbench.glass.main.js'
     else:
         path = os.path.join(APP, 'out', *relative.split('/'))
     if os.path.exists(path):
