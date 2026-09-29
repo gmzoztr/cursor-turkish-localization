@@ -68,12 +68,18 @@ def apply_steer_patches(content, label):
         "fallback Queue"
     )
 
-    # Cr=Ar?"Steer":"Send Now"
+    # Cr=Ar?"Steer":"Send Now" or label:n?"Steer":"Send Now"
     content, _ = regex_replace(
         content,
         r'(\b\w+)=(\w+)\?"Steer":"Send Now"',
         r'\1=\2?"Yönlendir":"Hemen Gönder"',
-        "Steer / Send Now"
+        "Steer / Send Now (=)"
+    )
+    content, _ = regex_replace(
+        content,
+        r'label:(\w+)\?"Steer":"Send Now"',
+        r'label:\1?"Yönlendir":"Hemen Gönder"',
+        "Steer / Send Now (label:)"
     )
 
     # Steer from Phone
