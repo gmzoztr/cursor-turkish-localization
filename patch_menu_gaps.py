@@ -168,6 +168,29 @@ STATIC = {
     'Ee(9231,"Source Control")': 'Ee(9231,"Kaynak Denetimi")',
     'Ee(7262,"Explorer")': 'Ee(7262,"Gezgin")',
     'Ee(7263,"Explorer")': 'Ee(7263,"Gezgin")',
+    'alt:{id:HDt,title:"Replace Agent",icon:Ie.addTwo}': 'alt:{id:HDt,title:"Ajanı Değiştir",icon:Ie.addTwo}',
+    'alt:{id:qan,title:"Replace Agent",icon:bt.addTwo}': 'alt:{id:qan,title:"Ajanı Değiştir",icon:bt.addTwo}',
+    'placeholder:"Search Agents..."': 'placeholder:"Ajanları Ara..."',
+    'placeholder="Search Agents\\u2026"title="Search Agents\\u2026"': 'placeholder="Ajanları Ara\\u2026"title="Ajanları Ara\\u2026"',
+    'n="Search Agents\\u2026"': 'n="Ajanları Ara\\u2026"',
+    'r<=0?"Today":r===1?"Yesterday":r<7?"Previous 7 days":"Older"': 'r<=0?"Bugün":r===1?"Dün":r<7?"Önceki 7 gün":"Daha Eski"',
+    '{today:"Today",yesterday:"Yesterday",last7Days:"Last 7 days",last30Days:"Last 30 days",older:"Older"}': '{today:"Bugün",yesterday:"Dün",last7Days:"Son 7 gün",last30Days:"Son 30 gün",older:"Daha Eski"}',
+    '`Archived (${W.length})`:"Archived"': '`Arşivlenenler (${W.length})`:"Arşivlenenler"',
+    '`Archived (${B.length})`:"Archived"': '`Arşivlenenler (${B.length})`:"Arşivlenenler"',
+    '?"Restore":"Archive"': '?"Geri Yükle":"Arşivle"',
+    '?"Restore cloud agent":"Archive cloud agent"': '?"Bulut ajanını geri yükle":"Bulut ajanını arşivle"',
+    '?"Unpin":"Pin"': '?"Sabitlemeyi Kaldır":"Sabitle"',
+    'if (key === "New Agent (Ctrl+N) [Alt] Replace Agent")': 'if (key === "New Agent (Ctrl+N) [Alt] Replace Agent" || key === "Yeni Ajan (Ctrl+N) [Alt] Replace Agent" || key.includes("[Alt] Replace Agent"))',
+    '"Add File to Codex Thread"': '"Dosyayı Codex Konusuna Ekle"',
+    'title:"Add File to Codex Thread"': 'title:"Dosyayı Codex Konusuna Ekle"',
+    '"Add to Codex Thread"': '"Codex Konusuna Ekle"',
+    'title:"Add to Codex Thread"': 'title:"Codex Konusuna Ekle"',
+    'class:"breadcrumbs-action-btn",children:"Undo File"': 'class:"breadcrumbs-action-btn",children:"Dosyayı Geri Al"',
+    'class:"breadcrumbs-action-btn",children:"Keep File"': 'class:"breadcrumbs-action-btn",children:"Dosyayı Koru"',
+    'class:"breadcrumbs-action-btn",children:"Keep all changes"': 'class:"breadcrumbs-action-btn",children:"Tüm değişiklikleri koru"',
+    'class:"breadcrumbs-action-btn",children:"Review Next File"': 'class:"breadcrumbs-action-btn",children:"Sonraki Dosyayı İncele"',
+    'p()?"Undo":"Undo All"': 'p()?"Geri Al":"Tümünü Geri Al"',
+    'p()?"Keep":"Keep All"': 'p()?"Koru":"Tümünü Koru"',
 }
 
 OVERLAY = r'''
@@ -249,6 +272,26 @@ OVERLAY = r'''
     ["E&&xit", "Çı&&kış"],
     ["Exit", "Çıkış"],
     ["Build Plan", "Plan Oluştur"],
+    ["Add File to Codex Thread", "Dosyayı Codex Konusuna Ekle"],
+    ["Add file to Codex thread", "Dosyayı Codex konusuna ekle"],
+    ["Add to Codex Thread", "Codex Konusuna Ekle"],
+    ["Undo File", "Dosyayı Geri Al"],
+    ["Keep File", "Dosyayı Koru"],
+    ["Keep all changes", "Tüm değişiklikleri koru"],
+    ["Review Next File", "Sonraki Dosyayı İncele"],
+    ["Undo All", "Tümünü Geri Al"],
+    ["Keep All", "Tümünü Koru"],
+    ["Search Agents...", "Ajanları Ara..."],
+    ["Search Agents…", "Ajanları Ara…"],
+    ["Previous 7 days", "Önceki 7 gün"],
+    ["Replace Agent", "Ajanı Değiştir"],
+    ["Archived", "Arşivlenenler"],
+    ["Restore", "Geri Yükle"],
+    ["Archive", "Arşivle"],
+    ["Pin", "Sabitle"],
+    ["Unpin", "Sabitlemeyi Kaldır"],
+    ["Restore cloud agent", "Bulut ajanını geri yükle"],
+    ["Archive cloud agent", "Bulut ajanını arşivle"],
     ["Fork Chat", "Sohbeti Çatalla"],
     ["Maximize Chat", "Sohbeti Büyüt"],
     ["Second Opinion", "İkinci Görüş"],
@@ -1859,8 +1902,7 @@ OVERLAY = r'''
       if (!key) continue;
       let translated = effortVisualLabels.get(key);
       if (!translated) {
-        const match = key.match(/^(.+?)\s+(High|Medium|Low|Max|Extra High)$/);
-        if (match) {
+        if (["High", "Medium", "Low", "Max", "Extra High"].includes(key)) {
           const effortMap = {
             "High": "Yüksek",
             "Medium": "Orta",
@@ -1868,7 +1910,7 @@ OVERLAY = r'''
             "Max": "Azami",
             "Extra High": "Ekstra Yüksek"
           };
-          translated = `${match[1]} ${effortMap[match[2]]}`;
+          translated = effortMap[key];
         }
       }
       if (!translated) continue;
