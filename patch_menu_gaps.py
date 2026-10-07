@@ -170,6 +170,9 @@ STATIC = {
     'Ee(7263,"Explorer")': 'Ee(7263,"Gezgin")',
     'alt:{id:HDt,title:"Replace Agent",icon:Ie.addTwo}': 'alt:{id:HDt,title:"Ajanı Değiştir",icon:Ie.addTwo}',
     'alt:{id:qan,title:"Replace Agent",icon:bt.addTwo}': 'alt:{id:qan,title:"Ajanı Değiştir",icon:bt.addTwo}',
+    'alt:{id:XMt,title:"Replace Agent",icon:Re.addTwo}': 'alt:{id:XMt,title:"Ajanı Değiştir",icon:Re.addTwo}',
+    'alt:{id:adn,title:"Replace Agent",icon:_t.addTwo}': 'alt:{id:adn,title:"Ajanı Değiştir",icon:_t.addTwo}',
+    'title:"Replace Agent"': 'title:"Ajanı Değiştir"',
     'placeholder:"Search Agents..."': 'placeholder:"Ajanları Ara..."',
     'placeholder="Search Agents\\u2026"title="Search Agents\\u2026"': 'placeholder="Ajanları Ara\\u2026"title="Ajanları Ara\\u2026"',
     'n="Search Agents\\u2026"': 'n="Ajanları Ara\\u2026"',
@@ -191,6 +194,80 @@ STATIC = {
     'class:"breadcrumbs-action-btn",children:"Review Next File"': 'class:"breadcrumbs-action-btn",children:"Sonraki Dosyayı İncele"',
     'p()?"Undo":"Undo All"': 'p()?"Geri Al":"Tümünü Geri Al"',
     'p()?"Keep":"Keep All"': 'p()?"Koru":"Tümünü Koru"',
+    # Bildirimler (Toasts)
+    'Input needed \\u2022 ': 'Girdi gerekli \\u2022 ',
+    '"Input needed"': '"Girdi gerekli"',
+    '"Open Cursor to answer the agent\'s questions."': '"Ajanın sorularını yanıtlamak için Cursor\'ı açın."',
+    'actions:[{type:"button",text:"Accept"},{type:"button",text:"Reject"}]': 'actions:[{type:"button",text:"Kabul Et"},{type:"button",text:"Reddet"}]',
+    'Done \\u2022 ': 'Tamamlandı \\u2022 ',
+    '"Agent complete"': '"Ajan tamamlandı"',
+    '"Open Cursor to view the agent\'s output."': '"Ajanın çıktısını görüntülemek için Cursor\'ı açın."',
+    '"Approve pending action"': '"Bekleyen eylemi onayla"',
+    '"Return to Cursor to review and approve."': '"İncelemek ve onaylamak için Cursor\'a dönün."',
+    '"Approve terminal command"': '"Terminal komutunu onayla"',
+    'Approval required to run: ': 'Çalıştırmak için onay gerekli: ',
+    '"Approve file edit"': '"Dosya düzenlemesini onayla"',
+    'Approval required to edit: ': 'Düzenlemek için onay gerekli: ',
+    '"Return to Cursor to review and approve file changes."': '"Dosya değişikliklerini incelemek ve onaylamak için Cursor\'a dönün."',
+    '`Approve ${a} file edits`': '`${a} dosya düzenlemesini onayla`',
+    '`Return to Cursor to review and approve ${a} file changes.`': '`${a} dosya değişikliğini incelemek ve onaylamak için Cursor\'a dönün.`',
+    '"Approve file deletion"': '"Dosya silmeyi onayla"',
+    'Approval required to delete: ': 'Silmek için onay gerekli: ',
+    '"Return to Cursor to review and approve file deletion."': '"Dosya silmeyi incelemek ve onaylamak için Cursor\'a dönün."',
+    '"Approve MCP tool"': '"MCP aracını onayla"',
+    'Approval required for MCP tool: ': 'MCP aracı için onay gerekli: ',
+    '"Return to Cursor to review and approve the MCP tool execution."': '"MCP aracı yürütmesini incelemek ve onaylamak için Cursor\'a dönün."',
+    # Soru / Questionnaire Widget'ı
+    '<span class=composer-questionnaire-toolbar-title>Questions</span>': '<span class=composer-questionnaire-toolbar-title>Sorular</span>',
+    '<span class=composer-questionnaire-toolbar-stepper-label> of ': '<span class=composer-questionnaire-toolbar-stepper-label> / ',
+    '<span class=composer-questionnaire-toolbar-answered-hint> of <!> answered': '<span class=composer-questionnaire-toolbar-answered-hint> / <!> yanıtlandı',
+    '("<span>Continue")': '("<span>Devam Et")',
+    'class:"composer-skip-button",keybinding:"Esc",style:{"padding-right":0},children:"Skip"': 'class:"composer-skip-button",keybinding:"Esc",style:{"padding-right":0},children:"Atla"',
+    'hintText:"Previous question"': 'hintText:"Önceki soru"',
+    'hintText:"Next question"': 'hintText:"Sonraki soru"',
+    'placeholder=Other...': 'placeholder=Diğer...',
+    'textInputPlaceholder:"Other..."': 'textInputPlaceholder:"Diğer..."',
+    'label:"Other..."': 'label:"Diğer..."',
+    'placeholder:"Other..."': 'placeholder:"Diğer..."',
+    '"Add more optional details"': '"İsteğe bağlı ek ayrıntılar ekleyin"',
+    '"Add more optional details..."': '"İsteğe bağlı ek ayrıntılar ekleyin..."',
+    '"Could not skip the questionnaire. Please try again."': '"Sorular atlanamadı. Lütfen tekrar deneyin."',
+    '"Could not submit the questionnaire. Please try again."': '"Sorular gönderilemedi. Lütfen tekrar deneyin."',
+    # Arka plan terminalleri ve görevler
+    'e.totalCount>0&&e.shellCount===e.totalCount?`${e.totalCount} background terminal${t}`:e.totalCount>0&&e.shellCount===0?`${e.totalCount} background subagent${t}`:`${e.totalCount} background task${t}`': 'e.totalCount>0&&e.shellCount===e.totalCount?`${e.totalCount} arka plan terminali`:e.totalCount>0&&e.shellCount===0?`${e.totalCount} arka plan alt ajanı`:`${e.totalCount} arka plan görevi`',
+    't.totalCount>0&&t.shellCount===t.totalCount?`${t.totalCount} background terminal${e}`:t.totalCount>0&&t.shellCount===0?`${t.totalCount} background subagent${e}`:`${t.totalCount} background task${e}`': 't.totalCount>0&&t.shellCount===t.totalCount?`${t.totalCount} arka plan terminali`:t.totalCount>0&&t.shellCount===0?`${t.totalCount} arka plan alt ajanı`:`${t.totalCount} arka plan görevi`',
+    'Worked for ${': 'Çalışma Süresi: ${',
+    'M("glass.terminal.confirmCloseAgent.title","Stop Agent Terminal?")': 'M("glass.terminal.confirmCloseAgent.title","Ajan Terminalini Durdur?")',
+    'M("glass.terminal.confirmCloseAgent.message","This is an agent\'s background terminal. Closing it will stop any process currently running in it.")': 'M("glass.terminal.confirmCloseAgent.message","Bu bir ajanın arka plan terminalidir. Kapatmak, içinde çalışan herhangi bir süreci durduracaktır.")',
+    'M("glass.terminal.confirmCloseAgent.close","Stop Terminal")': 'M("glass.terminal.confirmCloseAgent.close","Terminali Durdur")',
+    # Aktif Kurallar (Görsel 1)
+    '<div><div>Active Rules</div><div>': '<div><div>Aktif Kurallar</div><div>',
+    '<div>and <!> more': '<div>ve <!> fazlası',
+    # Göreceli Zaman / Just now (Görsel 2)
+    'nowLabel:"Just now"': 'nowLabel:"Az önce"',
+    'return"Just now"': 'return"Az önce"',
+    'return"just now"': 'return"az önce"',
+    # Çalışma Süresi Düzeltmesi (Görsel 3)
+    'return t===void 0?void 0:`for ${t}`': 'return t===void 0?void 0:`: ${t}`',
+    'return e===void 0?void 0:`for ${e}`': 'return e===void 0?void 0:`: ${e}`',
+    'return e[3]!==o?(a=UUh(o),e[3]=o,e[4]=a):a=e[4],`for ${a}`': 'return e[3]!==o?(a=UUh(o),e[3]=o,e[4]=a):a=e[4],`: ${a}`',
+    # Terminal Otomatik Çalıştırma Menüsü (Görsel 3)
+    '"Auto-review (with Sandbox)"': '"Otomatik İnceleme (Sanal Alan ile)"',
+    '"Auto-review"': '"Otomatik İnceleme"',
+    '"Automatically run operations after you approve them once"': '"İşlemleri bir kez onayladıktan sonra otomatik olarak çalıştır"',
+    '"Automatically run operations that Auto-review classifies as safe, using sandboxing when possible"': '"Mümkün olduğunda sanal alan kullanarak Otomatik İnceleme\'nin güvenli olarak sınıflandırdığı işlemleri otomatik olarak çalıştır"',
+    '"Automatically run operations that Auto-review classifies as safe"': '"Otomatik İnceleme\'nin güvenli olarak sınıflandırdığı işlemleri otomatik olarak çalıştır"',
+    '"Automatically run all operations without asking for permission"': '"İzin istemeden tüm işlemleri otomatik olarak çalıştır"',
+    '"Ask for permission before running each operation"': '"Her işlemi çalıştırmadan önce izin iste"',
+    '"Tools will auto-run in a sandbox if possible, otherwise respect the allowlist or ask for approval"': '"Araçlar mümkünse sanal alanda otomatik çalışır, aksi takdirde izin listesine uyar veya onay ister"',
+    '"Copy Command"': '"Komutu Kopyala"',
+    # Düşünce Süresi / Thought briefly (Görsel 4)
+    'h=v?K:"Thought"': 'h=v?K:"Düşündü"',
+    'd=f?z:"Thought"': 'd=f?z:"Düşündü"',
+    't!==void 0&&t>0&&t<500?n?void 0:"briefly"': 't!==void 0&&t>0&&t<500?n?void 0:"kısaca"',
+    'e!==void 0&&e>0&&e<500?n?void 0:"briefly"': 'e!==void 0&&e>0&&e<500?n?void 0:"kısaca"',
+    # Kontrol Noktası / Restore Checkpoint (Görsel 5)
+    '"Restore Checkpoint"': '"Kontrol Noktasına Geri Dön"',
 }
 
 OVERLAY = r'''
@@ -292,6 +369,46 @@ OVERLAY = r'''
     ["Unpin", "Sabitlemeyi Kaldır"],
     ["Restore cloud agent", "Bulut ajanını geri yükle"],
     ["Archive cloud agent", "Bulut ajanını arşivle"],
+    ["Questions", "Sorular"],
+    ["Continue", "Devam Et"],
+    ["Skip", "Atla"],
+    ["Other...", "Diğer..."],
+    ["Other…", "Diğer…"],
+    ["Accept", "Kabul Et"],
+    ["Reject", "Reddet"],
+    ["Input needed", "Girdi gerekli"],
+    ["Open Claude Code", "Claude Code'u Aç"],
+    ["Previous question", "Önceki soru"],
+    ["Next question", "Sonraki soru"],
+    ["Add more optional details", "İsteğe bağlı ek ayrıntılar ekleyin"],
+    ["Add more optional details...", "İsteğe bağlı ek ayrıntılar ekleyin..."],
+    ["Agent complete", "Ajan tamamlandı"],
+    ["Open Cursor to view the agent's output.", "Ajanın çıktısını görüntülemek için Cursor'ı açın."],
+    ["Open Cursor to answer the agent's questions.", "Ajanın sorularını yanıtlamak için Cursor'ı açın."],
+    ["background terminal", "arka plan terminali"],
+    ["background terminals", "arka plan terminali"],
+    ["background subagent", "arka plan alt ajanı"],
+    ["background subagents", "arka plan alt ajanı"],
+    ["background task", "arka plan görevi"],
+    ["background tasks", "arka plan görevi"],
+    ["Stop Agent Terminal?", "Ajan Terminalini Durdur?"],
+    ["Stop Terminal", "Terminali Durdur"],
+    ["Active Rules", "Aktif Kurallar"],
+    ["Just now", "Az önce"],
+    ["just now", "az önce"],
+    ["Auto-review", "Otomatik İnceleme"],
+    ["Auto-review (with Sandbox)", "Otomatik İnceleme (Sanal Alan ile)"],
+    ["Automatically run operations after you approve them once", "İşlemleri bir kez onayladıktan sonra otomatik olarak çalıştır"],
+    ["Automatically run operations that Auto-review classifies as safe, using sandboxing when possible", "Mümkün olduğunda sanal alan kullanarak Otomatik İnceleme'nin güvenli olarak sınıflandırdığı işlemleri otomatik olarak çalıştır"],
+    ["Automatically run operations that Auto-review classifies as safe", "Otomatik İnceleme'nin güvenli olarak sınıflandırdığı işlemleri otomatik olarak çalıştır"],
+    ["Automatically run all operations without asking for permission", "İzin istemeden tüm işlemleri otomatik olarak çalıştır"],
+    ["Copy Command", "Komutu Kopyala"],
+    ["Thought briefly", "Kısaca düşündü"],
+    ["Thought", "Düşündü"],
+    ["briefly", "kısaca"],
+    ["Düşündü kısaca", "Kısaca düşündü"],
+    ["Restore Checkpoint", "Kontrol Noktasına Geri Dön"],
+    ["Restore checkpoint", "Kontrol noktasına geri dön"],
     ["Fork Chat", "Sohbeti Çatalla"],
     ["Maximize Chat", "Sohbeti Büyüt"],
     ["Second Opinion", "İkinci Görüş"],
@@ -1041,6 +1158,8 @@ OVERLAY = r'''
     ["Version: minimal effort", "Sürüm: en düşük çaba"],
     ["Version: none reasoning effort", "Sürüm: akıl yürütme yok"],
     ["Version: preview", "Sürüm: önizleme"],
+    ["[Alt] Replace Agent", "[Alt] Ajanı Değiştir"],
+    ["Replace Agent", "Ajanı Değiştir"],
     ["Learn more", "Daha fazla bilgi"]
   ];
   const translateModelTooltipValue = (value) => {
@@ -1064,6 +1183,19 @@ OVERLAY = r'''
     if (matchReading) return `${matchReading[1]} dosya okunuyor`;
     let matchFilesChanged = key.match(/^(\d+)\s+Files?\s+Changed$/i);
     if (matchFilesChanged) return `${matchFilesChanged[1]} Dosya Değişti`;
+    const matchBgTerm = key.match(/^(\d+)\s+background\s+terminals?$/i);
+    if (matchBgTerm) return `${matchBgTerm[1]} arka plan terminali`;
+    const matchBgSubagent = key.match(/^(\d+)\s+background\s+subagents?$/i);
+    if (matchBgSubagent) return `${matchBgSubagent[1]} arka plan alt ajanı`;
+    const matchBgTask = key.match(/^(\d+)\s+background\s+tasks?$/i);
+    if (matchBgTask) return `${matchBgTask[1]} arka plan görevi`;
+    const matchWorkedFor = key.match(/^Worked\s+for\s+(.+)$/i);
+    if (matchWorkedFor) return `Çalışma Süresi: ${matchWorkedFor[1]}`;
+    const matchCalismaFor = key.match(/^Çalışma Süresi for (.+)$/i);
+    if (matchCalismaFor) return `Çalışma Süresi: ${matchCalismaFor[1]}`;
+    if (key === "Thought briefly" || key === "Düşündü kısaca" || key === "Düşündü briefly") return "Kısaca düşündü";
+    const matchThought = key.match(/^(?:Thought|Düşündü)\s+(\d+(?:\.\d+)?s)$/i);
+    if (matchThought) return `${matchThought[1]} düşündü`;
     const modelTooltipValue = translateModelTooltipValue(value);
     if (modelTooltipValue !== String(value || "")) return modelTooltipValue;
     if (key.startsWith("Search agents, Canvas, files, actions")) {
@@ -1134,8 +1266,8 @@ OVERLAY = r'''
       };
       if (commandHints[hintCommand]) return commandHints[hintCommand];
     }
-    let match = key.match(/^(?:Worked|Thought|Çalışma süresi) for (\d+)s$/);
-    if (match) return `Çalışma süresi: ${match[1]} sn`;
+    let match = key.match(/^(?:Worked|Thought|Çalışma Süresi) for (\d+)s$/);
+    if (match) return `Çalışma Süresi: ${match[1]} sn`;
     match = key.match(/^Keşfetti (.+), (\d+) searches?, (\d+) tools?$/);
     if (match) return `Keşfetti ${match[1]}, ${match[2]} arama, ${match[3]} araç`;
     // "Are you sure you want to delete "Untitled"? This cannot be undone."
